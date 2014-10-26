@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load catalog_tags %}
+{% block site_wrapper %}
+
+    <div  id="menu_fixed">
+        <div class="main_menu" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+            {#            содержимое в category_list.html#}
+            {#            <h3>Блок основное меню</h3>#}
+                        {% categories_tree request %}
+                    </div>
+                    <div class="col-md-3 cart_bloc">
+                        <div class="cart_icon">
+                            {% cart_box request %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{#            flex-slider#}
+    {% block slider %}
+{#        находится в tags/slider.html#}
+        {% slider request %}
+    {% endblock %}
+
+{#        блок разделов#}
+    {% block tri_bloka %}
+        <div class="tri_bloka">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 tri_bloka_text">
+                        <h3>Оптовый Интернет-магазин христианской и иудейской продукции</h3>
+                    </div>
+
+                     <div class="col-md-4">
+                         <div class="blok_krest tri_bloka_one">
+                            <a href="/category/podveski/">
+                                <div class="iconka">
+                                   <img src="{{ STATIC_URL }}images/odejda.png" alt="Верхняя одежда">
+                                </div>
+                                <h2>Подвески</h2>
+                            </a>
+                            <p>Представляем Вашему вниманию крестики и другие подвески с христианской и иудейской символикой. Изящные и оригинальные, они способны подчеркнуть не только Ваш стиль но и Ваши убеждения.</p>
+                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="blok_concelayr tri_bloka_one">
+                             <a href="/category/ruchki/">
+                               <div class="iconka">
+                                   <img src="{{ STATIC_URL }}images/coj_gal.png" alt="Кожгалантерея ">
+                               </div>
+                                <h2>Ручки</h2>
+                             </a>
+                            <p>Качественные ручки с выгравированными местописаниями - прекрасный подарок в любой ситуации.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="blok_prochie tri_bloka_one">
+                            <a href="/category/kolca/">
+                                <div class="iconka">
+                                    <img src="{{ STATIC_URL }}images/ochci.png" alt="Солнцезащитные очки">
+                                </div>
+                                <h2>Кольца</h2>
+                            </a>
+                            <p>Кольца с христианской символикой подойдут не только для повседневного нашения, но и для некоторых значимых в Вашей жизни событий.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+{#        блок контент#}
+{#содержимое в catalog/index.html#}
+    {% block content %}
+    {% endblock %}
+
+    {% block partners %}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <h2>Наши партнеры</h2>#}
+{#                <div class="featurette">#}
+{#                    <div class="controls marginbottom">#}
+{#                        <a class="button2" id="modern_prev"><i class="fa fa-angle-left"></i>Назад</a>#}
+{#                        <span class="divider"></span>#}
+{#                        <a class="button2" id="modern_next">Вперед<i class="fa fa-angle-right"></i></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                        <div class="mightySlider mightyslider_windows8_skin" id="modern">   <!-- PARENT -->#}
+{#                            <div class="frame review_manual">   <!-- FRAME -->#}
+{#                                <ul class="slideelement">   <!-- SLIDEELEMENT -->#}
+{#                                    <li class="">#}
+{#                                        <img src="/media/products/images/061_big.jpg">#}
+{#                                    </li>#}
+{#                                    <li class="">#}
+{#                                        <img src="/media/products/images/130971_0.jpg">#}
+{#                                    </li>#}
+{#                                    <li class="">#}
+{#                                        <img src="/media/products/images/coj_gal.jpg">#}
+{#                                    </li>#}
+{#                                    <li class="">#}
+{#                                        <img src="/media/products/images/handbags.jpg">#}
+{#                                    </li>#}
+{#                                    <li class="">#}
+{#                                        <img src="/media/products/images/bg3-product_5.jpg">#}
+{#                                    </li>#}
+{#                                    <li class="">#}
+{#                                        <img src="/media/products/images/coj_gal.jpg">#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+    {% endblock %}
+
+{#        блок футер#}
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% footer_links %}
+                                </div>
+                                <div class="col-md-12">
+                                     <a class="brand" href="http://forward70.ru">Создание сайтов Forward Group</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+{#                            <div class="soc_battom">#}
+{#                                <div class="col-md-5">#}
+{#                                    <p>Мы в социальных сетях</p>#}
+{#                                    <ul>#}
+{#                                        <li><a href="http://vk.com/public61461184" class="icon_vk"></a><a href="http://vk.com/public61461184">vk.com/podarkoff</a></li>#}
+{#                                        <li><a href="http://instagram.com/_podarkoff_" class="icon_inst"></a><a href="http://instagram.com/_podarkoff_">@_podarkoff_</a></li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                                <div class="col-md-6">#}
+                                    <p>Контакты</p>
+                                    <span>+7 (913) 888 99-22</span>
+{#                                    <ul>#}
+{#                                        <li><a class="icon_tel"></a><span>+7 (913) 888 97-70</span></li>#}
+{#                                        <li><a href="mailto:podarkoff777@gmail.com" class="icon_email"></a><a href="mailto:podarkoff777@gmail.com">podarkoff777@gmail.com</a></li>#}
+{#                                    </ul>#}
+                                    <div class="metrika">
+                                        <!-- Yandex.Metrika counter -->
+                                        <script type="text/javascript">
+                                        (function (d, w, c) {
+                                        (w[c] = w[c] || []).push(function() {
+                                        try {
+                                        w.yaCounter23714320 = new Ya.Metrika({id:23714320,
+                                        webvisor:true,
+                                        clickmap:true,
+                                        trackLinks:true,
+                                        accurateTrackBounce:true});
+                                        } catch(e) { }
+                                        });
+
+                                        var n = d.getElementsByTagName("script")[0],
+                                        s = d.createElement("script"),
+                                        f = function () { n.parentNode.insertBefore(s, n); };
+                                        s.type = "text/javascript";
+                                        s.async = true;
+                                        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                                        if (w.opera == "[object Opera]") {
+                                        d.addEventListener("DOMContentLoaded", f, false);
+                                        } else { f(); }
+                                        })(document, window, "yandex_metrika_callbacks");
+                                        </script>
+                                        <noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/23714320" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+                                        <!-- /Yandex.Metrika counter -->
+                                    </div>
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

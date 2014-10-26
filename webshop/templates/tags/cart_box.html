@@ -1,0 +1,34 @@
+{% load i18n %}
+{% load catalog_tags %}
+{% load thumbnail %}
+
+<ul class="nav">
+  <li class="dropdown">
+    <a href="{% url show_cart %}" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-addtocart"><span >{{ cart_i.count }}</span></i>
+    </a>
+    <ul class="dropdown-menu">
+        <div class="cart_items_menu">
+            {% if cart_i %}
+                {% for item in cart_i %}
+                    <div class="cart_items_prod">
+                        {% thumbnail item.product.get_image.url "100x100" crop="center" as im %}
+                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                        {% endthumbnail %}
+                        <div class="text_item">
+                            <p class="name_item">{{ item.product.name }}</p>
+                            <p>Цена: <i class="fa fa-rub"></i>{{ item.product.price }}</p>
+                            <p>Колличество: {{ item.quantity }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <a href="{% url show_cart %}">Показать корзину</a>
+            {% else %}
+                <p>Нет товаров в корзине</p>
+            {% endif %}
+        </div>
+    </ul>
+  </li>
+</ul>
+
+

@@ -1,0 +1,121 @@
+
+{% block navigation %}
+
+    {% load i18n %}
+    {% load search_tags %}
+    {% load catalog_tags %}
+
+{#<div class="navbar navbar-fixed-top">#}
+{#    <div class="navbar-inner">#}
+{#        <div class="container">#}
+{#            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">#}
+{#                <span class="icon-bar"></span>#}
+{#                <span class="icon-bar"></span>#}
+{#                <span class="icon-bar"></span>#}
+{#            </a>#}
+{#            <a class="brand" href="{% url catalog_home %}">Христианский интернет магазин</a>#}
+{#            <div class="nav-collapse">#}
+{#                <ul class="nav tabbar" id="nav">#}
+{#                    <li><a href="/o-nas/">О нас</a></li>#}
+{#                    <li><a href="/dostavka/">Доставка</a></li>#}
+{#                    <li><a href="/contact/">Контакты</a></li>#}
+{#                    <li><a href="{% url show_cart %}">{% trans "Shopping Cart" %}</a></li>#}
+{#                </ul>#}
+{#                {% search_box request %}#}
+{#                <ul class="nav log_menu" id="nav">#}
+{#                    {% if user.is_authenticated %}#}
+{#                        <li><a href="{% url my_account %}">{% trans "My Account" %}</a></li>#}
+{#                        <li><a href="{% url django.contrib.auth.views.logout %}">{% trans "Logout" %}</a></li>#}
+{#                    {% else %}#}
+{#                        <li><a href="{% url django.contrib.auth.views.login %}">{% trans "Login" %}</a></li>#}
+{#                        <li><a href="{% url register %}">{% trans "Register" %}</a></li>#}
+{#                    {% endif %}#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+
+<header id="navbar" role="banner" class="navbar navbar-fixed-top navbar-default">
+
+    <div class='container'>
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="logo">
+                    <a href="/">
+                        <img src="{{ STATIC_URL }}images/podarkoff_logo.png">
+                        <p class="logo_site">Fish153.ru</p>
+                        <p class="logo_description">ОПТОВЫЙ ИНТЕРНЕТ-МАГАЗИН ХРИСТИАНСКОЙ И ИУДЕЙСКОЙ ПРОДУКЦИИ</p>
+                    </a>
+                </div>
+            </div>
+{#            <div class="col-md-3">#}
+{#                <div class="phone">#}
+{#                    <img src="{{ STATIC_URL }}images/phone.png">#}
+{#                    <p>+7 (913) 888 97-70</p>#}
+{#                </div>#}
+{#            </div>#}
+
+            <div class="col-md-8">
+                <div class="row">
+
+                    <div class="col-md-12 overflow_wrapper">
+                        <div class="phone">
+                            <img src="{{ STATIC_URL }}images/phone.png">
+                            <p class="phone_text">+7 (913) 888 99-22</p>
+    {#                            <p class="email">fish153.ru@gmail.com</p>#}
+                            <a href="mailto:fish153.ru@gmail.com">fish153.ru@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-7 overflow_wrapper">
+                                <div class="menu_top">
+                                    <nav role="navigation">
+                                        <div class="region region-navigation">
+                                            <ul class="menu nav navbar-nav">
+                                                <li><a href="/o-nas/">О нас</a></li>
+                                                <li><a href="/dostavka/">Оплата и доставка</a></li>
+                                                <li><a href="{{ STATIC_URL }}/files/fish3.xls">Скачать прайс</a></li>
+                                                <li><a href="/contact/">Контакты</a></li>
+{#                                                <li></i><a href="{% url show_cart %}">{% trans "Shopping Cart" %}</a></li>#}
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 overflow_wrapper">
+                                <div class="phone_area">
+                                    <div class="auth">
+                                        <ul class="nav log_menu" id="nav">
+                                            {% if user.is_authenticated %}
+                                                <li><i class="fa fa-user"></i><a href="{% url my_account %}">{% trans "My Account" %}</a></li>
+                                                <li ><i class="fa fa-lock"></i><a href="{% url django.contrib.auth.views.logout %}">{% trans "Logout" %}</a></li>
+                                            {% else %}
+                                                <li style=" margin: 6px 10px 0px 0px; "><i class="fa fa-user"></i><a href="{% url django.contrib.auth.views.login %}">{% trans "Login" %}</a></li>
+                                               <li style=" margin-top: 6px; "> <i class="fa fa-unlock-alt"></i><a href="{% url register %}">{% trans "Register" %}</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</header>
+
+{% endblock %}
+

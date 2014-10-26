@@ -1,0 +1,65 @@
+{% load i18n %}
+{% load catalog_tags %}
+{#            flex-slider#}
+<div class="my_slider">
+    <section class="flexslider-wrapper ">
+        <div class="flexslider" data-slidernav="auto" data-transition="slide" id="flexslider-0">
+            <div class="slides" style="width:800%; -webkit-transition: 0s; transition: 0s; -webkit-transform: translate3d(-1170px, 0, 0);">
+                {% for slide in slides %}
+                    <div class="slide row-fluid" style="background: url('/media/{{ slide.image }}');">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 caption">
+                                    <h2 class="enlarge">{{ slide.product.name }}</h2>
+                                    <h4>{{ slide.product.brand }}</h4>
+                                    <p>{{ slide.product.description }}</p>
+                                    <a href="{{ slide.product.get_absolute_url }}" class="btn more-link large i-right">Подробнее<i class="default"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <!--Slide #1 with caption-->
+{#                        <div class="slide row-fluid first flex-active-slide animate-in" style="width: 100%; float: left; display: block; background: url('{{ STATIC_URL }}images/bg-slide0.jpg');">#}
+{#                            <div class="container">#}
+{#                                <div class="row">#}
+{#                                    <div class="col-md-6 caption">#}
+{#                                        <h2 class="enlarge">Welcome to <span class="em">Flexor</span></h2>#}
+{#                                        <h4>Super flexible responsive theme with a modest design touch.</h4>#}
+{#                                        <p>Perfect for your App, Web service, company or portfolio! Magna tincidunt sociis ac integer amet non. Rhoncus augue? Tempor porttitor sed, aliquet phasellus a, nisi nunc aliquet nec rhoncus enim porttitor ultrices lacus tristique?</p>#}
+{#                                        <a href="https://wrapbootstrap.com/user/themelize_me" class="btn more-link large i-right">Buy Now <i class="default"></i></a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!--Slide #1 with caption-->#}
+{#                        <div class="slide row-fluid first flex-active-slide animate-in" style="width: 100%; float: left; display: block; background: url('{{ STATIC_URL }}images/bg-slide1.jpg');">#}
+{#                            <div class="container">#}
+{#                                <div class="row">#}
+{#                                    <div class="col-md-6 caption">#}
+{#                                        <h2 class="enlarge">Welcome to <span class="em">Flexor</span></h2>#}
+{#                                        <h4>Super flexible responsive theme with a modest design touch.</h4>#}
+{#                                        <p>Perfect for your App, Web service, company or portfolio! Magna tincidunt sociis ac integer amet non. Rhoncus augue? Tempor porttitor sed, aliquet phasellus a, nisi nunc aliquet nec rhoncus enim porttitor ultrices lacus tristique?</p>#}
+{#                                        <a href="https://wrapbootstrap.com/user/themelize_me" class="btn more-link large i-right">Buy Now <i class="default"></i></a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <!--Slide #2 -->#}
+{#                        <div class="slide row-fluid second" style="width: 100%; float: left; display: block; background: url('{{ STATIC_URL }}images/bg-slide2.jpg');">#}
+{#                            <div class="container">#}
+{#                                <div class="row">#}
+{#                                    <div class="col-md-6 caption">#}
+{#                                        <h2 class="enlarge"><span class="em">Flexor</span> Bootstrap Theme</h2>#}
+{#                                        <h4>High quality, responsive theme!</h4>#}
+{#                                        <p>Perfect for your App, Web service, company or portfolio! Magna tincidunt sociis ac integer amet non. Rhoncus augue? Tempor porttitor sed, aliquet phasellus a, nisi nunc aliquet nec rhoncus enim porttitor ultrices lacus tristique?</p>#}
+{#                                        <a href="https://wrapbootstrap.com/user/themelize_me" class="btn more-link large"><i class="default"></i> Learn More</a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+            </div>
+        </div>
+    </section>
+</div>

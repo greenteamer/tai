@@ -1,0 +1,54 @@
+{% extends "catalog.html" %}
+{% load thumbnail %}
+{% load i18n %}
+
+{% block slider %}
+{% endblock %}
+
+{% block tri_bloka %}
+{% endblock %}
+
+
+{% block content %}
+    <div id="catalog">
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3">
+                        <h1>{{ c.name }}</h1>
+                    </div>
+                   <div class="col-md-12">
+{#                        <h3>{{ c.description }}</h3>#}
+                   </div>
+
+{#                    если продукты существуют#}
+                    {% if products %}
+{#                        цыкл по продуктам (осуществляется проход до тех пор пока есть продукты)#}
+                        {% for p in products %}
+                            <div class="col-md-3">
+                                <div class="product_thumbnail">
+                                    <a href="{{ p.get_absolute_url }}">
+                                        {% thumbnail p.image_url "200x200" crop="center" as im %}
+                                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                        {% endthumbnail %}
+                                        <br />
+                                        <h2>{{ p.name }}</h2>
+                                    </a>
+                                   <p>{{ p.price }} руб.</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+{#                        закончить цыкл#}
+
+{#                    иначе .... если продукты не существуют#}
+                    {% else %}
+                       <div class="none_tovar">
+                        {% trans "В категории отсутствуют товары" %}
+                       </div>
+                    {% endif %}
+{#                    закончить условие "если"#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

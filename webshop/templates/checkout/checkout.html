@@ -1,0 +1,81 @@
+{% extends "catalog.html" %}
+{% load i18n %}
+{% block slider %}
+{% endblock %}
+{% block tri_bloka %}
+{% endblock %}
+{% load checkout_tags %}
+{% load dajaxice_templatetags %}
+
+
+{% block content %}
+    <div id="checkout">
+        <div class="container">
+            <div class="row">
+                <div class="alert alert-info span5">
+                    <strong>{% trans "Warning" %}!</strong><br /> * {% trans "Required fields" %}
+                </div>
+
+                {% if not request.user.is_authenticated %}
+                    <div class="row-fluid">
+                          <a href="{% url login %}?next={{ request.path }}">
+                            {% trans "Have an account" %}?<br />{% trans "Sign in now" %}!
+                          </a>
+                    </div>
+                {% endif %}
+
+                <div class="row-fluid">
+                    <div class="row">
+                      <div class="col-md-12">
+                          <div class="col-md-3 checkout">
+                             <h1>Контакты для доставки</h1>
+                          </div>
+                      </div>
+                    </div>
+
+                    {% if error_message %}
+                        <div class="row-fluid">
+                            <div class="alert alert-error span5">
+                                {{ error_message }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <form action="." id="my_form" method="post">
+                        {% csrf_token %}
+                        <div id="checkout_form">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 border_chec">
+                                        <div class="border_chec2 col-md-6 ">
+                                            <label for="id_email">Ваш email:</label>
+                                            {% if error.email %}{{ error.email }}{% endif %}
+                                            {{form.email}}
+                                            <label for="id_email">Ваш телефон:</label>
+                                            {% if error.phone %}{{ error.phone }}{% endif %}
+                                            {{form.phone}}
+                                            <label for="id_shipping_name">Ваше имя:</label>
+                                            {% if error.shipping_name %}{{ error.shipping_name }}{% endif %}
+                                            {{form.shipping_name}}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="id_shipping_address_1">Ваш адрес:</label>
+                                            {% if error.shipping_address_1 %}{{ error.shipping_address_1 }}{% endif %}
+                                            {{form.shipping_address_1}}
+                                            <label for="id_shipping_city">Город:</label>
+                                            {% if error.shipping_city %}{{ error.shipping_city }}{% endif %}
+                                            {{form.shipping_city}}
+                                            <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>
+{#                                            <input id="order_submit" class="btn btn-primary" value="Отправить" type="button" onclick="order_form();">#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
