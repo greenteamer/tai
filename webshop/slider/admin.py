@@ -4,4 +4,6 @@ from django.contrib import admin
 
 from webshop.slider.models import Slider
 
-admin.site.register(Slider)
+# раскомментировать что бы слайдер появился в админке
+# admin.site.register(Slider)
+

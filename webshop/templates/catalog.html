@@ -26,61 +26,82 @@
 {#            flex-slider#}
     {% block slider %}
 {#        находится в tags/slider.html#}
-        {% slider request %}
+{#        раскомментировать что бы слайдер заработал#}
+{#        {% slider request %}#}
     {% endblock %}
 
 {#        блок разделов#}
     {% block tri_bloka %}
-        <div class="tri_bloka">
-            <div class="container">
+{#        <div class="tri_bloka">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-md-12 tri_bloka_text">#}
+{#                        <h3>Оптовый Интернет-магазин христианской и иудейской продукции</h3>#}
+{#                    </div>#}
+{##}
+{#                     <div class="col-md-4">#}
+{#                         <div class="blok_krest tri_bloka_one">#}
+{#                            <a href="/category/podveski/">#}
+{#                                <div class="iconka">#}
+{#                                   <img src="{{ STATIC_URL }}images/odejda.png" alt="Верхняя одежда">#}
+{#                                </div>#}
+{#                                <h2>Подвески</h2>#}
+{#                            </a>#}
+{#                            <p>Представляем Вашему вниманию крестики и другие подвески с христианской и иудейской символикой. Изящные и оригинальные, они способны подчеркнуть не только Ваш стиль но и Ваши убеждения.</p>#}
+{#                         </div>#}
+{#                    </div>#}
+{#                    <div class="col-md-4">#}
+{#                        <div class="blok_concelayr tri_bloka_one">#}
+{#                             <a href="/category/ruchki/">#}
+{#                               <div class="iconka">#}
+{#                                   <img src="{{ STATIC_URL }}images/coj_gal.png" alt="Кожгалантерея ">#}
+{#                               </div>#}
+{#                                <h2>Ручки</h2>#}
+{#                             </a>#}
+{#                            <p>Качественные ручки с выгравированными местописаниями - прекрасный подарок в любой ситуации.</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-md-4">#}
+{#                        <div class="blok_prochie tri_bloka_one">#}
+{#                            <a href="/category/kolca/">#}
+{#                                <div class="iconka">#}
+{#                                    <img src="{{ STATIC_URL }}images/ochci.png" alt="Солнцезащитные очки">#}
+{#                                </div>#}
+{#                                <h2>Кольца</h2>#}
+{#                            </a>#}
+{#                            <p>Кольца с христианской символикой подойдут не только для повседневного нашения, но и для некоторых значимых в Вашей жизни событий.</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+    {% endblock %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12 tri_bloka_text">
-                        <h3>Оптовый Интернет-магазин христианской и иудейской продукции</h3>
+
+                    {#    блок сайдбар левый#}
+                    <div class="col-md-3">
+                        {% block sidebar_left %}
+
+                        {% endblock %}
                     </div>
 
-                     <div class="col-md-4">
-                         <div class="blok_krest tri_bloka_one">
-                            <a href="/category/podveski/">
-                                <div class="iconka">
-                                   <img src="{{ STATIC_URL }}images/odejda.png" alt="Верхняя одежда">
-                                </div>
-                                <h2>Подвески</h2>
-                            </a>
-                            <p>Представляем Вашему вниманию крестики и другие подвески с христианской и иудейской символикой. Изящные и оригинальные, они способны подчеркнуть не только Ваш стиль но и Ваши убеждения.</p>
-                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="blok_concelayr tri_bloka_one">
-                             <a href="/category/ruchki/">
-                               <div class="iconka">
-                                   <img src="{{ STATIC_URL }}images/coj_gal.png" alt="Кожгалантерея ">
-                               </div>
-                                <h2>Ручки</h2>
-                             </a>
-                            <p>Качественные ручки с выгравированными местописаниями - прекрасный подарок в любой ситуации.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="blok_prochie tri_bloka_one">
-                            <a href="/category/kolca/">
-                                <div class="iconka">
-                                    <img src="{{ STATIC_URL }}images/ochci.png" alt="Солнцезащитные очки">
-                                </div>
-                                <h2>Кольца</h2>
-                            </a>
-                            <p>Кольца с христианской символикой подойдут не только для повседневного нашения, но и для некоторых значимых в Вашей жизни событий.</p>
-                        </div>
+                    <div class="col-md-9">
+                        {#        блок контент#}
+                        {#содержимое в catalog/index.html#}
+                        {% block content %}
+
+                        {% endblock %}
                     </div>
 
                 </div>
             </div>
         </div>
-    {% endblock %}
-
-{#        блок контент#}
-{#содержимое в catalog/index.html#}
-    {% block content %}
-    {% endblock %}
+    </div>
 
     {% block partners %}
 {#        <div class="container">#}
