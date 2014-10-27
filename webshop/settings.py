@@ -183,9 +183,11 @@ INSTALLED_APPS = (
     'webshop.search',
     'webshop.ajaxapp',
     'webshop.slider',
+    'webshop.pages',
     'mptt',
     'bootstrap3',
     'sorl.thumbnail',
+    'ckeditor',
     'dajaxice',
     'dajax',
 )

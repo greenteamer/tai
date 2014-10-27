@@ -31,12 +31,14 @@ def categories_tree(request):
 	"""Возвращает дерево категорий"""
 	return {'nodes': Category.objects.filter(is_active=True) }
 
+
 @register.inclusion_tag("tags/footer.html")
 def footer_links():
 	"Вставка для виджета отображающего ссылки на статические страницы внизу"
     # products = Product.objects.all()
 	flatpage_list = FlatPage.objects.all()
 	return {'flatpage_list': flatpage_list }
+
 
 # The first argument *must* be called "context" here.
 def cart_box(context, request):
@@ -47,6 +49,18 @@ def cart_box(context, request):
     }
 # Register the custom tag as an inclusion tag with takes_context=True.
 register.inclusion_tag('tags/cart_box.html', takes_context=True)(cart_box)
+
+
+# The first argument *must* be called "context" here.
+def lider_box(context, request):
+    lider_items = Product.objects.filter(is_bestseller='True')
+    return {
+        # 'products': products,
+        'lider_items': lider_items,
+    }
+# Register the custom tag as an inclusion tag with takes_context=True.
+register.inclusion_tag('tags/lider_box.html', takes_context=True)(lider_box)
+
 
 # The first argument *must* be called "context" here.
 def slider(context, request):

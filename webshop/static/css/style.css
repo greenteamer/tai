@@ -1113,7 +1113,7 @@ margin-bottom: 40px;
 }
 .cart_bloc{
     width: 300px;
-    margin-top: -50px;
+    /*margin-top: -50px;*/
     float: right;
 }
 header.navbar {

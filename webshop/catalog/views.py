@@ -13,6 +13,7 @@ from django.core.mail import send_mail
 from webshop.catalog.models import Category, Product, Characteristic, ProductImage
 from webshop.slider.models import Slider
 from webshop.news.models import News
+from webshop.pages.models import Page
 
 
 def index_view(request, template_name="catalog/index.html"):
@@ -34,6 +35,11 @@ def index_view(request, template_name="catalog/index.html"):
 
     #Далее вывод новостей
     news = News.objects.all()[:5]
+    try:
+        # frontpage = get_object_or_404(Page, is_main='True')
+        frontpage = Page.objects.get(is_main='True')
+    except Exception:
+        frontpage = Page.objects.get(slug="404")
     # Функция locals получает все поля словаря
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))

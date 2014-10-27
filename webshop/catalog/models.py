@@ -62,15 +62,14 @@ class Product(models.Model):
                             help_text=_(u'Unique value for product page URL, created from name.'))
     articul = models.CharField(verbose_name=u'Артикул', max_length=15,blank=True)
     brand = models.CharField(_(u'Brand'), max_length=50,blank=True)
-    sku = models.CharField(_(u'SKU'), max_length=50,
-                           help_text=_(u'Stock-keeping unit'),blank=True) # кол-во товара на складе
-    price = models.DecimalField(max_digits=9, decimal_places=2)
-    old_price = models.DecimalField(max_digits=9, decimal_places=2,
-                                    blank=True, default=0.00)
+
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
+    new_price = models.DecimalField(max_digits=9, decimal_places=2,
+                                    blank=True, default=0.00, verbose_name=u'Новая цена')
     is_active = models.BooleanField(_(u'Active'), default=True)
     is_bestseller = models.BooleanField(_(u'Bestseller'), default=False) # Лучшие продажи
     is_featured = models.BooleanField(_(u'Featured'), default=False) # Отображать на главной
-    quantity = models.IntegerField(_(u'Quantity'))
+
     description = models.TextField(_(u'Description'),blank=True)
     meta_keywords = models.CharField(_(u'Meta keywords'), max_length=255,
                                      help_text=_(u'Comma-delimited set of SEO keywords for meta tag'), blank=True)
@@ -84,6 +83,11 @@ class Product(models.Model):
     active = CommonActiveManager()
     feautured = FeauturedProductManager()
     bestseller = BestsellerProductManager()
+
+    # временно не нужные атрибуты
+    # sku = models.CharField(_(u'SKU'), max_length=50,
+    #                        help_text=_(u'Stock-keeping unit'),blank=True) # кол-во товара на складе
+    # quantity = models.IntegerField(_(u'Quantity'), default=0)
 
     class Meta:
         db_table = 'products'

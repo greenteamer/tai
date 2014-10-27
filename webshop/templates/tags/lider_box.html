@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load catalog_tags %}
+{% load thumbnail %}
+
+
+{% if lider_items %}
+    {% for item in lider_items %}
+        <div class="">
+            {% thumbnail item.get_image.url "100x100" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+            {% endthumbnail %}
+            <div class="text_item">
+                <p class="name_item">{{ item.name }}</p>
+                <p>Цена: <i class="fa fa-rub"></i>{{ item.price }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>Нет лидеров</p>
+{% endif %}
