@@ -1,18 +1,36 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load catalog_tags %}
+{% load search_tags %}
 {% block site_wrapper %}
 
     <div  id="menu_fixed">
         <div class="main_menu" >
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
+{#                    <div class="col-md-9">#}
             {#            содержимое в category_list.html#}
             {#            <h3>Блок основное меню</h3>#}
-                        {% categories_tree request %}
-                    </div>
-                    <div class="col-md-3 cart_bloc">
+{#                        {% categories_tree request %}#}
+
+
+{#                   {% top_links request %}#}
+                        <div class="col-md-9">
+                            <div class="menu_top">
+                                <nav role="navigation">
+                                    <div class="region region-navigation">
+                                        <ul class="menu nav navbar-nav">
+                                            <li><a href="/">Главная</a></li>
+                                            <li><a href="/">Скидки</a></li>
+                                            <li><a href="/">Новинки</a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+
+{#                    </div>#}
+                    <div class="col-md-3">
                         <div class="cart_icon">
                             {% cart_box request %}
                         </div>
@@ -86,6 +104,15 @@
                     {#    блок сайдбар левый#}
                     <div class="col-md-3">
                         {% block sidebar_left %}
+
+                            <h4>Поиск</h4>
+                            {% search_box request %}
+
+                            <h4>Каталог</h4>
+                            {% categories_tree request %}
+
+                            <h4>Лидеры продаж</h4>
+                            {% lider_box request %}
 
                         {% endblock %}
                     </div>

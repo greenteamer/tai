@@ -26,6 +26,7 @@ def results_view(request, template_name="search/results.html"):
         results = paginator.page(page).object_list
     except (InvalidPage, EmptyPage):
         results = paginator.page(1).object_list
+    # results = matching
     # Сохраняем поисковую фразу
     search.store(request, query)
     page_title = 'Search Results for: ' + query

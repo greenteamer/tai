@@ -24,11 +24,13 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^ckeditor/', include('ckeditor.urls')),
     # General application URLs
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/', include('webshop.accounts.urls')),
     url(r'^', include('webshop.catalog.urls')),
     url(r'^cart/', include('webshop.cart.urls')),
+    url(r'^page/', include('webshop.pages.urls')),
     url(r'^checkout/', include('webshop.checkout.urls')),
     url(r'^', include('webshop.news.urls')),
     url(r'^search/', include('webshop.search.urls')),
