@@ -25,18 +25,22 @@ def store(request, query):
 def products(search_text):
     """Извлекает товары содержащие указанный текст"""
     words = _prepare_words(search_text)
-    products = Product.active.all()
+    products = Product.objects.all()
     results = {}
     results['products'] = []
     # Проходим по всем словам в поисковом запросе
     for word in words:
-        products = products.filter(Q(name__icontains=word) |
-        Q(description__icontains=word) |
-        Q(sku__iexact=word) |
+        products = products.filter(Q(name__icontains=word)
+                                   |
+        # Q(description__icontains=word) |
+        # Q(sku__iexact=word) |
         Q(brand__icontains=word) |
-        Q(meta_description__icontains=word) |
-        Q(meta_keywords__icontains=word))
+        Q(description__icontains=word)
+        # Q(meta_keywords__icontains=word)
+        )
         results['products'] = products
+    # results = {'products': products}
+    # {'order_number': order.id, 'order': order}
     return results
 
 def _prepare_words(search_text):

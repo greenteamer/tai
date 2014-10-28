@@ -224,7 +224,7 @@ META_KEYWORDS = _(u'products, online, shop, buy')
 META_DESCRIPTION = _(u'Product magazine is an online supplier of products')
 LOGIN_REDIRECT_URL = '/accounts/my_account/'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 90 # 90 дней на хранение cookies
-PRODUCTS_PER_PAGE = 1
+PRODUCTS_PER_PAGE = 300
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 try:

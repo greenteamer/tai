@@ -59,19 +59,19 @@ class AquaProductManager(models.Manager):
         return super(AquaProductManager, self).get_query_set().filter(is_aqua=True)
 
 
-class BrandName(models.Model):
-    """Словарная таблица брэндов"""
-    name = models.CharField(_(u'Производитель'), max_length=255)
-    # product = models.ForeignKey(Product, verbose_name=u'Брэнд', blank=True)
-
-    class Meta:
-        db_table = 'brand_name'
-        ordering = ['name']
-        verbose_name_plural = _(u'Производитель')
-        unique_together = ('name',)
-
-    def __unicode__(self):
-        return self.name
+# class BrandName(models.Model):
+#     """Словарная таблица брэндов"""
+#     name = models.CharField(_(u'Производитель'), max_length=255)
+#     # product = models.ForeignKey(Product, verbose_name=u'Брэнд', blank=True)
+#
+#     class Meta:
+#         db_table = 'brand_name'
+#         ordering = ['name']
+#         verbose_name_plural = _(u'Производитель')
+#         unique_together = ('name',)
+#
+#     def __unicode__(self):
+#         return self.name
 
 
 class FeelName(models.Model):
@@ -103,7 +103,7 @@ class Product(models.Model):
     name = models.CharField(_(u'Name'), max_length=255, unique=True)
     slug = models.SlugField(_(u'Slug'), max_length=255, unique=True,
                             help_text=_(u'Unique value for product page URL, created from name.'))
-    # brand = models.CharField(_(u'Brand'), max_length=50,blank=True)
+    brand = models.CharField(_(u'Производитель'), max_length=50,blank=True)
 
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
     new_price = models.DecimalField(max_digits=9, decimal_places=2,
@@ -122,9 +122,9 @@ class Product(models.Model):
     updated_at = models.DateTimeField(_(u'Updated at'), auto_now=True)
     categories = models.ManyToManyField(Category, verbose_name=_(u'Categories'),
                                         help_text=_(u'Categories for product'))
-    brand = models.ForeignKey(BrandName, verbose_name=u'Производитель')
+    # brand = models.ForeignKey(BrandName, verbose_name=u'Производитель')
     feel = models.ForeignKey(FeelName, verbose_name=u'Вкус', blank=True, null=True)
-    gift = models.ForeignKey(GiftPrice, verbose_name=u'Выбрать как подарок', blank=True, null=True)
+    gift = models.ForeignKey(GiftPrice, verbose_name=u'Выбрать этот товар как подарок', blank=True, null=True)
 
     objects = models.Manager()
     # active = CommonActiveManager()

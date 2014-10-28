@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load catalog_tags %}
+{% load search_tags %}
 {% block site_wrapper %}
 
     <div  id="menu_fixed">
@@ -103,6 +104,9 @@
                     {#    блок сайдбар левый#}
                     <div class="col-md-3">
                         {% block sidebar_left %}
+
+                            <h4>Поиск</h4>
+                            {% search_box request %}
 
                             <h4>Каталог</h4>
                             {% categories_tree request %}
