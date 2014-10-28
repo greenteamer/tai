@@ -19,19 +19,19 @@ from webshop.pages.models import Page
 def index_view(request, template_name="catalog/index.html"):
     """Представление главной страницы"""
     page_title = _(u'Internet Magazine')
-    products = Product.feautured.all()
-    for p in products:
-        try:
-            p.image = ProductImage.objects.get(product=p, default=True)
-        except Exception:
-            p.image = "/media/products/images/none.png"
-
-    bestseller = Product.bestseller.all()
-    for b in bestseller:
-        try:
-            b.image = ProductImage.objects.get(product=b, default=True)
-        except Exception:
-            b.image = "/media/products/images/none.png"
+    # products = Product.feautured.all()
+    # for p in products:
+    #     try:
+    #         p.image = ProductImage.objects.get(product=p, default=True)
+    #     except Exception:
+    #         p.image = "/media/products/images/none.png"
+    #
+    # bestseller = Product.bestseller.all()
+    # for b in bestseller:
+    #     try:
+    #         b.image = ProductImage.objects.get(product=b, default=True)
+    #     except Exception:
+    #         b.image = "/media/products/images/none.png"
 
     #Далее вывод новостей
     news = News.objects.all()[:5]

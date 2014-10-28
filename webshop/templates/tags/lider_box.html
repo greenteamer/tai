@@ -12,6 +12,10 @@
             <div class="text_item">
                 <p class="name_item">{{ item.name }}</p>
                 <p>Цена: <i class="fa fa-rub"></i>{{ item.price }}</p>
+                {% if item.is_not_available %}
+                    <p style="color: red;">Нет в наличии</p>
+                {% endif %}
+                <p></p>
             </div>
         </div>
     {% endfor %}
