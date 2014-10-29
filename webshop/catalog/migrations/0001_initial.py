@@ -15,7 +15,7 @@ class Migration(SchemaMigration):
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=50)),
             ('description', self.gf('django.db.models.fields.TextField')()),
             ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('meta_keywords', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('meta_keywords', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('meta_description', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
@@ -27,24 +27,38 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('catalog', ['Category'])
 
+        # Adding model 'FeelName'
+        db.create_table('Feel_product', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+        ))
+        db.send_create_signal('catalog', ['FeelName'])
+
+        # Adding model 'GiftPrice'
+        db.create_table('gift_price', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('price', self.gf('django.db.models.fields.CharField')(max_length=5)),
+        ))
+        db.send_create_signal('catalog', ['GiftPrice'])
+
         # Adding model 'Product'
         db.create_table('products', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
             ('slug', self.gf('django.db.models.fields.SlugField')(unique=True, max_length=255)),
-            ('brand', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('sku', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('brand', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('price', self.gf('django.db.models.fields.DecimalField')(max_digits=9, decimal_places=2)),
-            ('old_price', self.gf('django.db.models.fields.DecimalField')(default=0.0, max_digits=9, decimal_places=2, blank=True)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('new_price', self.gf('django.db.models.fields.DecimalField')(default=0.0, max_digits=9, decimal_places=2, blank=True)),
+            ('not_available', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('is_bestseller', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('is_featured', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('quantity', self.gf('django.db.models.fields.IntegerField')()),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('meta_keywords', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('meta_description', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('is_aqua', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('meta_keywords', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('meta_description', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
             ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+            ('feel', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['catalog.FeelName'], null=True, blank=True)),
+            ('gift', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['catalog.GiftPrice'], null=True, blank=True)),
         ))
         db.send_create_signal('catalog', ['Product'])
 
@@ -99,6 +113,12 @@ class Migration(SchemaMigration):
         # Deleting model 'Category'
         db.delete_table('categories')
 
+        # Deleting model 'FeelName'
+        db.delete_table('Feel_product')
+
+        # Deleting model 'GiftPrice'
+        db.delete_table('gift_price')
+
         # Deleting model 'Product'
         db.delete_table('products')
 
@@ -125,7 +145,7 @@ class Migration(SchemaMigration):
             u'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             u'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'meta_description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
             'parent': ('mptt.fields.TreeForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['catalog.Category']"}),
             u'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
@@ -145,23 +165,33 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
+        'catalog.feelname': {
+            'Meta': {'object_name': 'FeelName', 'db_table': "'Feel_product'"},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        },
+        'catalog.giftprice': {
+            'Meta': {'object_name': 'GiftPrice', 'db_table': "'gift_price'"},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'price': ('django.db.models.fields.CharField', [], {'max_length': '5'})
+        },
         'catalog.product': {
             'Meta': {'ordering': "['-created_at']", 'object_name': 'Product', 'db_table': "'products'"},
-            'brand': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'brand': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['catalog.Category']", 'symmetrical': 'False'}),
             'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
+            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'feel': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.FeelName']", 'null': 'True', 'blank': 'True'}),
+            'gift': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.GiftPrice']", 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'is_aqua': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_bestseller': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'meta_description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'meta_description': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
+            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'old_price': ('django.db.models.fields.DecimalField', [], {'default': '0.0', 'max_digits': '9', 'decimal_places': '2', 'blank': 'True'}),
+            'new_price': ('django.db.models.fields.DecimalField', [], {'default': '0.0', 'max_digits': '9', 'decimal_places': '2', 'blank': 'True'}),
+            'not_available': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'price': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'}),
-            'quantity': ('django.db.models.fields.IntegerField', [], {}),
-            'sku': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
             'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
         },

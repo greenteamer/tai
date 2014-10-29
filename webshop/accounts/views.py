@@ -11,17 +11,17 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 
 from webshop.checkout.models import Order, OrderItem
-from webshop.accounts.forms import UserProfileForm
+from webshop.accounts.forms import UserProfileForm, MyRegistrationForm
 from webshop.accounts import profile
 
 
 @csrf_protect
-def register_view(request, template_name="registration/login.html"):
+def register_view(request, template_name="registration/register.html"):
     """Регистрация нового пользователя"""
     page_title = _(u'User Registration')
     if request.method == 'POST':
         postdata = request.POST.copy()
-        form = UserCreationForm(postdata)
+        form = MyRegistrationForm(postdata)
         if form.is_valid():
             form.save()
             un = postdata.get('username', '')
@@ -34,7 +34,7 @@ def register_view(request, template_name="registration/login.html"):
                 url = urlresolvers.reverse('my_account')
                 return HttpResponseRedirect(url)
     else:
-        form = UserCreationForm()
+        form = MyRegistrationForm()
 
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))

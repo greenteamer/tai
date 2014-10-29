@@ -59,21 +59,6 @@ class AquaProductManager(models.Manager):
         return super(AquaProductManager, self).get_query_set().filter(is_aqua=True)
 
 
-# class BrandName(models.Model):
-#     """Словарная таблица брэндов"""
-#     name = models.CharField(_(u'Производитель'), max_length=255)
-#     # product = models.ForeignKey(Product, verbose_name=u'Брэнд', blank=True)
-#
-#     class Meta:
-#         db_table = 'brand_name'
-#         ordering = ['name']
-#         verbose_name_plural = _(u'Производитель')
-#         unique_together = ('name',)
-#
-#     def __unicode__(self):
-#         return self.name
-
-
 class FeelName(models.Model):
     """Словарная таблица цветов"""
     name = models.CharField(_(u'Вкус'), max_length=255)
@@ -122,7 +107,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(_(u'Updated at'), auto_now=True)
     categories = models.ManyToManyField(Category, verbose_name=_(u'Categories'),
                                         help_text=_(u'Categories for product'))
-    # brand = models.ForeignKey(BrandName, verbose_name=u'Производитель')
+
     feel = models.ForeignKey(FeelName, verbose_name=u'Вкус', blank=True, null=True)
     gift = models.ForeignKey(GiftPrice, verbose_name=u'Выбрать этот товар как подарок', blank=True, null=True)
 

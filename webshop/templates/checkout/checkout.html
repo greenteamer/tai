@@ -60,6 +60,15 @@
                                             <label for="id_shipping_address_1">Ваш адрес:</label>
                                             {% if error.shipping_address_1 %}{{ error.shipping_address_1 }}{% endif %}
                                             {{form.shipping_address_1}}
+                                            <label for="id_shipping_address_2">Ваш адрес 2:</label>
+                                            {% if error.shipping_address_2 %}{{ error.shipping_address_2 }}{% endif %}
+                                            {{form.shipping_address_2}}
+                                            <label for="id_shipping_country">Страна доставки:</label>
+                                            {% if error.shipping_country %}{{ error.shipping_country }}{% endif %}
+                                            {{form.shipping_country}}
+                                            <label for="id_shipping_zip">Почтовый индекс:</label>
+                                            {% if error.shipping_zip %}{{ error.shipping_zip }}{% endif %}
+                                            {{form.shipping_zip }}
                                             <label for="id_shipping_city">Город:</label>
                                             {% if error.shipping_city %}{{ error.shipping_city }}{% endif %}
                                             {{form.shipping_city}}

@@ -157,6 +157,10 @@ DAJAXICE_MEDIA_PREFIX="dajaxice"
 #     'webshop.ajaxapp.ajax.send_form',
 # )
 
+SOUTH_MIGRATION_MODULES = {
+    'captcha': 'captcha.south_migrations',
+}
+
 INSTALLED_APPS = (
     'admin_tools',
     'admin_tools.theming',
@@ -190,6 +194,7 @@ INSTALLED_APPS = (
     'ckeditor',
     'dajaxice',
     'dajax',
+    'captcha',
 )
 
 THUMBNAIL_DEBUG = True
