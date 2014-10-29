@@ -12,4 +12,7 @@ class UserProfile(BaseOrderInfo):
     user = models.ForeignKey(User, unique=True)
 
     def __unicode__(self):
-        return _(u'User Profile for: ') + self.user.username
+        return _(u'Профиль: ') + self.user.username
+
+    class Meta:
+        verbose_name_plural = _(u'Профили пользователей')

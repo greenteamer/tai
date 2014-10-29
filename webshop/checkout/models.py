@@ -21,12 +21,14 @@ class BaseOrderInfo(models.Model):
     # Информация об адресе для отправки товара
     shipping_name = models.CharField(max_length=50, verbose_name=(u'Имя получателя'))
     shipping_address_1 = models.CharField(max_length=50, verbose_name=(u'Адрес доставки'))
-    # shipping_address_2 = models.CharField(max_length=50, verbose_name=(u'Дополнительный адрес(необязательно)'), blank=True)
     shipping_city = models.CharField(max_length=50, verbose_name=(u'Город'))
-    #shipping_country = models.CharField(max_length=50) #Область
-    # shipping_country = models.CharField(max_length=50, verbose_name=(u'Страна'))
-    # shipping_zip = models.CharField(max_length=10, verbose_name=(u'Почтовый индекс'))
-    # Информация о плательщике
+
+    shipping_address_2 = models.CharField(max_length=50, verbose_name=(u'Дополнительный адрес(необязательно)'), blank=True)
+
+    shipping_country = models.CharField(max_length=50, verbose_name=(u'Страна'))
+    shipping_zip = models.CharField(max_length=10, verbose_name=(u'Почтовый индекс'))
+
+    # # Информация о плательщике
     # billing_name = models.CharField(max_length=50, default='default')
     # billing_address = models.CharField(max_length=50, null=True)
     # billing_city = models.CharField(max_length=50, default='default')
@@ -92,13 +94,14 @@ class OrderItem(models.Model):
         """Название товара"""
         return self.product.name
 
-    @property
-    def sku(self):
-        """Количество товара на складе"""
-        return self.product.sku
+    # @property
+    # def sku(self):
+    #     """Количество товара на складе"""
+    #     return self.product.sku
 
     def __unicode__(self):
-        return self.product.name + ' (' + self.product.sku + ')'
+        return self.product.name \
+               # + ' (' + self.product.sku + ')'
 
     def get_absolute_url(self):
         """Абсолютная ссылка на товар в корзине"""
