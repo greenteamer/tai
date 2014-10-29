@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from captcha.fields import CaptchaField
 
 from models import UserProfile
 
@@ -33,6 +34,7 @@ class MyRegistrationForm(forms.ModelForm):
     password2 = forms.CharField(label=_("Password confirmation"),
         widget=forms.PasswordInput,
         help_text = _("Enter the same password as above, for verification."))
+    captcha = CaptchaField(label=u'Введите символы с картинки')
 
     class Meta:
         model = User
