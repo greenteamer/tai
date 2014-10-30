@@ -38,7 +38,7 @@ class Category(MPTTModel):
         verbose_name_plural = _(u'Categories')
 
     def __unicode__(self):
-        return self.name
+        return self.name.decode('utf-8')
 
     @permalink
     def get_absolute_url(self):
