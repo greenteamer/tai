@@ -195,6 +195,7 @@ INSTALLED_APPS = (
     'dajaxice',
     'dajax',
     'captcha',
+    'robokassa',
 )
 
 THUMBNAIL_DEBUG = True
