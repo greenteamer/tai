@@ -18,7 +18,7 @@ def results_view(request, template_name="search/results.html"):
         page = 1
     # получаем поисковую фразу
     query = request.GET.get('query', '')
-    print query
+    # print query
     # возвращаем найденные продукты
     matching = search.products(query).get('products')
     # Создаем объект класса Paginator
