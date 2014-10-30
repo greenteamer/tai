@@ -195,7 +195,7 @@ def update_cupon_cart(request):
 
 def get_cupon(request):
     cart_items = get_cart_items(request)
-    cupon = Cupon.objects.get(identifier='default')
+    cupon = Cupon.objects.get(identifier='zero')
     if cart_items:
         for item in cart_items:
             cupon = item.cupon
