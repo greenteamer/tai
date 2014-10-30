@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
+from webshop.catalog.models import ProductImage
 from webshop.search import search
 from webshop import settings
 
@@ -21,12 +22,17 @@ def results_view(request, template_name="search/results.html"):
     # возвращаем найденные продукты
     matching = search.products(query).get('products')
     # Создаем объект класса Paginator
-    paginator = Paginator(matching, settings.PRODUCTS_PER_PAGE)
-    try:
-        results = paginator.page(page).object_list
-    except (InvalidPage, EmptyPage):
-        results = paginator.page(1).object_list
-    # results = matching
+    # paginator = Paginator(matching, settings.PRODUCTS_PER_PAGE)
+    # try:
+    #     results = paginator.page(page).object_list
+    # except (InvalidPage, EmptyPage):
+    #     results = paginator.page(1).object_list
+    results = matching
+    for p in results:
+        try:
+            p.image_url = ProductImage.objects.get(product=p, default=True).url
+        except Exception:
+            p.image_url = "/media/products/images/none.png"
     # Сохраняем поисковую фразу
     search.store(request, query)
     page_title = 'Search Results for: ' + query

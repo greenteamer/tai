@@ -1,21 +1,36 @@
 {% extends "catalog.html" %}
 {% load i18n %}
+{% load thumbnail %}
 {% load search_tags %}
 
 {% block content %}
-  <h1>{% trans "Search Results for" %}&nbsp;: '{{ query }}'</h1>
-  <ol>
-    <strong>коллличество результатов {{ results.count }}</strong>
-  {% for p in results %}
-    <li><strong><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></strong></li>
-    {{ p.description|slice:":200" }}
-    <br />
-  {% empty %}
-  <div class="alert alert-block">
-    {% trans "No products were found matching those search terms." %}
-  </div>
-  {% endfor %}
-  </ol>
-  <div>&nbsp;</div>
+    <h1>{% trans "Search Results for" %}&nbsp;: '{{ query }}'</h1>
+        <ol>
+
+            <strong>коллличество результатов {{ results.count }}</strong>
+            <br/>
+            <br/>
+            {% for p in results %}
+
+                {% thumbnail p.image_url "100x100" crop="center" as im %}
+                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" align="left">
+                {% endthumbnail %}
+                <li><strong><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></strong></li>
+                <p>Производитель: {{ p.brand }}</p>
+                <p>Описание: {{ p.description|slice:":200" }}</p>
+                <p>Цена: {{ p.price }}</p>
+            <br />
+            <br/>
+
+            {% empty %}
+
+              <div class="alert alert-block">
+                {% trans "No products were found matching those search terms." %}
+              </div>
+
+            {% endfor %}
+
+        </ol>
+    <div>&nbsp;</div>
 {#  {% pagination_links request paginator %}#}
 {% endblock %}

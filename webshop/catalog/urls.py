@@ -16,5 +16,9 @@ urlpatterns = patterns('webshop.catalog.views',
 	url(r'^product/(?P<product_slug>[-\w]+)/$', 'product_view',
 		{'template_name':'catalog/product.html'},
 		name='catalog_product'),
+    # Скидки
+	url(r'^sale/', 'sale_view',
+		{'template_name':'catalog/sale.html'},
+		name='catalog_product'),
 
 )

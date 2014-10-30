@@ -59,6 +59,17 @@ def category_view(request, category_slug, template_name="catalog/category.html")
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
 
+def sale_view(request, template_name="catalog/sale.html"):
+    """Представление для просмотра скидок"""
+    products = Product.objects.exclude(new_price=0.00)
+    for p in products:
+        try:
+            p.image_url = ProductImage.objects.get(product=p, default=True).url
+        except Exception:
+            p.image_url = "/media/products/images/none.png"
+    return render_to_response(template_name, locals(),
+                              context_instance=RequestContext(request))
+
 @csrf_protect
 def product_view(request, product_slug, template_name="catalog/product.html"):
     """Представление для просмотра конкретного продукта"""

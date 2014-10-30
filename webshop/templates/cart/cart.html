@@ -83,6 +83,19 @@
                         </th>
                     </tr>
                     {% endif %}
+
+
+                    <div class="col-md-4 kupon">
+                        <p style=" color: red; ">Введите Ваш купон - промокод:</p>
+                        <form method="post" action=".">{% csrf_token %}
+                            <input type="text" name="cupon" value="" id="cupon" size="10" style=" width: 147px; margin-right: 10px;"/>
+                            <button class="btn btn-info" type="submit" name="update_cupon">
+                                <i class="icon-refresh icon-white"></i><span>Пересчитать</span>
+                            </button>
+                        </form>
+                    </div>
+
+
                 </tfoot>
             </table>
                 </div>

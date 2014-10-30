@@ -16,13 +16,22 @@ def cart_view(request, template_name="cart/cart.html"):
     page_title = _(u'Shopping cart')
     if request.method == 'POST':
         postdata = request.POST.copy()
+
         if postdata.has_key('remove'):
             cart.remove_from_cart(request)
+
         if postdata.has_key('update'):
             cart.update_cart(request)
+
+        """отправляем request на пересчет корзины по купону"""
+        if postdata.has_key('update_cupon'):
+            cart.update_cupon_cart(request)
+
+
         if postdata.has_key('checkout'):
             checkout_url = checkout.get_checkout_url(request)
             return HttpResponseRedirect(checkout_url)
+
     # Получаем список всех товаров в корзине из cookies
     #cart_item_count = cart.cart_item_count(request)
     cart_items = cart.get_cart_items(request)

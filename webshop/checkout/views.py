@@ -100,7 +100,8 @@ def contact(request, template_name='checkout/checkout.html'):
                 'error': form.errors,
             })
     else:
-        form = ContactForm()
+        user_profile = profile.retrieve(request)
+        form = ContactForm(instance=user_profile)
         # post = Post.objects.all()
 
     return render_to_response(template_name, locals(),

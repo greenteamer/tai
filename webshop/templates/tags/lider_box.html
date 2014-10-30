@@ -10,7 +10,7 @@
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
             {% endthumbnail %}
             <div class="text_item">
-                <p class="name_item">{{ item.name }}</p>
+                <a href="{{ item.get_absolute_url }}" class="name_item">{{ item.name }}</a>
                 <p>Цена: <i class="fa fa-rub"></i>{{ item.price }}</p>
                 {% if item.is_not_available %}
                     <p style="color: red;">Нет в наличии</p>
