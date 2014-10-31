@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
+from ckeditor.fields import RichTextField
 
 
 class CommonActiveManager(models.Manager):
@@ -38,7 +39,7 @@ class Category(MPTTModel):
         verbose_name_plural = _(u'Categories')
 
     def __unicode__(self):
-        return self.name.decode('utf-8')
+        return self.name
 
     @permalink
     def get_absolute_url(self):
@@ -72,23 +73,12 @@ class FeelName(models.Model):
         return self.name
 
 
-class GiftPrice(models.Model):
-    price = models.CharField(verbose_name=u'Стоимость для падарков', max_length=5)
-
-    class Meta:
-        db_table = 'gift_price'
-        verbose_name_plural = _(u'Стоимость для подарков')
-
-    def __unicode__(self):
-        return self.price
-
-
 class Product(models.Model):
     """Класс для товаров"""
     name = models.CharField(_(u'Name'), max_length=255, unique=True)
     slug = models.SlugField(_(u'Slug'), max_length=255, unique=True,
                             help_text=_(u'Unique value for product page URL, created from name.'))
-    brand = models.CharField(_(u'Производитель'), max_length=50,blank=True)
+    brand = models.CharField(_(u'Производитель'), max_length=50)
 
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
     new_price = models.DecimalField(max_digits=9, decimal_places=2,
@@ -109,7 +99,8 @@ class Product(models.Model):
                                         help_text=_(u'Categories for product'))
 
     feel = models.ForeignKey(FeelName, verbose_name=u'Вкус', blank=True, null=True)
-    gift = models.ForeignKey(GiftPrice, verbose_name=u'Выбрать этот товар как подарок', blank=True, null=True)
+    weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
+    # gift = models.ForeignKey(GiftPrice, verbose_name=u'Выбрать этот товар как подарок', blank=True, null=True)
 
     objects = models.Manager()
     # active = CommonActiveManager()
@@ -175,6 +166,26 @@ class ProductImage(models.Model):
 
     def __unicode__(self):
         return self.product.name
+
+
+class GiftPrice(models.Model):
+    name = models.CharField(max_length=100, verbose_name=u'Название подарка')
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
+    description = RichTextField(null=True, blank=True)
+    image = models.ImageField(verbose_name=u'Фото подарка', upload_to='gifts/images/')
+    weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
+
+    class Meta:
+        db_table = 'gift_price'
+        ordering = ["-price"]
+        verbose_name_plural = _(u'Подарки')
+
+    def url(self):
+        return self.image
+
+    def __unicode__(self):
+        return self.name
+
 
 class CharacteristicType(models.Model):
     """Словарная таблица характеристик продуктов"""

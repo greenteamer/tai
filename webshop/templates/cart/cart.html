@@ -1,6 +1,7 @@
 {% extends "catalog.html" %}
 {% load i18n %}
 {% load catalog_filters %}
+{% load thumbnail %}
 {% block content %}
 {% block slider %}
 {% endblock %}
@@ -84,7 +85,34 @@
                     </tr>
                     {% endif %}
 
+{#                    вывод подарков#}
+                    {% if cart_gift %}
+                        <div class="gift_in_cart">
+                            <h4>Для Вас есть подарок!</h4>
+                                <div style="">
+                                    {% thumbnail cart_gift.url "100x100" crop="center" as im %}
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" align="left">
+                                    {% endthumbnail %}
+                                    <p>{{ cart_gift.name  }}</p>
+                                    <p>{{ cart_gift.description|truncatewords:100|safe }}</p>
+                                </div>
+                        </div>
+                    {% endif %}
 
+{#                    <div class="gift_in_cart">#}
+{#                        <h4>Для Вас есть подарок!</h4>#}
+{#                        {% for key, value in cart_gift.items %}#}
+{#                            <div style="">#}
+{#                                {% thumbnail value.image_url "100x100" crop="center" as im %}#}
+{#                                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">#}
+{#                                {% endthumbnail %}#}
+{#                                <a href="{{ value.get_absolute_url }}">{{ value.name }}</a>#}
+{#                                <p>{{ value.description  }}</p>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+
+{#                    вывод промокода#}
                     <div class="col-md-4 kupon">
                         <p style=" color: red; ">Введите Ваш купон - промокод:</p>
                         <form method="post" action=".">{% csrf_token %}

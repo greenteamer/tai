@@ -32,7 +32,7 @@ def order_form(request, form):
         order_item = OrderItem.objects.filter(order_id=order.id)
 
         # test
-        dajax.assign('#id_email', 'value', errorText)
+        # dajax.assign('#id_email', 'value', errorText)
 
         items = ''
         for item in order_item:
