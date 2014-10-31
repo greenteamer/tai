@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 from webshop.catalog.forms import ProductAdminForm
-from webshop.catalog.models import Product, Category, Characteristic, CharacteristicType, ProductImage, FeelName, GiftPrice, Cupon
+from webshop.catalog.models import Product, Category, Characteristic, CharacteristicType, ProductImage, FeelName, GiftPrice, Cupon, BrandName
 
 
 # class CharacteristicAdmin(admin.StackedInline):
@@ -83,7 +83,7 @@ class FeelNameAdmin(admin.ModelAdmin):
 # Регистрирация моделей в админке
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
-# admin.site.register(BrandName, BrandNameAdmin)
+admin.site.register(BrandName)
 admin.site.register(FeelName, FeelNameAdmin)
 admin.site.register(GiftPrice)
 admin.site.register(Cupon)

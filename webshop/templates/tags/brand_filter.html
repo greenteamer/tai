@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load catalog_tags %}
+{% load thumbnail %}
+
+
+{% if brand_items %}
+    <div class="">
+        <form action="/search/results/" method="get" id="">
+            <select name="query" id="" onchange="this.form.submit();">
+                <option value="">Не выбрано</option>
+                {% for brand in brand_items %}
+                    <option value="{{ brand.name }}">{{ brand.name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+{% else %}
+    <p>Нет лидеров</p>
+{% endif %}

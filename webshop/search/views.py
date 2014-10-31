@@ -20,7 +20,7 @@ def results_view(request, template_name="search/results.html"):
     query = request.GET.get('query', '')
     # print query
     # возвращаем найденные продукты
-    matching = search.products(query).get('products')
+    matching = search.products(query)
     # Создаем объект класса Paginator
     # paginator = Paginator(matching, settings.PRODUCTS_PER_PAGE)
     # try:

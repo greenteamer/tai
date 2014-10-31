@@ -73,12 +73,26 @@ class FeelName(models.Model):
         return self.name
 
 
+class BrandName(models.Model):
+    """Словарная таблица цветов"""
+    name = models.CharField(max_length=255, verbose_name=u'Название бренда')
+    # product = models.ForeignKey(Product, verbose_name=u'Брэнд', blank=True)
+
+    class Meta:
+        db_table = 'brand_product'
+        verbose_name_plural = _(u'Бренды')
+
+    def __unicode__(self):
+        return self.name
+
+
 class Product(models.Model):
     """Класс для товаров"""
     name = models.CharField(_(u'Name'), max_length=255, unique=True)
     slug = models.SlugField(_(u'Slug'), max_length=255, unique=True,
                             help_text=_(u'Unique value for product page URL, created from name.'))
-    brand = models.CharField(_(u'Производитель'), max_length=50)
+    # brand = models.CharField(_(u'Производитель'), max_length=50)
+    brand_name = models.ForeignKey(BrandName, verbose_name=u'Название бренда', blank=True)
 
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
     new_price = models.DecimalField(max_digits=9, decimal_places=2,

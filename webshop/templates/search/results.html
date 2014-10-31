@@ -10,6 +10,7 @@
             <strong>коллличество результатов {{ results.count }}</strong>
             <br/>
             <br/>
+
             {% for p in results %}
 
                 {% thumbnail p.image_url "100x100" crop="center" as im %}
