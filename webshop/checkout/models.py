@@ -39,10 +39,10 @@ class Order(BaseOrderInfo):
     # Словарь возможных статусов заказа
     ORDER_STATUSES = ((SUBMITTED, _(u'Принято')),
                       (PAID, _(u'Оплачено')),
-                      (CURIER, _(u'Оплата курьеру')),)
+                      (CURIER, _(u'Оплата квитанцией')),)
 
     # словарь способа оплаты
-    PAYMENT_DICTIONARY = ((1, _(u'Оплатить курьеру')),
+    PAYMENT_DICTIONARY = ((1, _(u'Оплатить квитанцию')),
                           (2, _(u'Оплатить Viza, MasterCard, ЯндексДеньги')),)
 
     # Информация о заказе
