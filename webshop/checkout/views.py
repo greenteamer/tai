@@ -56,10 +56,10 @@ from robokassa.forms import RobokassaForm
 #                               context_instance=RequestContext(request))
 
 
-def contact(request, template_name='checkout/checkout.html'):
-    if cart.is_empty(request):
-        cart_url = urlresolvers.reverse('show_cart')
-        return HttpResponseRedirect(cart_url)
+# def contact(request, template_name='checkout/checkout.html'):
+#     if cart.is_empty(request):
+#         cart_url = urlresolvers.reverse('show_cart')
+#         return HttpResponseRedirect(cart_url)
 
     # if request.method == 'POST':
     #     form = ContactForm(request.POST)
@@ -121,6 +121,12 @@ def contact(request, template_name='checkout/checkout.html'):
     # return render_to_response(template_name, locals(),
     #                           context_instance=RequestContext(request))
 
+
+def contact(request, template_name='checkout/checkout.html'):
+    if cart.is_empty(request):
+        cart_url = urlresolvers.reverse('show_cart')
+        return HttpResponseRedirect(cart_url)
+
     if request.method == 'POST':
         form = ContactForm(request.POST)
         phone = request.POST['phone']
@@ -144,14 +150,12 @@ def contact(request, template_name='checkout/checkout.html'):
                 'form': form,
                 'error': form.errors,
             })
-    else:
+    else: #заполняем форму получателя если пользователь авторизирован
         if  request.user.is_authenticated():
             user_profile = profile.retrieve(request)
             form = ContactForm(instance=user_profile)
         else:
             form = ContactForm()
-        # form = ContactForm()
-        # post = Post.objects.all()
 
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
@@ -200,7 +204,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             for item in order_items:
                 items = items + '%s \n' % item.name
             if order.payment_method == 1:
-                payment_method = u'Оплата курьером'
+                payment_method = u'Оплатить квитанцию'
             else:
                 payment_method = u'Оплата онлайн'
             subject = u'podarkoff-moscow.ru заявка от %s' % order.shipping_name
@@ -220,8 +224,11 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             to = '%s' % order.email
             msg = EmailMultiAlternatives(subject, message, from_email, [to])
             msg.content_subtype = "html"
-            msg.send()
+            # msg.send()
 
+            price_order = order.total
+
+            template_name = 'checkout/receipt_print.html'
 
         del request.session['order_id']
     else:
