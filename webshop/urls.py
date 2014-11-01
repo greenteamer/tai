@@ -3,6 +3,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
+
 from webshop import settings
 from dajaxice.core import dajaxice_autodiscover, dajaxice_config
 
@@ -32,9 +33,12 @@ urlpatterns = patterns('',
     url(r'^', include('webshop.catalog.urls')),
     url(r'^cart/', include('webshop.cart.urls')),
     url(r'^page/', include('webshop.pages.urls')),
+    url(r'^blog/', include('webshop.pages.blogurls')),
     url(r'^checkout/', include('webshop.checkout.urls')),
     url(r'^', include('webshop.news.urls')),
     url(r'^search/', include('webshop.search.urls')),
+    url(r'^review/$', include('webshop.pages.reviewurls')),
+
 
     # enable language choice
     url(r'^i18n/', include('django.conf.urls.i18n')),

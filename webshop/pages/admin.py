@@ -6,4 +6,10 @@ class PageAdmin(admin.ModelAdmin):
     model = Page
     prepopulated_fields = {'slug':('name',)}
 
+class BlogAdmin(admin.ModelAdmin):
+    model = Blog
+    prepopulated_fields = {'slug':('name',)}
+
 admin.site.register(Page, PageAdmin)
+admin.site.register(Review)
+admin.site.register(Blog, BlogAdmin)
