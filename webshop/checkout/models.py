@@ -28,32 +28,27 @@ class BaseOrderInfo(models.Model):
     shipping_country = models.CharField(max_length=50, verbose_name=(u'Страна'))
     shipping_zip = models.CharField(max_length=10, verbose_name=(u'Почтовый индекс'))
 
-    # # Информация о плательщике
-    # billing_name = models.CharField(max_length=50, default='default')
-    # billing_address = models.CharField(max_length=50, null=True)
-    # billing_city = models.CharField(max_length=50, default='default')
-    # billing_country = models.CharField(max_length=50, default='default')
-    # billing_zip = models.CharField(max_length=10, default='default')
-
-
 class Order(BaseOrderInfo):
     """Класс для заказа"""
 
     # Константы статуса
     SUBMITTED = 1
-    PROCESSED = 2
-    SHIPPED = 3
-    CANCELLED = 4
+    PAID = 2
+    CURIER = 3
 
     # Словарь возможных статусов заказа
-    ORDER_STATUSES = ((SUBMITTED, _(u'Submitted')),
-                      (PROCESSED, _(u'Processed')),
-                      (SHIPPED, _(u'Shipped')),
-                      (CANCELLED, _(u'Cancelled')),)
+    ORDER_STATUSES = ((SUBMITTED, _(u'Принято')),
+                      (PAID, _(u'Оплачено')),
+                      (CURIER, _(u'Оплата курьеру')),)
+
+    # словарь способа оплаты
+    PAYMENT_DICTIONARY = ((1, _(u'Оплатить курьеру')),
+                          (2, _(u'Оплатить Viza, MasterCard, ЯндексДеньги')),)
 
     # Информация о заказе
     date = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=ORDER_STATUSES, default=SUBMITTED)
+    payment_method = models.IntegerField(choices=PAYMENT_DICTIONARY, default=2)
     ip_address = models.IPAddressField()
     last_updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, null=True)
@@ -100,7 +95,7 @@ class OrderItem(models.Model):
     #     return self.product.sku
 
     def __unicode__(self):
-        return self.product.name \
+        return self.product.name
                # + ' (' + self.product.sku + ')'
 
     def get_absolute_url(self):

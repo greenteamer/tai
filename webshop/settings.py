@@ -14,7 +14,7 @@ TEMPLATE_DEBUG = DEBUG
 
 DEFAULT_CHARSET = 'utf-8'
 
-
+ADMIN_EMAIL = 'greenteamer@bk.ru'
 ADMINS = (
 	# ('Your Name', 'your_email@example.com'),
 )
@@ -232,6 +232,11 @@ LOGIN_REDIRECT_URL = '/accounts/my_account/'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 90 # 90 дней на хранение cookies
 PRODUCTS_PER_PAGE = 300
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+ROBOKASSA_LOGIN = 'tai'
+ROBOKASSA_PASSWORD1 = 'polythai2014'
+ROBOKASSA_PASSWORD2 = 'polythai2014secondPassword'
+ROBOKASSA_TEST_MODE = True
 
 try:
     from settings_local import *

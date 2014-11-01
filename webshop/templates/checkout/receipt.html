@@ -41,6 +41,18 @@
                             </tbody>
                          </table>
                     </div>
+
+                    {% if order.payment_method == 2 %}
+                        <div class="col-md-12">
+                            <div class="form_robo">
+                                <form action="{{ form.target }}" method="POST">
+                                    <p>{{ form.as_p }}</p>
+                                    <input class="btn btn-primary" type="submit" value="Оплатить"/>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

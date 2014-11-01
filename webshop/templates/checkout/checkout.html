@@ -42,42 +42,44 @@
 
                     <form action="." id="my_form" method="post">
                         {% csrf_token %}
-                        <div id="checkout_form">
-                                <div class="row">
-                                    <div class="col-md-6 border_chec">
-                                        <div class="border_chec2 col-md-6 ">
-                                            <label for="id_email">Ваш email:</label>
-                                            {% if error.email %}{{ error.email }}{% endif %}
-                                            {{form.email}}
-                                            <label for="id_email">Ваш телефон:</label>
-                                            {% if error.phone %}{{ error.phone }}{% endif %}
-                                            {{form.phone}}
-                                            <label for="id_shipping_name">Ваше имя:</label>
-                                            {% if error.shipping_name %}{{ error.shipping_name }}{% endif %}
-                                            {{form.shipping_name}}
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="id_shipping_address_1">Ваш адрес:</label>
-                                            {% if error.shipping_address_1 %}{{ error.shipping_address_1 }}{% endif %}
-                                            {{form.shipping_address_1}}
-                                            <label for="id_shipping_address_2">Ваш адрес 2:</label>
-                                            {% if error.shipping_address_2 %}{{ error.shipping_address_2 }}{% endif %}
-                                            {{form.shipping_address_2}}
-                                            <label for="id_shipping_country">Страна доставки:</label>
-                                            {% if error.shipping_country %}{{ error.shipping_country }}{% endif %}
-                                            {{form.shipping_country}}
-                                            <label for="id_shipping_zip">Почтовый индекс:</label>
-                                            {% if error.shipping_zip %}{{ error.shipping_zip }}{% endif %}
-                                            {{form.shipping_zip }}
-                                            <label for="id_shipping_city">Город:</label>
-                                            {% if error.shipping_city %}{{ error.shipping_city }}{% endif %}
-                                            {{form.shipping_city}}
-                                            <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>
+                        {{ form.as_p }}
+                        <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>
+{#                        <div id="checkout_form">#}
+{#                                <div class="row">#}
+{#                                    <div class="col-md-6 border_chec">#}
+{#                                        <div class="border_chec2 col-md-6 ">#}
+{#                                            <label for="id_email">Ваш email:</label>#}
+{#                                            {% if error.email %}{{ error.email }}{% endif %}#}
+{#                                            {{form.email}}#}
+{#                                            <label for="id_email">Ваш телефон:</label>#}
+{#                                            {% if error.phone %}{{ error.phone }}{% endif %}#}
+{#                                            {{form.phone}}#}
+{#                                            <label for="id_shipping_name">Ваше имя:</label>#}
+{#                                            {% if error.shipping_name %}{{ error.shipping_name }}{% endif %}#}
+{#                                            {{form.shipping_name}}#}
+{#                                        </div>#}
+{#                                        <div class="col-md-6">#}
+{#                                            <label for="id_shipping_address_1">Ваш адрес:</label>#}
+{#                                            {% if error.shipping_address_1 %}{{ error.shipping_address_1 }}{% endif %}#}
+{#                                            {{form.shipping_address_1}}#}
+{#                                            <label for="id_shipping_address_2">Ваш адрес 2:</label>#}
+{#                                            {% if error.shipping_address_2 %}{{ error.shipping_address_2 }}{% endif %}#}
+{#                                            {{form.shipping_address_2}}#}
+{#                                            <label for="id_shipping_country">Страна доставки:</label>#}
+{#                                            {% if error.shipping_country %}{{ error.shipping_country }}{% endif %}#}
+{#                                            {{form.shipping_country}}#}
+{#                                            <label for="id_shipping_zip">Почтовый индекс:</label>#}
+{#                                            {% if error.shipping_zip %}{{ error.shipping_zip }}{% endif %}#}
+{#                                            {{form.shipping_zip }}#}
+{#                                            <label for="id_shipping_city">Город:</label>#}
+{#                                            {% if error.shipping_city %}{{ error.shipping_city }}{% endif %}#}
+{#                                            {{form.shipping_city}}#}
+{#                                            <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>#}
 {#                                            <input id="order_submit" class="btn btn-primary" value="Отправить" type="button" onclick="order_form();">#}
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                        </div>#}
                     </form>
 
                 </div>
