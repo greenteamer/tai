@@ -254,8 +254,8 @@ def receipt_view(request, template_name='checkout/receipt.html'):
 """обрабатываем сигналы"""
 def payment_received(sender, **kwargs):
     order = Order.objects.get(id=kwargs['InvId'])
-    order.email = 'result@result.ru'
-    # order.status = Order.PAID
+    order.status = Order.PAID
+
     # order.paid_sum = kwargs['OutSum']
     order.save()
 
