@@ -8,6 +8,7 @@ from webshop import settings
 from webshop.pages.views import *
 
 urlpatterns = patterns('webshop.pages.views',
-    url(r'^(?P<slug>[-_\w]+)/$', PageView.as_view(), name='page'),
-    # url(r'^', PageList.as_view(), name='blog_posts'),
+    # url(r'^(?P<slug>[-_\w]+)/$', PageView.as_view(), name='page'),
+    url(r'^$', BlogList.as_view(), name='blog_posts'),
+    url(r'^(?P<section>[-\w]+)/$', 'blogSection'),
 )

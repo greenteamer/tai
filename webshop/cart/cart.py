@@ -5,7 +5,7 @@ import random
 
 from django.shortcuts import get_object_or_404
 
-from webshop.catalog.models import Product, Cupon
+from webshop.catalog.models import Product, Cupon, GiftPrice, ProductImage
 from webshop.cart.models import CartItem
 
 
@@ -216,6 +216,24 @@ def cart_subtotal(request):
     for cart_item in cart_products:
         cart_total += (cart_item.product.price - (cart_item.product.price * int(cart_item.cupon.percent) / 100)) * cart_item.quantity
     return cart_total
+
+
+def cart_gift_add(request):
+    """добавляем подарок"""
+    gifts = GiftPrice.objects.all()
+    cart_total = cart_subtotal(request)
+    for gift in gifts:
+        if gift.price < cart_total:
+
+            result = gift
+
+            try:
+                result.image_url = GiftPrice.objects.get(product=gift, default=True).url
+            except Exception:
+                result.image_url = "/media/products/images/none.png"
+
+            return result
+
 
 def is_empty(request):
     """Если корзина пустая возвращаем True"""

@@ -74,29 +74,6 @@
 
         <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
         <script src="{{ STATIC_URL }}js/custom.js"></script>
-        <script type="text/javascript">
-            (function($) {
-                $( document ).ready(function() {
-{#                    $('.popular_products').mouseover(function(){#}
-{#                        $(this).find(".description_hidden").removeClass('opacity');#}
-{#                        $(this).find(".product_thumbnail").addClass('blur');#}
-{#                    });#}
-{#                    $('.popular_products').mouseout(function(){#}
-{#                        $(this).find(".description_hidden").addClass('opacity');#}
-{#                        $(this).find(".product_thumbnail").removeClass('blur');#}
-{#                    });#}
-{##}
-{#                    $('.best_item').mouseover(function(){#}
-{#                        $(this).find(".description_hidden").removeClass('opacity');#}
-{#                        $(this).find("img").addClass('blur_small');#}
-{#                    });#}
-{#                    $('.best_item').mouseout(function(){#}
-{#                        $(this).find(".description_hidden").addClass('opacity');#}
-{#                        $(this).find("img").removeClass('blur_small');#}
-{#                    });#}
-                });
-            })(jQuery);
-        </script>
 
         {% bootstrap_javascript %}
         {% bootstrap_messages %}

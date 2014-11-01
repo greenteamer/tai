@@ -36,5 +36,6 @@ def cart_view(request, template_name="cart/cart.html"):
     #cart_item_count = cart.cart_item_count(request)
     cart_items = cart.get_cart_items(request)
     cart_subtotal = cart.cart_subtotal(request)
+    cart_gift = cart.cart_gift_add(request)
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))

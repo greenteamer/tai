@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from webshop.cart import cart
-from webshop.catalog.models import Category, Product, ProductImage
+from webshop.catalog.models import Category, Product, ProductImage, BrandName
 from webshop.slider.models import Slider
 from webshop.checkout import checkout
 from webshop.catalog.models import Category
@@ -60,6 +60,16 @@ def lider_box(context, request):
     }
 # Register the custom tag as an inclusion tag with takes_context=True.
 register.inclusion_tag('tags/lider_box.html', takes_context=True)(lider_box)
+
+# The first argument *must* be called "context" here.
+def brand_filter(context, request):
+    brand_items = BrandName.objects.all()
+    return {
+        # 'products': products,
+        'brand_items': brand_items,
+    }
+# Register the custom tag as an inclusion tag with takes_context=True.
+register.inclusion_tag('tags/brand_filter.html', takes_context=True)(brand_filter)
 
 
 # The first argument *must* be called "context" here.

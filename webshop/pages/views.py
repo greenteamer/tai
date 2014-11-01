@@ -10,6 +10,9 @@ from django.conf import settings
 from django.views.generic import ListView, DetailView
 
 from webshop.pages.models import *
+from webshop.accounts import profile
+from webshop.accounts.models import UserProfile
+from webshop.pages.forms import ReviewForm
 
 class PageView(DetailView):
     template_name = 'pages/page.html'
@@ -19,3 +22,43 @@ class PageView(DetailView):
         context = super(PageView, self).get_context_data(**kwargs)
         return context
 
+class BlogList(ListView):
+    queryset = Blog.objects.all()
+    context_object_name = 'blog_posts'
+    template_name = 'pages/blog_list.html'
+
+
+# class BlogListSectionOne(ListView):
+#
+#     queryset = Blog.objects.filter(menu_select='section1')
+#     context_object_name = 'blog_section1'
+#     template_name = 'pages/blog_list.html'
+
+# выводим категорию блога
+def blogSection(request, section, template_name="pages/blog_list.html"):
+    blog_section = Blog.objects.filter(menu_select=section)
+    return render_to_response(template_name, locals(),context_instance=RequestContext(request))
+
+
+def review_form_view(request, template_name="pages/review.html"):
+    try:
+        current_userProfile = UserProfile.objects.get(user=request.user)
+        if request.method == 'POST':
+            postdata = request.POST.copy()
+            form = ReviewForm(postdata)
+            if form.is_valid():
+                new_review = Review()
+                new_review.review = postdata.get('review', '')
+                new_review.user = request.user
+                new_review.save()
+                # new_review = form.save(commit=False)
+
+                url = urlresolvers.reverse('my_account')
+                return HttpResponseRedirect(url)
+        else:
+            user_profile = request.user
+            form = ReviewForm(instance=user_profile)
+
+    except:
+        text = u'Вы не заполнили свой профиль'
+    return render_to_response(template_name, locals(),context_instance=RequestContext(request))
