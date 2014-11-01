@@ -22,6 +22,7 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from robokassa.signals import result_received
 
+
 from robokassa.forms import RobokassaForm
 
 
@@ -187,8 +188,8 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             form = RobokassaForm(initial={
                    'OutSum': order.total,
                    'InvId': order.id,
-                   'Desc': order.shipping_name,
-                   'Email': order.email,
+                   # 'Desc': order.shipping_name,
+                   # 'Email': order.email,
                    # 'IncCurrLabel': '',
                    # 'Culture': 'ru'
                })
@@ -233,21 +234,21 @@ def receipt_view(request, template_name='checkout/receipt.html'):
 
 
 
-"""обозначаем шаблоны robokassa"""
-class RobokassaSuccess(TemplateView):
-    template_name = 'robokassa/success.html'
-
-
-class RobokassaFail(TemplateView):
-    template_name = 'robokassa/fail.html'
-
-
-class RobokassaError(TemplateView):
-    template_name = 'robokassa/error.html'
-
-
-def robokassa_result(request):
-    return render(request, 'robokassa/result.html')
+# """обозначаем шаблоны robokassa"""
+# class RobokassaSuccess(TemplateView):
+#     template_name = 'robokassa/success.html'
+#
+#
+# class RobokassaFail(TemplateView):
+#     template_name = 'robokassa/fail.html'
+#
+#
+# class RobokassaError(TemplateView):
+#     template_name = 'robokassa/error.html'
+#
+#
+# def robokassa_result(request):
+#     return render(request, 'robokassa/result.html')
 
 
 """обрабатываем сигналы"""
@@ -256,33 +257,5 @@ def payment_received(sender, **kwargs):
     order.status = Order.PAID
     # order.paid_sum = kwargs['OutSum']
     order.save()
-
-    """отправка писем"""
-    order_items = OrderItem.objects.filter(order=order)
-    items = ''
-    for item in order_items:
-        items = items + '%s \n' % item.name
-    if order.payment_method == 1:
-        payment_method = u'Оплата курьером'
-    else:
-        payment_method = u'Оплата онлайн'
-    subject = u'podarkoff-moscow.ru заявка от %s' % order.shipping_name
-    message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n Стоимость: %s \n Способ оплаты: %s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, order.total, payment_method)
-    send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
-
-    context_dict = {
-            'transaction': order.transaction_id,
-            'id': order.id,
-            'items': items,
-            'total': order.total,
-            'payment_method': payment_method,
-        }
-
-    message = render_to_string('checkout/email.html', context_dict)
-    from_email = 'teamer777@gmail.com'
-    to = '%s' % order.email
-    msg = EmailMultiAlternatives(subject, message, from_email, [to])
-    msg.content_subtype = "html"
-    msg.send()
 
 result_received.connect(payment_received)
