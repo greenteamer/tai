@@ -237,7 +237,6 @@ ROBOKASSA_LOGIN = 'tai'
 ROBOKASSA_PASSWORD1 = 'polythai2014'
 ROBOKASSA_PASSWORD2 = 'polythai2014secondPass'
 ROBOKASSA_TEST_MODE = True
-ROBOKASSA_USE_POST = True
 
 try:
     from settings_local import *
