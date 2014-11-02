@@ -226,7 +226,8 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             msg.content_subtype = "html"
             # msg.send()
 
-            price_order = order.total
+            price_order = '%s' % order.total
+            price_order = price_order.split(".")
 
             template_name = 'checkout/receipt_print.html'
 

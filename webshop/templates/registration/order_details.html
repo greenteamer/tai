@@ -33,8 +33,14 @@
   	<tfoot>
 			<tr>
 				<td colspan="5" class="right" style="height:30px; text-align: right">
-				{% trans "Order Total" %}: {{ order.total }} руб.
+				{% trans "Order Total" %}: {{ order.total }} руб.                    
 				</td>
+                <td>
+                    {% if order.payment_method == 1 %}
+{#                        распарсить стоимость и передать в урл#}
+                        <a href="/accounts/order_receipt_print/{{ order.total|cut:".00" }}-{{ order.total|get_digit:"2" }}{{ order.total|get_digit:"2" }}">Распечатать плетежку</a>
+                    {% endif %} 
+                </td>
 			</tr>
 		</tfoot>
 	</table>
