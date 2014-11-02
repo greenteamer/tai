@@ -43,6 +43,7 @@ def blogSection(request, section, template_name="pages/blog_list.html"):
 def review_form_view(request, template_name="pages/review.html"):
     try:
         current_userProfile = UserProfile.objects.get(user=request.user)
+        reviews = Review.objects.all()
         if request.method == 'POST':
             postdata = request.POST.copy()
             form = ReviewForm(postdata)
@@ -61,4 +62,7 @@ def review_form_view(request, template_name="pages/review.html"):
 
     except:
         text = u'Вы не заполнили свой профиль'
+
+    reviews = Review.objects.all()
+
     return render_to_response(template_name, locals(),context_instance=RequestContext(request))
