@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
 
+import decimal
 from webshop.checkout.models import Order, OrderItem
 from webshop.accounts.forms import UserProfileForm, MyRegistrationForm
 from webshop.accounts import profile
@@ -54,6 +55,12 @@ def order_details_view(request, order_id, template_name="registration/order_deta
     order = get_object_or_404(Order, id=order_id, user=request.user)
     page_title = _(u'Order details for order #') + order_id
     order_items = OrderItem.objects.filter(order=order)
+    return render_to_response(template_name, locals(),
+                              context_instance=RequestContext(request))
+
+@login_required
+def receipt_print_view(request, price, template_name="checkout/receipt_print.html"):
+    price = price.split("-")
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
 

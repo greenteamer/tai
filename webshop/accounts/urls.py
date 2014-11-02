@@ -22,6 +22,9 @@ urlpatterns = patterns('webshop.accounts.views',
 	url(r'^orders_info/$', 'order_info_view',
 		{'template_name': 'registration/order_info.html'},
 		name='order_info'),
+    url(r'^order_receipt_print/(?P<price>[-\w]+)/$', 'receipt_print_view',
+		{'template_name': 'checkout/receipt_print.html'},
+		name='order_receipt_print'),
 )
 
 urlpatterns += patterns('django.contrib.auth.views',
