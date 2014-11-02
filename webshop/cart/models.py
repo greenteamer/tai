@@ -23,7 +23,10 @@ class CartItem(models.Model):
     @property
     def total(self):
         """Метод для подсчета суммы, цена товара * кол-во"""
-        return decimal.Decimal(self.quantity * float(self.product.price))
+        total = decimal.Decimal("0.00")
+        total = self.quantity * self.product.price
+        # total = "%d" % total
+        return total
 
     @property
     def name(self):

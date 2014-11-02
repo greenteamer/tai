@@ -38,7 +38,7 @@
                 <td>
                     {% if order.payment_method == 1 %}
 {#                        распарсить стоимость и передать в урл#}
-                        <a href="/accounts/order_receipt_print/{{ order.total|cut:".00" }}-{{ order.total|get_digit:"2" }}{{ order.total|get_digit:"2" }}">Распечатать плетежку</a>
+                        <a href="/accounts/order_receipt_print/{{ total_sum_parse|first }}-{{ total_sum_parse|last }}">Распечатать плетежку</a>
                     {% endif %} 
                 </td>
 			</tr>
