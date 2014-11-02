@@ -9,6 +9,7 @@ from django.core import urlresolvers
 #from webshop.checkout import google_checkout
 from webshop.cart import cart
 from webshop.checkout.models import Order, OrderItem
+from webshop.catalog.models import Cupon
 from webshop.checkout.forms import CheckoutForm, ContactForm
 from webshop.accounts import profile
 #from webshop.checkout import authnet
@@ -48,8 +49,11 @@ def create_order(request, transaction_id):
     checkout_form = ContactForm(request.POST, instance=order)
     order = checkout_form.save(commit=False)
 
+    # присваиваем купон заказу по купону корзины
     cart_items = cart.get_cart_items(request)
-    cupon = cart_items[1].cupon
+    cupon = Cupon()
+    for c in cart_items:
+        cupon = c.cupon
     order.cupon = cupon
 
     order.transaction_id = transaction_id

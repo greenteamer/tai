@@ -268,8 +268,8 @@ def payment_received(sender, **kwargs):
     # order.paid_sum = kwargs['OutSum']
     order.save()
 
-    cupon_done = Cupon.objects.get(id=order.cupon)
-    cupon_done.percent = 0
+    cupon_done = Cupon.objects.get(order.cupon)
+    cupon_done.percent = '0'
     cupon_done.save()
 
     # отправляем письмо администратору
