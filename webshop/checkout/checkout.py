@@ -48,7 +48,9 @@ def create_order(request, transaction_id):
     checkout_form = ContactForm(request.POST, instance=order)
     order = checkout_form.save(commit=False)
 
-
+    cart_items = cart.get_cart_items(request)
+    cupon = cart_items[1].cupon
+    order.cupon = cupon
 
     order.transaction_id = transaction_id
     order.ip_address = request.META.get('REMOTE_ADDR')

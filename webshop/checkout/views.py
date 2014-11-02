@@ -12,6 +12,7 @@ from webshop.settings import ADMIN_EMAIL
 
 from webshop.checkout.forms import CheckoutForm
 from webshop.checkout.models import Order, OrderItem
+from webshop.catalog.models import Cupon
 from webshop.checkout import checkout
 from webshop.cart import cart
 from webshop.accounts import profile
@@ -266,6 +267,10 @@ def payment_received(sender, **kwargs):
 
     # order.paid_sum = kwargs['OutSum']
     order.save()
+
+    cupon_done = Cupon.objects.get(id=order.cupon)
+    cupon_done.percent = 0
+    cupon_done.save()
 
     # отправляем письмо администратору
     order_items = OrderItem.objects.filter(order=order)

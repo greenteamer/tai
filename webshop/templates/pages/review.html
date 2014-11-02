@@ -8,6 +8,14 @@
         <p>пожалуйста заполните свой профиль <a href="/accounts/my_account/">здесь</a></p>
         <p>После этого Вы сможете оставить свой отзыв</p>
     {% else %}
+
+        {% if reviews %}
+            {% for review in reviews %}
+                <h3>{{ review.user.username }}</h3>
+                <p>{{ review.review|safe }}</p>
+            {% endfor %}
+        {% endif %}
+
         <form action="." method="post">{% csrf_token %}
             <table>
                 {{ form.as_table }}
@@ -21,4 +29,5 @@
             </table>
         </form>
     {% endif %}
+
 {% endblock %}

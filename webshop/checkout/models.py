@@ -7,8 +7,7 @@ from django.db import models
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 
-from webshop.catalog.models import Product
-
+from webshop.catalog.models import Product, Cupon
 
 class BaseOrderInfo(models.Model):
     """Абстрактный класс для заказов"""
@@ -54,6 +53,11 @@ class Order(BaseOrderInfo):
     user = models.ForeignKey(User, null=True)
     transaction_id = models.CharField(max_length=20)
 
+    # def cupon_is_zero(self):
+    #     return Cupon.objects.get(identifier='zero')
+
+    cupon = models.ForeignKey(Cupon, verbose_name=u'Использованый купон', blank=True, null=True)
+
     def __unicode__(self):
         return _(u'Order #') + str(self.id)
 
@@ -70,6 +74,12 @@ class Order(BaseOrderInfo):
     def get_absolute_url(self):
         """Абсолютная ссылка для просмотра заказа"""
         return ('order_details', (), { 'order_id': self.id })
+
+    # переопределяем метод сохранения что бы присвоить zero купон , если никакого другого не присваивали
+    def save(self, force_insert=False, force_update=False, using=None):
+        if not self.cupon:
+            self.cupon = Cupon.objects.get(identifier='zero')
+        return super(Order, self).save(force_insert, force_update, using)
 
 
 class OrderItem(models.Model):
