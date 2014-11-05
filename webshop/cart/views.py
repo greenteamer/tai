@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 
 from webshop.cart import cart
 from webshop.checkout import checkout
+from webshop.checkout.forms import ContactForm, TestForm
 
 
 @csrf_protect
@@ -37,5 +38,11 @@ def cart_view(request, template_name="cart/cart.html"):
     cart_items = cart.get_cart_items(request)
     cart_subtotal = cart.cart_subtotal(request)
     cart_gift = cart.cart_gift_add(request)
+
+    # доставка
+    delivery = cart.get_delivery(request)
+    all_prices = cart.all_prices_for_delivery(request)
+    status = cart.status_delivery_radio(request)
+
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))

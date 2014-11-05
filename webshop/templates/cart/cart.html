@@ -1,8 +1,7 @@
 {% extends "catalog.html" %}
 {% load i18n %}
 {% load catalog_filters %}
-{% load thumbnail %}
-{% block content %}
+{% load thumbnail %}{% block content %}
 {% block slider %}
 {% endblock %}
 {% block tri_bloka %}
@@ -69,18 +68,19 @@
                     {% endif %}
                 </tbody>
                 <tfoot>
+
                     <tr>
-                        <th colspan="5">{% trans "Cart Subtotal" %}:</th>
+                        <th colspan="5">Итого:</th>
                         <th>{{ cart_subtotal }} {% trans "руб." %}</th>
                     </tr>
                     {% if cart_items %}
                     <tr>
                   <th colspan="5"></th>
                         <th class="right">
-                    <form method="post" action="." class="cart">{% csrf_token %}
-                                <button class="btn btn-success" type="submit" name="checkout">
-                                <i class="icon-shopping-cart icon-white"></i><span>Офорить заказ</span></button>
-                            </form>
+{#                            <form method="post" action="." class="cart">{% csrf_token %}#}
+{#                                <button class="btn btn-success" type="submit" name="checkout">#}
+{#                                <i class="icon-shopping-cart icon-white"></i><span>Офорить заказ</span></button>#}
+{#                            </form>#}
                         </th>
                     </tr>
                     {% endif %}
@@ -99,18 +99,6 @@
                         </div>
                     {% endif %}
 
-{#                    <div class="gift_in_cart">#}
-{#                        <h4>Для Вас есть подарок!</h4>#}
-{#                        {% for key, value in cart_gift.items %}#}
-{#                            <div style="">#}
-{#                                {% thumbnail value.image_url "100x100" crop="center" as im %}#}
-{#                                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">#}
-{#                                {% endthumbnail %}#}
-{#                                <a href="{{ value.get_absolute_url }}">{{ value.name }}</a>#}
-{#                                <p>{{ value.description  }}</p>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
 
 {#                    вывод промокода#}
                     <div class="col-md-4 kupon">
@@ -124,11 +112,109 @@
                     </div>
 
 
+
+
+
                 </tfoot>
             </table>
                 </div>
+
+{#            таблица доставки#}
+
+<form method="post" action="." class="cart">{% csrf_token %}
+
+<h1>Выберите способ доставки</h1>
+<div class="col-xs-7">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group" style="width: 400px;">
+                <span class="input-group-addon">
+        {#            <input type="checkbox" value="1">#}
+                    <input type="radio" name="optionsRadios" id="SPSurface" value="SPSurface" {{ status.SPSurface }} {{ all_prices.SPSurfaceDisabled }}>
+                </span>
+                <input disabled type="text" value="{{ all_prices.SPSurface }}" class="form-control">
+                <span class="input-group-addon">Small Packet Surface 25-40 дней</span>
+            </div>
+        </div><!-- /.col-lg-6 -->
+                            <br/>
+        <div class="col-xs-12">
+            <div class="input-group" style="width: 400px;">
+                <span class="input-group-addon">
+        {#            <input type="checkbox" value="1">#}
+                    <input type="radio" name="optionsRadios" id="SPSAL" value="SPSAL" {{ all_prices.SPSALDisabled }}>
+                </span>
+                <input disabled type="text" value="{{ all_prices.SPSAL }}" class="form-control">
+                <span class="input-group-addon">Small Packet SAL 3 - 4 недели</span>
+            </div>
+        </div><!-- /.col-lg-6 -->
+                            <br/>
+        <div class="col-xs-12">
+            <div class="input-group" style="width: 400px;">
+                <span class="input-group-addon">
+        {#            <input type="checkbox" value="1">#}
+                    <input type="radio" name="optionsRadios" id="SPA" value="SPA" {{ all_prices.SPADisabled }}>
+                </span>
+                <input disabled type="text" value="{{ all_prices.SPA }}" class="form-control">
+                <span class="input-group-addon">Small Packet Air 2 -3 недели</span>
+            </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-xs-12">
+            <div class="input-group" style="width: 400px;">
+                <span class="input-group-addon">
+        {#            <input type="checkbox" value="1">#}
+                    <input type="radio" name="optionsRadios" id="PS" value="PS" {{ status.PS }} {{ all_prices.PSDisabled }}>
+                </span>
+                <input disabled type="text" value="{{ all_prices.PS }}" class="form-control">
+                <span class="input-group-addon">Parcel Surface 25-30 дней</span>
+            </div>
+        </div><!-- /.col-lg-6 -->
+    </div>
+</div>
+
+<div class="col-xs-5">
+    <div class="input-group" style="width: 300px;">
+        <span class="input-group-addon">
+{#            <input type="checkbox" value="2">#}
+            <input type="radio" name="optionsRadios" id="EMS" value="EMS" {{ status.EMS }}>
+        </span>
+        <input disabled type="text" value="{{ all_prices.EMS }}" class="form-control">
+        <span class="input-group-addon">EMS 7 - 10 дней</span>
+    </div><!-- /input-group -->
+</div>
+
+
+                                <button class="btn btn-success" type="submit" name="checkout">
+                                <i class="icon-shopping-cart icon-white"></i><span>Оформить заказ</span></button>
+                            </form>
+
+
+<p>Способ доставки: {{ delivery.delivery_type }}</p>
+    <p>Вес посылки: {{ delivery.weight }}</p>
+    <p>Стоимость доставки: {{ delivery.delivery_price }}</p>
+    {{ EMS }}
+
+    {{ all_prices }}
+    {{ all_prices.SPSurface }}
+
+
+
+            </div>
+
+
+
+
             </div>
     </div>
+{#test#}
+{#    <form action="." method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ contact.as_p }}#}
+{#    </form>#}
+{##}
+{#    <form action="." method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ contactTest.as_p }}#}
+    </form>
 
 {% endblock %}
 

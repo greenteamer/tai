@@ -27,13 +27,13 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        exclude = ('status', 'ip_address', 'user', 'transaction_id',)
+        exclude = ('status', 'ip_address', 'user', 'transaction_id', 'delivery')
 
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         # переопределяем аттрибуты по умолчанию
         for field in self.fields:
-            self.fields[field].widget.attrs['size'] = '30'
+            self.fields[field].widget.attrs['size'] = '10'
 
     def clean_phone(self):
         """Проверка телефонного номера (>10 цифр)"""
@@ -97,3 +97,6 @@ class CheckoutForm(forms.ModelForm):
     #         raise forms.ValidationError(_(u"""
     #         Enter a valid phone number with area code.(e.g.8-920-351-21-21)"""))
     #     return self.cleaned_data['phone']
+
+class TestForm(forms.Form):
+    name = forms.CharField(max_length=30, label=u'Имя')

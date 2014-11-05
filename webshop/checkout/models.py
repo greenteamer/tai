@@ -9,6 +9,25 @@ from django.utils.translation import ugettext_lazy as _
 
 from webshop.catalog.models import Product, Cupon
 
+class Delivery(models.Model):
+    delivery_type = models.CharField(
+        verbose_name=u'способ доставки',
+        max_length=100,
+        choices=(
+            ('SPSurface', 'Small Packet Surface'),
+            ('SPSAL', 'Small Packet SAL'),
+            ('SPA' ,'Small Packet Air'),
+            ('PS', 'Parcel Surface'),
+            ('EMA', 'EMA'),
+        ),
+        default='',)
+    weight = models.IntegerField(verbose_name=u'Вес', default=0)
+    delivery_price = models.DecimalField(max_digits=9, decimal_places=0)
+    cart_id_delivery = models.CharField(max_length=50, )
+
+    def __unicode__(self):
+        return self.delivery_price
+
 class BaseOrderInfo(models.Model):
     """Абстрактный класс для заказов"""
     class Meta:
@@ -57,6 +76,8 @@ class Order(BaseOrderInfo):
     #     return Cupon.objects.get(identifier='zero')
 
     cupon = models.ForeignKey(Cupon, verbose_name=u'Использованый купон', blank=True, null=True)
+
+    delivery = models.OneToOneField(Delivery, null=True)
 
     def __unicode__(self):
         return _(u'Order #') + str(self.id)
@@ -123,3 +144,5 @@ class OrderOneClick(models.Model):
 
     def __unicode__(self):
         return self.product_name
+
+
