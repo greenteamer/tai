@@ -98,5 +98,14 @@ class CheckoutForm(forms.ModelForm):
     #         Enter a valid phone number with area code.(e.g.8-920-351-21-21)"""))
     #     return self.cleaned_data['phone']
 
-class TestForm(forms.Form):
-    name = forms.CharField(max_length=30, label=u'Имя')
+class DeliveryForm(forms.Form):
+    # name = forms.CharField(max_length=30, label=u'Имя')
+    CHOICES=[('SPSurface', 'Small Packet Surface 25-40 дней'),
+            ('SPSAL', 'Small Packet SAL 3-4 недели'),
+            ('SPA' ,'Small Packet Air 2-3 недели'),
+            ('PS', 'Parcel Surface 25-30 дней'),
+            ('EMS', 'EMS 7-10 дней'),]
+
+    delivery = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
+
+

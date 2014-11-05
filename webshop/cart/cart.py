@@ -161,13 +161,15 @@ def get_delivery(request):
     delivery = get_current_delivery(request)
 
     weight = calculate_delivery_weight(request)
-    if weight > 2000:
-        delivery.delivery_type = 'PS'
-    if weight < 2000:
-        delivery.delivery_type = 'SPSurface'
-    for item in get_cart_items(request):
-        if item.product.is_aqua:
-            delivery.delivery_type = 'EMS'
+
+    if delivery.delivery_type == '':
+        if weight > 2000:
+            delivery.delivery_type = 'PS'
+        if weight < 2000:
+            delivery.delivery_type = 'SPSurface'
+        for item in get_cart_items(request):
+            if item.product.is_aqua:
+                delivery.delivery_type = 'EMS'
 
     delivery.delivery_price = calculate_delivery_price(request, delivery)
     delivery.save()

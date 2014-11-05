@@ -12,9 +12,10 @@ from dajaxice.utils import deserialize_form
 from webshop.catalog.forms import *
 from django.core.mail import send_mail
 from webshop.checkout.models import OrderOneClick
-from webshop.checkout.forms import ContactForm
+from webshop.checkout.forms import ContactForm, DeliveryForm
 from webshop.checkout.models import Order, OrderItem
 from webshop.checkout import checkout
+from webshop.cart.cart import *
 from webshop.cart import cart
 
 @dajaxice_register
@@ -105,8 +106,89 @@ def send_form(request, form):
     return dajax.json()
 
 
-# def load_form(request, form):
-#     dajax = Dajax()
-#     dajax.alert("Form is_valid(), your phone is: %s" % form.cleaned_data.get('phone'))
-#
-#     return dajax.json()
+@dajaxice_register
+def calc_delivery(request, form):
+    dajax = Dajax()
+    form = DeliveryForm(deserialize_form(form))
+    if form.is_valid():
+
+        # обновляем доставку и сохраняем в базу
+        radio = form.cleaned_data.get('delivery')
+        current_delivery = get_current_delivery(request)
+        current_delivery.delivery_type = radio
+        current_delivery.save()
+
+        current_delivery = get_delivery(request)
+        current_delivery.save()
+
+        # обновляем инфу без преезагрузки
+        dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
+        dajax.assign('#weight_ajax', 'innerHTML', '%s' % current_delivery.weight )
+        dajax.assign('#price_ajax', 'innerHTML', '%s' % current_delivery.delivery_price )
+
+    return dajax.json()
+
+@dajaxice_register
+def onload_cart(request):
+    dajax = Dajax()
+
+    # выключаем невозможные варианты
+    # меняем способ доставки если не соответсвует требованиям
+    current_delivery = get_delivery(request)
+
+    # функция меняет данные на странице о текущем виде доставки
+    def reset_data_delivery(data_type):
+        dajax.assign('#type_ajax', 'innerHTML', '%s' % data_type )
+        dajax.assign('#weight_ajax', 'innerHTML', '%s' % data_type )
+        dajax.assign('#price_ajax', 'innerHTML', '%s' % data_type )
+
+    def current_delivery_checked(request, type):
+        delivery_label = {'SPSurface':'id_delivery_0', 'SPSAL':'id_delivery_1', 'SPA':'id_delivery_2', 'PS':'id_delivery_3', 'EMS':'id_delivery_4'}
+        current_type = '#%s' % delivery_label['%s' % type]
+        dajax.assign('%s' % current_type, 'checked', 'checked' )
+
+    current_delivery_checked(request, current_delivery.delivery_type)
+
+    if current_delivery.weight > 2000:
+        dajax.assign('#id_delivery_0', 'disabled', 'disabled' )
+        dajax.assign('#id_delivery_1', 'disabled', 'disabled' )
+        dajax.assign('#id_delivery_2', 'disabled', 'disabled' )
+
+        # меняем способ доставки если не соответсвует требованиям
+        if current_delivery.delivery_type != 'PS' and current_delivery.delivery_type != 'EMS':
+            current_delivery.delivery_type = 'PS'
+            current_delivery.save()
+            current_delivery = get_delivery(request)
+            current_delivery.save()
+            reset_data_delivery(current_delivery.delivery_type)
+
+    if current_delivery.weight < 2000:
+        dajax.assign('#id_delivery_3', 'disabled', 'disabled' )
+
+        # меняем способ доставки если не соответсвует требованиям
+        if current_delivery.delivery_type == 'PS':
+            current_delivery.delivery_type = 'SPSurface'
+            current_delivery.save()
+            current_delivery = get_delivery(request)
+            current_delivery.save()
+            reset_data_delivery(current_delivery.delivery_type)
+
+    for item in get_cart_items(request):
+        if item.product.is_aqua:
+            dajax.assign('#id_delivery_0', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_1', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_2', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_3', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_4', 'checked', 'checked' )
+
+            # меняем способ доставки если не соответсвует требованиям
+            if current_delivery.delivery_type != 'EMS':
+                current_delivery.delivery_type = 'EMS'
+                current_delivery.save()
+                current_delivery = get_delivery(request)
+                current_delivery.save()
+                reset_data_delivery(current_delivery.delivery_type)
+
+
+    return dajax.json()
+

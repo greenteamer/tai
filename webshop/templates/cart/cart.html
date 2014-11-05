@@ -6,215 +6,155 @@
 {% endblock %}
 {% block tri_bloka %}
 {% endblock %}
-    <div id="cart">
+
+{% block onload_cart_script %}
+    <script>
+        window.onload = function(){
+            Dajaxice.webshop.ajaxapp.onload_cart(Dajax.process,{});
+        }
+    </script>
+{% endblock %}
+
+        <div id="cart">
             <div class="row">
-                <div class="table-responsive">
-                            <table class="table">
-                            <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <h1>Ваша корзина</h1>
-                                </div>
-                            </div>
-                <thead>
-                    <tr>
-                        <th scope="col">{% trans "Product" %}</th>
-                        <th scope="col">{% trans "Price" %}</th>
-                        <th>{% trans "Quantity" %}</th>
-                        <th></th>
-                        <th></th>
-                        <th scope="col" class="right">{% trans "Total" %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if cart_items %}
-                        {% for item in cart_items %}
-                    <tr>
-                        <td>
-                            <a href="{{ item.get_absolute_url }}" class="cart">
-                            {{ item.name }}
-                            </a>
-                        </td>
-                        <td>
-                            {{ item.price }} {% trans "руб." %}
-                        </td>
-                        <td class="right">
-                            <form method="post" action="." class="cart">{% csrf_token %}
-                                {#<label class="control-label" for="quantity">{% trans "Quantity" %}:</label>#}
-                                <input type="text" name="quantity" value="{{ item.quantity }}" id="quantity" size="2" class="quantity" maxlength="5" />
-                                <input type="hidden" name="item_id" value="{{ item.id }}" />
-                        </td>
-                        <td>
-                                <input type="hidden" name="item_id" value="{{ item.id }}" />
-                                <button class="btn btn-info" type="submit" name="update">
-                                <i class="icon-refresh icon-white"></i> <span>Обнавить</span></button>
-                            </form>
-                        </td>
-                        <td>
-                            <form method="post" action="." class="cart">{% csrf_token %}
-                                <input type="hidden" name="item_id" value="{{ item.id }}" />
-                                <button class="btn btn-danger" type="submit" name="remove">
-                                <i class="icon-trash icon-white"></i> {% trans "Remove" %}</button>
-                            </form>
-                        </td>
-                        <td class="right">{{ item.total }} {% trans "руб." %}</td>
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                        <td colspan="6" style="height:30px;">
-                            {% trans "Your cart is empty" %}
-                        </td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-                <tfoot>
-
-                    <tr>
-                        <th colspan="5">Итого:</th>
-                        <th>{{ cart_subtotal }} {% trans "руб." %}</th>
-                    </tr>
-                    {% if cart_items %}
-                    <tr>
-                  <th colspan="5"></th>
-                        <th class="right">
-{#                            <form method="post" action="." class="cart">{% csrf_token %}#}
-{#                                <button class="btn btn-success" type="submit" name="checkout">#}
-{#                                <i class="icon-shopping-cart icon-white"></i><span>Офорить заказ</span></button>#}
-{#                            </form>#}
-                        </th>
-                    </tr>
-                    {% endif %}
-
-{#                    вывод подарков#}
-                    {% if cart_gift %}
-                        <div class="gift_in_cart">
-                            <h4>Для Вас есть подарок!</h4>
-                                <div style="">
-                                    {% thumbnail cart_gift.url "100x100" crop="center" as im %}
-                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" align="left">
-                                    {% endthumbnail %}
-                                    <p>{{ cart_gift.name  }}</p>
-                                    <p>{{ cart_gift.description|truncatewords:100|safe }}</p>
-                                </div>
-                        </div>
-                    {% endif %}
-
-
-{#                    вывод промокода#}
-                    <div class="col-md-4 kupon">
-                        <p style=" color: red; ">Введите Ваш купон - промокод:</p>
-                        <form method="post" action=".">{% csrf_token %}
-                            <input type="text" name="cupon" value="" id="cupon" size="10" style=" width: 147px; margin-right: 10px;"/>
-                            <button class="btn btn-info" type="submit" name="update_cupon">
-                                <i class="icon-refresh icon-white"></i><span>Пересчитать</span>
-                            </button>
-                        </form>
+            
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <h1>Ваша корзина</h1>
                     </div>
+                </div>
 
+                {#вывод промокода#}
+                <div class="col-md-4 kupon">
+                    <p style=" color: red; ">Введите Ваш купон - промокод:</p>
+                    <form method="post" action=".">{% csrf_token %}
+                        <input type="text" name="cupon" value="" id="cupon" size="10" style=" width: 147px; margin-right: 10px;"/>
+                        <button class="btn btn-info" type="submit" name="update_cupon">
+                            <i class="icon-refresh icon-white"></i><span>Пересчитать</span>
+                        </button>
+                    </form>
+                </div>
 
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{% trans "Product" %}</th>
+                                <th scope="col">{% trans "Price" %}</th>
+                                <th>{% trans "Quantity" %}</th>
+                                <th></th>
+                                <th></th>
+                                <th scope="col" class="right">{% trans "Total" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if cart_items %}
+                                {% for item in cart_items %}
+                            <tr>
+                                <td>
+                                    <a href="{{ item.get_absolute_url }}" class="cart">
+                                    {{ item.name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ item.price }} {% trans "руб." %}
+                                </td>
+                                <td class="right">
+                                    <form method="post" action="." class="cart">{% csrf_token %}
+                                        {#<label class="control-label" for="quantity">{% trans "Quantity" %}:</label>#}
+                                        <input type="text" name="quantity" value="{{ item.quantity }}" id="quantity" size="2" class="quantity" maxlength="5" />
+                                        <input type="hidden" name="item_id" value="{{ item.id }}" />
+                                </td>
+                                <td>
+                                        <input type="hidden" name="item_id" value="{{ item.id }}" />
+                                        <button class="btn btn-info" type="submit" name="update">
+                                        <i class="icon-refresh icon-white"></i> <span>Обнавить</span></button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="post" action="." class="cart">{% csrf_token %}
+                                        <input type="hidden" name="item_id" value="{{ item.id }}" />
+                                        <button class="btn btn-danger" type="submit" name="remove">
+                                        <i class="icon-trash icon-white"></i> {% trans "Remove" %}</button>
+                                    </form>
+                                </td>
+                                <td class="right">{{ item.total }} {% trans "руб." %}</td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="6" style="height:30px;">
+                                    {% trans "Your cart is empty" %}
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
 
+                        <tfoot>
+                            <tr>
+                                <th colspan="5">Стоимсоть корзины:</th>
+                                <th>{{ cart_subtotal }} {% trans "руб." %}</th>
+                            </tr>
+{#                            {% if cart_items %}#}
+{#                            <tr>#}
+{#                            <th colspan="5"></th>#}
+{#                                <th class="right">#}
+        {#                            <form method="post" action="." class="cart">{% csrf_token %}#}
+        {#                                <button class="btn btn-success" type="submit" name="checkout">#}
+        {#                                <i class="icon-shopping-cart icon-white"></i><span>Офорить заказ</span></button>#}
+        {#                            </form>#}
+{#                                </th>#}
+{#                            </tr>#}
+{#                            {% endif %}#}
 
-
-                </tfoot>
-            </table>
+                        </tfoot>
+                    </table>
                 </div>
 
 {#            таблица доставки#}
+            <div class="col-xs-4">
+                <form action="." method="POST" id="rb_delivery">
+                    {% csrf_token %}
+                    {{ deliveryForm.delivery.errors }}
+                    <label for="id_delivery">Выберите способ доставки:</label>
+                    {{ deliveryForm.delivery }}
+                    <a name="" onclick="calc_delivery()" >Выбрать доставку</a>
+                </form>
+            </div>
+            <div class="col-xs-4">
+                <h4>Текущий способ доставки:</h4>
+                <p>Способ доставки: <span id="type_ajax">{{ delivery.delivery_type }}</span></p>
+                <p>Вес посылки: <span id="weight_ajax">{{ delivery.weight }}</span></p>
+                <p>Стоимость доставки: <span id="price_ajax">{{ delivery.delivery_price }}</span></p>
+            </div>
 
-<form method="post" action="." class="cart">{% csrf_token %}
+            <div class="col-xs-4">
+                {#вывод подарков#}
+                {% if cart_gift %}
+                    <div class="gift_in_cart">
+                        <h4>Для Вас есть подарок!</h4>
+                            <div style="">
+                                {% thumbnail cart_gift.url "100x100" crop="center" as im %}
+                                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" align="left">
+                                {% endthumbnail %}
+                                <p>{{ cart_gift.name  }}</p>
+                                <p>{{ cart_gift.description|truncatewords:100|safe }}</p>
+                            </div>
+                    </div>
+                {% endif %}
+            </div>
 
-<h1>Выберите способ доставки</h1>
-<div class="col-xs-7">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="input-group" style="width: 400px;">
-                <span class="input-group-addon">
-        {#            <input type="checkbox" value="1">#}
-                    <input type="radio" name="optionsRadios" id="SPSurface" value="SPSurface" {{ status.SPSurface }} {{ all_prices.SPSurfaceDisabled }}>
-                </span>
-                <input disabled type="text" value="{{ all_prices.SPSurface }}" class="form-control">
-                <span class="input-group-addon">Small Packet Surface 25-40 дней</span>
+            <div class="col-xs-12">
+                <form style="float: right;" name="testrb" method="post" action="." class="cart">{% csrf_token %}
+                    <button class="btn btn-success" type="submit" name="checkout">
+                    <i class="icon-shopping-cart icon-white"></i><span>Оформить заказ</span></button>
+                </form>
             </div>
-        </div><!-- /.col-lg-6 -->
-                            <br/>
-        <div class="col-xs-12">
-            <div class="input-group" style="width: 400px;">
-                <span class="input-group-addon">
-        {#            <input type="checkbox" value="1">#}
-                    <input type="radio" name="optionsRadios" id="SPSAL" value="SPSAL" {{ all_prices.SPSALDisabled }}>
-                </span>
-                <input disabled type="text" value="{{ all_prices.SPSAL }}" class="form-control">
-                <span class="input-group-addon">Small Packet SAL 3 - 4 недели</span>
-            </div>
-        </div><!-- /.col-lg-6 -->
-                            <br/>
-        <div class="col-xs-12">
-            <div class="input-group" style="width: 400px;">
-                <span class="input-group-addon">
-        {#            <input type="checkbox" value="1">#}
-                    <input type="radio" name="optionsRadios" id="SPA" value="SPA" {{ all_prices.SPADisabled }}>
-                </span>
-                <input disabled type="text" value="{{ all_prices.SPA }}" class="form-control">
-                <span class="input-group-addon">Small Packet Air 2 -3 недели</span>
-            </div>
-        </div><!-- /.col-lg-6 -->
-        <div class="col-xs-12">
-            <div class="input-group" style="width: 400px;">
-                <span class="input-group-addon">
-        {#            <input type="checkbox" value="1">#}
-                    <input type="radio" name="optionsRadios" id="PS" value="PS" {{ status.PS }} {{ all_prices.PSDisabled }}>
-                </span>
-                <input disabled type="text" value="{{ all_prices.PS }}" class="form-control">
-                <span class="input-group-addon">Parcel Surface 25-30 дней</span>
-            </div>
-        </div><!-- /.col-lg-6 -->
+
+        </div>
     </div>
-</div>
-
-<div class="col-xs-5">
-    <div class="input-group" style="width: 300px;">
-        <span class="input-group-addon">
-{#            <input type="checkbox" value="2">#}
-            <input type="radio" name="optionsRadios" id="EMS" value="EMS" {{ status.EMS }}>
-        </span>
-        <input disabled type="text" value="{{ all_prices.EMS }}" class="form-control">
-        <span class="input-group-addon">EMS 7 - 10 дней</span>
-    </div><!-- /input-group -->
-</div>
 
 
-                                <button class="btn btn-success" type="submit" name="checkout">
-                                <i class="icon-shopping-cart icon-white"></i><span>Оформить заказ</span></button>
-                            </form>
-
-
-<p>Способ доставки: {{ delivery.delivery_type }}</p>
-    <p>Вес посылки: {{ delivery.weight }}</p>
-    <p>Стоимость доставки: {{ delivery.delivery_price }}</p>
-    {{ EMS }}
-
-    {{ all_prices }}
-    {{ all_prices.SPSurface }}
-
-
-
-            </div>
-
-
-
-
-            </div>
-    </div>
-{#test#}
-{#    <form action="." method="post">#}
-{#    {% csrf_token %}#}
-{#    {{ contact.as_p }}#}
-{#    </form>#}
-{##}
-{#    <form action="." method="post">#}
-{#    {% csrf_token %}#}
-{#    {{ contactTest.as_p }}#}
-    </form>
 
 {% endblock %}
 

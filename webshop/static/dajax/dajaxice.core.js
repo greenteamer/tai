@@ -10,8 +10,13 @@ var Dajaxice = {
             },
             order_form: function(callback_function, argv, custom_settings) {
                 return Dajaxice.call('webshop.ajaxapp.order_form', 'POST', callback_function, argv, custom_settings);
+            },
+            calc_delivery: function(callback_function, argv, custom_settings) {
+                return Dajaxice.call('webshop.ajaxapp.calc_delivery', 'POST', callback_function, argv, custom_settings);
+            },
+            onload_cart: function(callback_function, argv, custom_settings) {
+                return Dajaxice.call('webshop.ajaxapp.onload_cart', 'POST', callback_function, argv, custom_settings);
             }
-
         }
 
     }

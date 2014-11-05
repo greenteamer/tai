@@ -26,7 +26,7 @@ class Delivery(models.Model):
     cart_id_delivery = models.CharField(max_length=50, )
 
     def __unicode__(self):
-        return self.delivery_price
+        return '%s' % self.delivery_price
 
 class BaseOrderInfo(models.Model):
     """Абстрактный класс для заказов"""
@@ -77,7 +77,7 @@ class Order(BaseOrderInfo):
 
     cupon = models.ForeignKey(Cupon, verbose_name=u'Использованый купон', blank=True, null=True)
 
-    delivery = models.OneToOneField(Delivery, null=True)
+    # delivery = models.OneToOneField(Delivery, null=True)
 
     def __unicode__(self):
         return _(u'Order #') + str(self.id)

@@ -68,7 +68,16 @@
             function closeMessage(){
                 $('#message_show').addClass('hidden');
             }
+
+            function calc_delivery() {
+                Dajaxice.webshop.ajaxapp.calc_delivery(Dajax.process,{'form':$('#rb_delivery').serialize(true)});
+            }
+
+
         </script>
+
+    {% block onload_cart_script %}
+    {% endblock %}
 
         <script type="text/javascript" src="{{ STATIC_URL }}dajax/dajaxice.core.js"></script>
     {#    dajax end#}
