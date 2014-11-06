@@ -181,7 +181,7 @@ $(document).ready(function() {
 
     // call quicksand and assign transition parameters
     $holder.quicksand($filteredData, {
-      duration: 800,
+      duration: 800
     });
     e.preventDefault();
   });

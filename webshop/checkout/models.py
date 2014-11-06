@@ -7,7 +7,31 @@ from django.db import models
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 
-from webshop.catalog.models import Product, Cupon
+from webshop.catalog.models import Product, Cupon, GiftPrice
+
+class Delivery(models.Model):
+    delivery_type = models.CharField(
+        verbose_name=u'способ доставки',
+        max_length=100,
+        choices=(
+            ('SPSurface', 'Small Packet Surface'),
+            ('SPSAL', 'Small Packet SAL'),
+            ('SPA' ,'Small Packet Air'),
+            ('PS', 'Parcel Surface'),
+            ('EMA', 'EMA'),
+        ),
+        default='',)
+    weight = models.IntegerField(verbose_name=u'Вес', default=0)
+    delivery_price = models.DecimalField(max_digits=9, decimal_places=0)
+    cart_id_delivery = models.CharField(max_length=50, )
+
+    gift = models.ForeignKey(GiftPrice, verbose_name=u'Доставить подарок', null=True, blank=True)
+
+    def __unicode__(self):
+        return '%s' % self.delivery_price
+
+    def is_to_big(self):
+        return self.weight > 20000
 
 class BaseOrderInfo(models.Model):
     """Абстрактный класс для заказов"""
@@ -58,6 +82,8 @@ class Order(BaseOrderInfo):
 
     cupon = models.ForeignKey(Cupon, verbose_name=u'Использованый купон', blank=True, null=True)
 
+    delivery = models.ForeignKey(Delivery, null=True)
+
     def __unicode__(self):
         return _(u'Order #') + str(self.id)
 
@@ -68,6 +94,7 @@ class Order(BaseOrderInfo):
         order_items = OrderItem.objects.filter(order=self)
         for item in order_items:
             total += item.total
+        total = total + self.delivery.delivery_price
         return total
 
     @permalink
@@ -123,3 +150,5 @@ class OrderOneClick(models.Model):
 
     def __unicode__(self):
         return self.product_name
+
+

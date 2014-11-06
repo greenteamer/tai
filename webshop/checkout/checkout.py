@@ -8,6 +8,7 @@ from django.core import urlresolvers
 
 #from webshop.checkout import google_checkout
 from webshop.cart import cart
+from webshop.cart.cart import *
 from webshop.checkout.models import Order, OrderItem
 from webshop.catalog.models import Cupon
 from webshop.checkout.forms import CheckoutForm, ContactForm
@@ -62,6 +63,10 @@ def create_order(request, transaction_id):
     if request.user.is_authenticated():
         order.user = request.user
     order.status = Order.SUBMITTED
+
+    delivery = get_current_delivery(request)
+    order.delivery = delivery
+
     order.save()
 
     if order.pk:
@@ -77,6 +82,10 @@ def create_order(request, transaction_id):
             oi.save()
         # Очищаем корзину после оформления заказа
         cart.empty_cart(request)
+
+        # Очищаем сессию cart_id
+        request.session[CART_ID_SESSION_KEY] = ''
+
         # Сохраняем введенные данные для будующих заказов
         if request.user.is_authenticated():
             profile.set(request)

@@ -40,10 +40,10 @@
                         </div>
                     {% endif %}
 
-                    <form action="." id="my_form" method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>
+{#                    <form action="." id="my_form" method="post">#}
+{#                        {% csrf_token %}#}
+{#                        {{ form.as_p }}#}
+{#                        <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>#}
 {#                        <div id="checkout_form">#}
 {#                                <div class="row">#}
 {#                                    <div class="col-md-6 border_chec">#}
@@ -80,9 +80,15 @@
 {#                                    </div>#}
 {#                                </div>#}
 {#                        </div>#}
-                    </form>
+{#                    </form>#}
 
                 </div>
             </div>
     </div>
+
+    <form action="." id="my_form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>
+    </form>
 {% endblock %}

@@ -18,7 +18,7 @@ from webshop.cart import cart
 from webshop.accounts import profile
 
 from django.core.mail import send_mail, EmailMultiAlternatives
-from webshop.checkout.forms import ContactForm
+from webshop.checkout.forms import ContactForm, CheckoutForm
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from robokassa.signals import result_received
@@ -158,6 +158,9 @@ def contact(request, template_name='checkout/checkout.html'):
         else:
             form = ContactForm()
 
+    # form = CheckoutForm()
+    # form = ContactForm()
+
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
 
@@ -186,7 +189,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
     order_id = request.session.get('order_id', '')
     if order_id:
         # если в cookies есть номер заказа, выводим его содержимое
-        order = Order.objects.filter(id=order_id)[0]
+        order = Order.objects.get(id=order_id)
         order_items = OrderItem.objects.filter(order=order)
 
         if order.payment_method == 2:
@@ -268,6 +271,7 @@ def payment_received(sender, **kwargs):
     # order.paid_sum = kwargs['OutSum']
     order.save()
 
+    # обнуляем купон при успешном его использовании
     cupon_done = Cupon.objects.get(id=order.cupon.id)
     cupon_done.percent = '0'
     cupon_done.save()
