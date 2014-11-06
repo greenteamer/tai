@@ -193,6 +193,7 @@ def onload_cart(request):
                 current_delivery = get_delivery(request)
                 current_delivery.save()
                 reset_data_delivery(current_delivery)
+                dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
                 current_delivery_checked(request, current_delivery.delivery_type)
 
 
