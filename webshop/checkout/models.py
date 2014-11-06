@@ -77,7 +77,7 @@ class Order(BaseOrderInfo):
 
     cupon = models.ForeignKey(Cupon, verbose_name=u'Использованый купон', blank=True, null=True)
 
-    # delivery = models.OneToOneField(Delivery, null=True)
+    delivery = models.ForeignKey(Delivery, null=True)
 
     def __unicode__(self):
         return _(u'Order #') + str(self.id)
@@ -89,6 +89,7 @@ class Order(BaseOrderInfo):
         order_items = OrderItem.objects.filter(order=self)
         for item in order_items:
             total += item.total
+        total = total + self.delivery.delivery_price
         return total
 
     @permalink

@@ -106,6 +106,6 @@ class DeliveryForm(forms.Form):
             ('PS', 'Parcel Surface 25-30 дней'),
             ('EMS', 'EMS 7-10 дней'),]
 
-    delivery = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
+    delivery = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'onClick':'calc_delivery();'}))
 
 

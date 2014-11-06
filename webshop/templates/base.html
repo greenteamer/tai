@@ -55,6 +55,7 @@
     {#    dajax#}
         <script type="text/javascript" src="{{ STATIC_URL }}dajax/jquery.dajax.core.js"></script>
         <script type="text/javascript" charset="utf-8">
+
             function send_form(){
     {#            $('.loading').removeClass('hidden');#}
                 Dajaxice.webshop.ajaxapp.send_form(Dajax.process,{'form':$('#my_form').serialize(true)});
@@ -72,6 +73,7 @@
             function calc_delivery() {
                 Dajaxice.webshop.ajaxapp.calc_delivery(Dajax.process,{'form':$('#rb_delivery').serialize(true)});
             }
+
 
 
         </script>

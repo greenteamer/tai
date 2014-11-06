@@ -124,7 +124,7 @@ def calc_delivery(request, form):
         # обновляем инфу без преезагрузки
         dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
         dajax.assign('#weight_ajax', 'innerHTML', '%s' % current_delivery.weight )
-        dajax.assign('#price_ajax', 'innerHTML', '%s' % current_delivery.delivery_price )
+        dajax.assign('#price_ajax', 'innerHTML', '%s руб.' % current_delivery.delivery_price )
 
     return dajax.json()
 
@@ -137,10 +137,10 @@ def onload_cart(request):
     current_delivery = get_delivery(request)
 
     # функция меняет данные на странице о текущем виде доставки
-    def reset_data_delivery(data_type):
-        dajax.assign('#type_ajax', 'innerHTML', '%s' % data_type )
-        dajax.assign('#weight_ajax', 'innerHTML', '%s' % data_type )
-        dajax.assign('#price_ajax', 'innerHTML', '%s' % data_type )
+    def reset_data_delivery(current_delivery):
+        dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
+        dajax.assign('#weight_ajax', 'innerHTML', '%s' % current_delivery.weight )
+        dajax.assign('#price_ajax', 'innerHTML', '%s' % current_delivery.delivery_price )
 
     def current_delivery_checked(request, type):
         delivery_label = {'SPSurface':'id_delivery_0', 'SPSAL':'id_delivery_1', 'SPA':'id_delivery_2', 'PS':'id_delivery_3', 'EMS':'id_delivery_4'}
@@ -160,7 +160,8 @@ def onload_cart(request):
             current_delivery.save()
             current_delivery = get_delivery(request)
             current_delivery.save()
-            reset_data_delivery(current_delivery.delivery_type)
+            reset_data_delivery(current_delivery)
+            current_delivery_checked(request, current_delivery.delivery_type)
 
     if current_delivery.weight < 2000:
         dajax.assign('#id_delivery_3', 'disabled', 'disabled' )
@@ -171,7 +172,8 @@ def onload_cart(request):
             current_delivery.save()
             current_delivery = get_delivery(request)
             current_delivery.save()
-            reset_data_delivery(current_delivery.delivery_type)
+            reset_data_delivery(current_delivery)
+            current_delivery_checked(request, current_delivery.delivery_type)
 
     for item in get_cart_items(request):
         if item.product.is_aqua:
@@ -187,7 +189,9 @@ def onload_cart(request):
                 current_delivery.save()
                 current_delivery = get_delivery(request)
                 current_delivery.save()
-                reset_data_delivery(current_delivery.delivery_type)
+                reset_data_delivery(current_delivery)
+                current_delivery_checked(request, current_delivery.delivery_type)
+
 
 
     return dajax.json()
