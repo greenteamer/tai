@@ -230,6 +230,10 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             msg.content_subtype = "html"
             msg.send()
 
+            cupon_done = Cupon.objects.get(id=order.cupon.id)
+            cupon_done.percent = '0'
+            cupon_done.save()
+
             price_order = '%s' % order.total
             price_order = price_order.split(".")
 
