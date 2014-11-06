@@ -133,6 +133,7 @@ def cart_gift_add(request):
     """добавляем подарок"""
     gifts = GiftPrice.objects.all()
     cart_total = cart_subtotal(request)
+    # result = GiftPrice()
     for gift in gifts:
         if gift.price < cart_total:
 
@@ -167,7 +168,8 @@ def get_delivery(request):
 
     delivery = get_current_delivery(request)
 
-    weight = calculate_delivery_weight(request)
+    delivery.gift = cart_gift_add(request)
+    weight = calculate_delivery_weight(request, delivery.gift)
 
     if delivery.delivery_type == '':
         if weight > 2000:
@@ -193,12 +195,16 @@ def get_current_delivery(request):
     return delivery
 
 # считаем вес доставки
-def calculate_delivery_weight(request):
+def calculate_delivery_weight(request, gift):
     items = get_cart_items(request)
     delivery_weight = 0
 
     for item in items:
         delivery_weight += item.product.weight * item.quantity
+
+    if gift:
+        gift_weight = gift.weight
+        delivery_weight = delivery_weight + gift_weight
 
     return delivery_weight
 
@@ -233,7 +239,7 @@ def calculate_delivery_price(request, delivery):
 # выбираем стоимость доставки по прайсу
 def look_at_price_delivery(request, delivery, type):
 
-    delivery.weight = calculate_delivery_weight(request)
+    delivery.weight = calculate_delivery_weight(request, delivery.gift )
 
     for key in sorted(type):
             if delivery.weight > key and delivery.weight < 20000:

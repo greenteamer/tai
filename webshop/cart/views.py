@@ -43,6 +43,9 @@ def cart_view(request, template_name="cart/cart.html"):
 
     # доставка
     delivery = cart.get_delivery(request)
+    # delivery.gift = cart_gift
+    delivery.save()
+
     cart_total = cart.cart_total(request)
     # all_prices = cart.all_prices_for_delivery(request)
     # status = cart.status_delivery_radio(request)

@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 
-from webshop.catalog.models import Product, Cupon
+from webshop.catalog.models import Product, Cupon, GiftPrice
 
 class Delivery(models.Model):
     delivery_type = models.CharField(
@@ -25,8 +25,13 @@ class Delivery(models.Model):
     delivery_price = models.DecimalField(max_digits=9, decimal_places=0)
     cart_id_delivery = models.CharField(max_length=50, )
 
+    gift = models.ForeignKey(GiftPrice, verbose_name=u'Доставить подарок', null=True, blank=True)
+
     def __unicode__(self):
         return '%s' % self.delivery_price
+
+    def is_to_big(self):
+        return self.weight > 20000
 
 class BaseOrderInfo(models.Model):
     """Абстрактный класс для заказов"""

@@ -110,6 +110,9 @@ def send_form(request, form):
 def calc_delivery(request, form):
     dajax = Dajax()
     form = DeliveryForm(deserialize_form(form))
+
+
+
     if form.is_valid():
 
         # обновляем доставку и сохраняем в базу
@@ -123,7 +126,7 @@ def calc_delivery(request, form):
 
         # обновляем инфу без преезагрузки
         dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
-        dajax.assign('#weight_ajax', 'innerHTML', '%s' % current_delivery.weight )
+        dajax.assign('#weight_ajax', 'innerHTML', '%s гр.' % current_delivery.weight )
         dajax.assign('#price_ajax', 'innerHTML', '%s руб.' % current_delivery.delivery_price )
 
     return dajax.json()
