@@ -1,7 +1,7 @@
 {% load i18n %}
 
-<form class="navbar-search pull-right" id="id_query" action="{% url search_results %}" method="get">
+<form class="navbar-search" id="id_query" action="{% url search_results %}" method="get">
   <input name="query" id="{{ form.auto_id }}" type="text"
-         value="Search" class="search-query span2" placeholder="{% trans "Search..." %}"
-         onfocus="if(this.value == 'Search') { this.value = ''; }" />
+         value="Поиск" class="search-query span2" placeholder="Поиск" width="440px"
+         onfocus="if(this.value == 'Поиск') { this.value = ''; }" />
 </form>

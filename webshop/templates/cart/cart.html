@@ -130,7 +130,7 @@
                                 </div>
                         </div>
                     {% endif %}
-                    <p style="font-weight: bold;">ИТОГО: {{ cart_total }} руб.</p>
+                    <p style="font-weight: bold;" id="price">ИТОГО: {{ cart_total }} руб.</p>
                 </div>
                 <div class="col-xs-12">
                     <form style="float: right;" name="testrb" method="post" action="." class="cart">{% csrf_token %}

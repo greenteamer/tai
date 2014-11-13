@@ -42,51 +42,81 @@
 
     {% endblock %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
+    <div id="body_content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
 
-                    {#    блок сайдбар левый#}
-                    <div class="col-md-3">
-                        {% block sidebar_left %}
+                        {#    блок сайдбар левый#}
+                        <div class="col-md-3">
+                            <div class="sidebar_left">
+                                {% block sidebar_left %}
+    {#                                <h4>Поиск</h4>#}
+                                    <div>
+                                        {% search_box request %}
+                                    </div>
+                                    <h3>Каталог</h3>
+                                    {% categories_tree request %}
 
-                            <h4>Поиск</h4>
-                            {% search_box request %}
+                                    <h3>Полезная информация</h3>
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/review/">Отзывы</a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/blog">Блог</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseBlog"><i class="fa fa-caret-down"></i></a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseBlog" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="/blog/section1">Блог 1 категория</a><br/>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="/blog/section2">Блог 2 категория</a><br/>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="/blog/section3">Блог 3 категория</a>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3>Лидеры продаж</h3>
+                                    <div class="leaders">
+                                        <div class="pre-scrollable">
+                                            {% lider_box request %}
+                                        </div>
+                                    </div>
 
-                            <h4>Каталог</h4>
-                            {% categories_tree request %}
+                                    <h3>Фильтровать продукты</h3>
+                                    {% brand_filter request %}
 
-                            <h4>Полезная информация</h4>
-                            <ul>
-                                <li><a href="/review/">Отзывы</a></li>
-                                <li>
-                                    <a href="/blog/">Блог</a>
-                                    <ul style="margin-left: 20px;" >
-                                        <li><a href="/blog/section1">Блог 1 категория</a></li>
-                                        <li><a href="/blog/section2">Блог 2 категория</a></li>
-                                        <li><a href="/blog/section3">Блог 3 категория</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                {% endblock %}
+                            </div>
+                        </div>
 
-                            <h4>Лидеры продаж</h4>
-                            {% lider_box request %}
+                        <div class="col-md-9">
+                            {#        блок контент#}
+                            {#содержимое в catalog/index.html#}
+                            {% block content %}
 
-                            <h4>Фильтровать по производителю</h4>
-                            {% brand_filter request %}
+                            {% endblock %}
+                        </div>
 
-                        {% endblock %}
                     </div>
-
-                    <div class="col-md-9">
-                        {#        блок контент#}
-                        {#содержимое в catalog/index.html#}
-                        {% block content %}
-
-                        {% endblock %}
-                    </div>
-
                 </div>
             </div>
         </div>

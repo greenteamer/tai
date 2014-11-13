@@ -248,25 +248,6 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                               context_instance=RequestContext(request))
 
 
-
-
-# """обозначаем шаблоны robokassa"""
-# class RobokassaSuccess(TemplateView):
-#     template_name = 'robokassa/success.html'
-#
-#
-# class RobokassaFail(TemplateView):
-#     template_name = 'robokassa/fail.html'
-#
-#
-# class RobokassaError(TemplateView):
-#     template_name = 'robokassa/error.html'
-#
-#
-# def robokassa_result(request):
-#     return render(request, 'robokassa/result.html')
-
-
 """обрабатываем сигналы"""
 def payment_received(sender, **kwargs):
     order = Order.objects.get(id=kwargs['InvId'])

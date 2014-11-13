@@ -41,7 +41,7 @@
                 <li><strong>Плательщик:</strong> Александр Коровкин<br></li>
                 <li><strong>Адрес плательщика:</strong> <font style="font-size:90%"> Северск, Ул.  Ленина </font><br></li>
                 <li><strong>ИНН плательщика:</strong> ____________&nbsp;&nbsp;&nbsp;&nbsp; <strong>№ л/сч. плательщика:</strong> ______________</li>
-                <li><strong>Сумма:</strong> 590 руб. 0 коп.&nbsp;&nbsp;<strong>Сумма оплаты услуг банка:</strong> ______ руб. __ коп.<br>
+                <li><strong>Сумма:</strong> {% if price_order %}{{ price_order|first }}{% endif %} {% if price %}{{ price|first }}{% endif %} руб. {% if price_order %}{{ price_order|last }}{% endif %}{% if price %}{{ price|last }}{% endif %} коп.&nbsp;&nbsp;<strong>Сумма оплаты услуг банка:</strong> ______ руб. __ коп.<br>
                   <br>
                   &nbsp;Подпись:________________________        Дата: " __ "&nbsp;_______&nbsp;&nbsp;20&nbsp;&nbsp; г. <br>
                   <br>

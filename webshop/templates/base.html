@@ -15,6 +15,7 @@
         {% bootstrap_css %}
 
         <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/selectbox.css"/>
 
 {#        flex-slider#}
         <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
@@ -87,10 +88,20 @@
 
 
         <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.selectbox.min.js"></script>
         <script src="{{ STATIC_URL }}js/custom.js"></script>
 
         {% bootstrap_javascript %}
         {% bootstrap_messages %}
+
+{#    ------------------Serlect------------------------- #}
+        <script>
+            (function($) {
+                $(function() {
+                    $('select').selectbox();
+                })
+            })(jQuery)
+        </script>
 
 {#    ------------------Меню------------------------- #}
 
