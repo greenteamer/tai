@@ -42,4 +42,4 @@ class OrderAdmin(admin.ModelAdmin):
 
 # admin.site.register(Order, OrderAdmin)
 admin.site.register(Order)
-admin.site.register(OrderOneClick)
+# admin.site.register(OrderOneClick)

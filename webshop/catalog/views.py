@@ -71,9 +71,12 @@ def category_view(request, category_slug, template_name="catalog/category.html")
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
 
-def sale_view(request, template_name="catalog/sale.html"):
+def sale_view(request, template_name="", type=""):
     """Представление для просмотра скидок"""
-    products = Product.objects.exclude(new_price=0.00)
+    if type == 'sale':
+        products = Product.objects.exclude(new_price=0.00)
+    else:
+        products = Product.objects.filter(is_new=True)
     for p in products:
         try:
             p.image_url = ProductImage.objects.get(product=p, default=True).url

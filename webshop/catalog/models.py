@@ -59,6 +59,10 @@ class AquaProductManager(models.Manager):
     def get_query_set(self):
         return super(AquaProductManager, self).get_query_set().filter(is_aqua=True)
 
+class NewProductManager(models.Manager):
+    def get_query_set(self):
+        return super(NewProductManager, self).get_query_set().filter(is_new=True)
+
 
 class FeelName(models.Model):
     """Словарная таблица цветов"""
@@ -100,6 +104,7 @@ class Product(models.Model):
     not_available = models.BooleanField(_(u'Нет в наличии'))
     is_bestseller = models.BooleanField(_(u'Лучшие продажи'), default=False) # Лучшие продажи
     is_aqua = models.BooleanField(verbose_name=u'Жидкость')
+    is_new = models.BooleanField(verbose_name=u'Новинка')
     # is_featured = models.BooleanField(_(u'Featured'), default=False) # Отображать на главной
 
     description = models.TextField(_(u'Description'),blank=True)
@@ -121,6 +126,7 @@ class Product(models.Model):
     # feautured = FeauturedProductManager()
     bestseller = BestsellerProductManager()
     aqua = AquaProductManager()
+    new = NewProductManager()
 
     # временно не нужные атрибуты
     # sku = models.CharField(_(u'SKU'), max_length=50,
