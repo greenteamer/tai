@@ -111,10 +111,7 @@ def calc_delivery(request, form):
     dajax = Dajax()
     form = DeliveryForm(deserialize_form(form))
 
-
-
     if form.is_valid():
-
         # обновляем доставку и сохраняем в базу
         radio = form.cleaned_data.get('delivery')
         current_delivery = get_current_delivery(request)
@@ -124,10 +121,13 @@ def calc_delivery(request, form):
         current_delivery = get_delivery(request)
         current_delivery.save()
 
+        total = cart_total(request)
+
         # обновляем инфу без преезагрузки
         dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
         dajax.assign('#weight_ajax', 'innerHTML', '%s гр.' % current_delivery.weight )
         dajax.assign('#price_ajax', 'innerHTML', '%s руб.' % current_delivery.delivery_price )
+        dajax.assign('#price', 'innerHTML', 'ИТОГО: %s руб.' % total )
 
     return dajax.json()
 
@@ -195,8 +195,6 @@ def onload_cart(request):
                 reset_data_delivery(current_delivery)
                 dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
                 current_delivery_checked(request, current_delivery.delivery_type)
-
-
 
     return dajax.json()
 

@@ -1,62 +1,22 @@
 {% load i18n %}
 {% load mptt_tags %}
 
-{#<div class="row">#}
-
-{#    <header id="navbar" role="banner" class="navbar navbar-default">#}
-{#        <div class="navbar-header">#}
-{#            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->#}
-{#            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-second">#}
-{#            <span class="sr-only">Toggle navigation</span>#}
-{#            <span class="icon-bar"></span>#}
-{#            <span class="icon-bar"></span>#}
-{#            <span class="icon-bar"></span>#}
-{#            </button>#}
-{#        </div>#}
-{#    <div class="container">#}
-{#    <div class="row">#}
-{#        <div class="navbar-collapse navbar-collapse-second collapse">#}
-{#            <nav role="navigation">#}
-{#            <div class="region region-navigation">#}
-{#                <ul class="menu nav navbar-nav menu_main">#}
-{#                <ul>#}
-{#                    {% recursetree nodes %}#}
-{#                    <li>#}
-{#                        <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>#}
-{#                        {% if not node.is_leaf_node %}#}
-{#                            <ul class="children nav nav-list">{{ children }}</ul>#}
-{#                        {% endif %}#}
-{#                    </li>#}
-{#                    {% endrecursetree %}#}
-{#                </ul>#}
-{#                <div class="phone_area">#}
-{#                    <div class="phone">8-913-888-68-99</div>#}
-{#                    <div class="form_button">#}
-{#                        <!-- <button class="btn btn-primary form-submit" data-toggle="modal" data-target="#myModalForm">Заказать</button> -->#}
-{#                        <button class="btn btn-primary form-submit" data-toggle="modal" data-target="#myModalForm">Заказать</button>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            </nav>#}
-{#        </div>#}
-{#     </div>#}
-{#    </div>#}
-{#    </header>#}
-
-
-	<div class="well sidebar-nav">
-		<ul class="nav nav-list tabbar">
-{#			<li class="nav-header">{% trans "Categories" %}</li>#}
-			{% recursetree nodes %}
-			<li>
-				<a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
-				{% if not node.is_leaf_node %}
-					<ul class="children nav nav-list">{{ children }}</ul>
-				{% endif %}
-			</li>
-			{% endrecursetree %}
-		</ul>
-	</div>
-
-
-{#</div>#}
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        {% recursetree nodes %}
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ node.id }}">{% if not node.is_leaf_node %} <i class="fa fa-caret-down"></i>{% endif %}</a>
+                </h4>
+            </div>
+            {% if not node.is_leaf_node %}
+                <div id="collapse{{ node.id }}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {{ children }}<br/>
+                    </div>
+                </div>
+            {% endif %}
+        {% endrecursetree %}
+    </div>
+</div>

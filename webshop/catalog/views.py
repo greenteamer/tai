@@ -47,7 +47,19 @@ def index_view(request, template_name="catalog/index.html"):
 def category_view(request, category_slug, template_name="catalog/category.html"):
     """Представление для просмотра конкретной категории"""
     c = get_object_or_404(Category.active, slug=category_slug)
-    products = c.product_set.all()
+    # products = Product.objects.all()
+    products = []
+    if c.level == 0:
+        loop_category = Category.objects.filter(tree_id=c.tree_id)
+        # products = []
+        for category in loop_category:
+            products_subcategory = category.product_set.all()
+            for product in products_subcategory:
+                products.append(product)
+    else:
+        products = c.product_set.all()
+
+
     for p in products:
         try:
             p.image_url = ProductImage.objects.get(product=p, default=True).url

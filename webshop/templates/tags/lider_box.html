@@ -5,16 +5,19 @@
 
 {% if lider_items %}
     {% for item in lider_items %}
-        <div class="">
+        <div class="leader_item">
+            <a href="{{ item.get_absolute_url }}" class="name_item">{{ item.name }}</a>
             {% thumbnail item.get_image.url "100x100" crop="center" as im %}
                 <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
             {% endthumbnail %}
             <div class="text_item">
-                <a href="{{ item.get_absolute_url }}" class="name_item">{{ item.name }}</a>
-                <p>Цена: <i class="fa fa-rub"></i>{{ item.price }}</p>
+                <p><strong>Бренд:</strong> {{ item.brand_name }}</p>
+{#                <p>Описание: {{ item.description|truncatewords:10|safe }}</p>#}
+                <p><strong>Вес:</strong> {{ item.weight }}</p>
                 {% if item.is_not_available %}
                     <p style="color: red;">Нет в наличии</p>
                 {% endif %}
+                <p><strong>Цена:</strong> <i class="fa fa-rub"></i>{{ item.price }}</p>
                 <p></p>
             </div>
         </div>

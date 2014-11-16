@@ -27,13 +27,13 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        exclude = ('status', 'ip_address', 'user', 'transaction_id', 'delivery')
+        exclude = ('status', 'ip_address', 'user', 'transaction_id', 'delivery', 'cupon',)
 
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         # переопределяем аттрибуты по умолчанию
         for field in self.fields:
-            self.fields[field].widget.attrs['size'] = '10'
+            self.fields[field].widget.attrs['size'] = '30'
 
     def clean_phone(self):
         """Проверка телефонного номера (>10 цифр)"""

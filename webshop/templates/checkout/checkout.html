@@ -11,33 +11,33 @@
 {% block content %}
     <div id="checkout">
             <div class="row">
-                <div class="alert alert-info span5">
+                <div class="alert alert-info col-md-5">
                     <strong>{% trans "Warning" %}!</strong><br /> * {% trans "Required fields" %}
                 </div>
 
                 {% if not request.user.is_authenticated %}
-                    <div class="row-fluid">
+{#                    <div class="row-fluid">#}
                           <a href="{% url login %}?next={{ request.path }}">
                             {% trans "Have an account" %}?<br />{% trans "Sign in now" %}!
                           </a>
-                    </div>
+{#                    </div>#}
                 {% endif %}
 
-                <div class="row-fluid">
-                    <div class="row">
+{#                <div class="row-fluid">#}
+{#                    <div class="row">#}
                       <div class="col-md-12">
-                          <div class="col-md-3 checkout">
+{#                          <div class="col-md-3 checkout">#}
                              <h1>Контакты для доставки</h1>
-                          </div>
+{#                          </div>#}
                       </div>
-                    </div>
+{#                    </div>#}
 
                     {% if error_message %}
-                        <div class="row-fluid">
+{#                        <div class="row-fluid">#}
                             <div class="alert alert-error span5">
                                 {{ error_message }}
                             </div>
-                        </div>
+{#                        </div>#}
                     {% endif %}
 
 {#                    <form action="." id="my_form" method="post">#}
@@ -82,13 +82,15 @@
 {#                        </div>#}
 {#                    </form>#}
 
-                </div>
+{#                </div>#}
             </div>
     </div>
 
     <form action="." id="my_form" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input id="order_submit" class="btn btn-primary" value="Отправить" type="submit"/>
+        <table>
+        {{ form.as_table }}
+        </table>
+        <input id="order_submit" class="btn btn-primary" value="Заказать" type="submit"/>
     </form>
 {% endblock %}
