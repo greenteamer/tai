@@ -211,7 +211,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                 payment_method = u'Оплатить квитанцию'
             else:
                 payment_method = u'Оплата онлайн'
-            subject = u'podarkoff-moscow.ru заявка от %s' % order.shipping_name
+            subject = u'polythai.ru заявка от %s' % order.shipping_name
             message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n К оплате курьером: %s \n Способ оплаты: %s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, order.total, payment_method)
             send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
 
@@ -267,7 +267,7 @@ def payment_received(sender, **kwargs):
     for item in order_items:
         items = items + '%s \n' % item.name
     payment_method = u'Оплата произведена'
-    subject = u'podarkoff-moscow.ru заявка от %s' % order.shipping_name
+    subject = u'polythai.ru заявка от %s' % order.shipping_name
     message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method)
     send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
 

@@ -91,6 +91,9 @@
         <script src="{{ STATIC_URL }}js/jquery.selectbox.min.js"></script>
         <script src="{{ STATIC_URL }}js/custom.js"></script>
 
+        {% block product_js %}
+        {% endblock %}
+
         {% bootstrap_javascript %}
         {% bootstrap_messages %}
 

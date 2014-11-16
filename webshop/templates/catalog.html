@@ -94,6 +94,15 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <h3>Мы в соцсетях</h3>
+                                    <div class="socials">
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-vk"></i></a>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                    </div>
+
                                     <h3>Лидеры продаж</h3>
                                     <div class="leaders">
                                         <div class="pre-scrollable">
@@ -132,52 +141,69 @@
                 <div class="col-md-12">
                     <div class="row">
 
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    {% footer_links %}
-                                </div>
-                                <div class="col-md-12">
-                                     <a class="brand" href="http://forward70.ru">Создание сайтов Forward Group</a>
-                                </div>
-                            </div>
+                        <div class="col-md-3">
+                            <ul class="links">
+                                <li><a href="/review/">Отзывы</a></li>
+                                <li><a href="/blog">Блог</a></li>
+                                <li><a href="/blog/section1">Блог 1 категория</a></li>
+                                <li><a href="/blog/section2">Блог 2 категория</a></li>
+                                <li><a href="/blog/section3">Блог 3 категория</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-xs-6">
+                            <ul class="payment">
+                                <li><img src="{{ STATIC_URL }}images/payment/alfabank.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/elecsnet.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/mail-money.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/webmoney.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/qiwi.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/rbk-money.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/visa.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/mastercard.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/yandex-money.png" alt=""/></li>
+                            </ul>
                         </div>
 
 
-                        <div class="col-md-6">
-                                    <p>Контакты</p>
-                                    <span>+7 (913) 888 99-22</span>
+                        <div class="col-md-3">
+                            <p>Контакты</p>
+                            <p>+7 (913) 888 99-22</p>
+                            <p>info@polythai.ru</p>
 
-                                    <div class="metrika">
-                                        <!-- Yandex.Metrika counter -->
-                                        <script type="text/javascript">
-                                        (function (d, w, c) {
-                                        (w[c] = w[c] || []).push(function() {
-                                        try {
-                                        w.yaCounter23714320 = new Ya.Metrika({id:23714320,
-                                        webvisor:true,
-                                        clickmap:true,
-                                        trackLinks:true,
-                                        accurateTrackBounce:true});
-                                        } catch(e) { }
-                                        });
+                            <div class="metrika">
+                                <!-- Yandex.Metrika counter -->
+                                <script type="text/javascript">
+                                (function (d, w, c) {
+                                (w[c] = w[c] || []).push(function() {
+                                try {
+                                w.yaCounter23714320 = new Ya.Metrika({id:23714320,
+                                webvisor:true,
+                                clickmap:true,
+                                trackLinks:true,
+                                accurateTrackBounce:true});
+                                } catch(e) { }
+                                });
 
-                                        var n = d.getElementsByTagName("script")[0],
-                                        s = d.createElement("script"),
-                                        f = function () { n.parentNode.insertBefore(s, n); };
-                                        s.type = "text/javascript";
-                                        s.async = true;
-                                        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+                                var n = d.getElementsByTagName("script")[0],
+                                s = d.createElement("script"),
+                                f = function () { n.parentNode.insertBefore(s, n); };
+                                s.type = "text/javascript";
+                                s.async = true;
+                                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
 
-                                        if (w.opera == "[object Opera]") {
-                                        d.addEventListener("DOMContentLoaded", f, false);
-                                        } else { f(); }
-                                        })(document, window, "yandex_metrika_callbacks");
-                                        </script>
-                                        <noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/23714320" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
-                                        <!-- /Yandex.Metrika counter -->
-                                    </div>
+                                if (w.opera == "[object Opera]") {
+                                d.addEventListener("DOMContentLoaded", f, false);
+                                } else { f(); }
+                                })(document, window, "yandex_metrika_callbacks");
+                                </script>
+                                <noscript>&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/23714320" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;</noscript>
+                                <!-- /Yandex.Metrika counter -->
+                            </div>
+                        </div>
 
+                        <div class="col-md-12">
+                             <a class="brand" href="http://forward70.ru">Создание сайтов Forward Group</a>
                         </div>
 
                     </div>
