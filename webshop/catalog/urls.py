@@ -18,7 +18,9 @@ urlpatterns = patterns('webshop.catalog.views',
 		name='catalog_product'),
     # Скидки
 	url(r'^sale/', 'sale_view',
-		{'template_name':'catalog/sale.html'},
+		{'template_name':'catalog/sale.html', 'type':'sale'},
 		name='catalog_product'),
-
+    url(r'^novelty/', 'sale_view',
+		{'template_name':'catalog/sale.html', 'type':'novelty'},
+		name='catalog_product'),
 )
