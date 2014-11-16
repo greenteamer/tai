@@ -11,8 +11,8 @@
                 <div class="col-md-12">
                     <div class="table-responsive">
                          <table id="receipt">
-                            <caption>{% trans "Your order has been placed!" %}<br /><br />
-                              {% trans "Your Order Number is: {{ order.id }}" %}
+                            <caption>Ваш заказ сформирован!<br /><br />
+                              Пожалуйста, проверьте введенные данные, затем нажмите кнопку оплатить.
                             </caption>
                             <thead>
                             <tr>
@@ -22,13 +22,6 @@
                               <th class="right" scope="col">{% trans "Total" %}</th>
                             </tr>
                             </thead>
-                            <tfoot>
-                            <tr>
-                              <td colspan="4" class="right" style="height:30px;">
-                              {% trans "Order Total" %}: {{ order.total }}
-                              </td>
-                            </tr>
-                            </tfoot>
                             <tbody>
                             {% for item in order_items %}
                               <tr>
@@ -37,8 +30,18 @@
                                 <td>{{ item.quantity }}</td>
                                 <td class="right">{{ item.total }}</td>
                               </tr>
+                              <tr>
+                                <td>Стоимость доставки: {{ delivery }} руб.</td>
+                              </tr>
                             {% endfor %}
                             </tbody>
+                            <tfoot>
+                            <tr>
+                              <td colspan="4" class="right" style="height:30px;">
+                              Итого к оплате: {{ order.total }}
+                              </td>
+                            </tr>
+                            </tfoot>
                          </table>
                     </div>
 
