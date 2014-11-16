@@ -192,6 +192,8 @@ def receipt_view(request, template_name='checkout/receipt.html'):
         order = Order.objects.get(id=order_id)
         order_items = OrderItem.objects.filter(order=order)
 
+        delivery = '%s' % order.delivery.delivery_price
+
         if order.payment_method == 2:
             form = RobokassaForm(initial={
                    'OutSum': order.total,
@@ -239,11 +241,14 @@ def receipt_view(request, template_name='checkout/receipt.html'):
 
             template_name = 'checkout/receipt_print.html'
 
-        del request.session['order_id']
+        if request.POST == 'POST':
+            del request.session['order_id']
+
     else:
         # иначе перенаправляем пользователя на страницу корзины
         cart_url = urlresolvers.reverse('show_cart')
         return HttpResponseRedirect(cart_url)
+
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
 
