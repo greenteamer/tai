@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 from django.contrib import admin
+from django.db import models
+from django.forms import CheckboxSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 from webshop.catalog.forms import ProductAdminForm
@@ -15,7 +17,6 @@ from webshop.catalog.models import Product, Category, Characteristic, Characteri
 #         (_(u'Characteristic'), {'fields': ['characteristic_type']}),
 #         (_(u'Value'), {'fields': ['value']}),
 #     ]
-
 
 class ProductImageAdmin(admin.StackedInline):
     """Добавление изображений продукта"""
@@ -46,6 +47,9 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'updated_at',)
     # имя продукта для генерации чистой ссылки
     prepopulated_fields = {'slug': ('name',)}
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -56,7 +60,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'created_at', 'updated_at',)
     list_display_links = ('name',)
     list_per_page = 20
-    ordering = ['name']
+    ordering = ['created_at']
     search_fields = ['name', 'description', 'meta_keywords', 'meta_description']
     readonly_fields = ('created_at', 'updated_at',)
     # exclude = ('created_at', 'updated_at',)

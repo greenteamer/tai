@@ -832,4 +832,10 @@ table#change-history tbody th {
     background: #eee url(../img/nav-bg.gif) bottom left repeat-x;
     color: #666;
 }
+.form-row.field-feel ul li {
+    list-style: none!important;
+}
+.field-feel a.add-another {
+    padding-left: 108px;
+}
 

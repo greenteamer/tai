@@ -12,11 +12,9 @@
 {% block content %}
     <div id="catalog">
             <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <h1>{{ c.name }}</h1>
                     </div>
-
-{#                    если продукты существуют#}
 
                     {% if products %}
 {#                        цыкл по продуктам (осуществляется проход до тех пор пока есть продукты)#}
@@ -27,6 +25,7 @@
                                         {% thumbnail p.image_url "200x200" crop="center" as im %}
                                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                                         {% endthumbnail %}
+{#                                            <img src="{{ p.image_url.url }}" width="187" height="187">#}
                                         <br />
                                         <h2>{{ p.name }}</h2>
                                     </a>

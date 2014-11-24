@@ -22,7 +22,7 @@
                             <a href="{{ p.get_absolute_url }}">{{ p.name }}</a>
                         </h3>
                     </li>
-                    <p>Производитель: {{ p.brand }}</p>
+                    <p>Производитель: {{ p.brand_name.name }}</p>
                     <p>Описание: {{ p.description|slice:":200" }}</p>
                     <p>Цена: {{ p.price }}</p>
                 <br />

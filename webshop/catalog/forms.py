@@ -3,20 +3,23 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from models import Product
+from models import Product, Category
 from webshop.checkout.models import OrderOneClick
 
 
 class ProductAdminForm(forms.ModelForm):
-	"""Форма для управления товаром"""
-	class Meta:
-		model = Product
+    class Meta:
+        model = Product
 
-	def clean_price(self):
-		"""Проверка поля цена"""
-		if self.cleaned_data['price'] <= 0:
-			raise forms.ValidationError(_(u'Price must be greater than zero.'))
-		return self.cleaned_data['price']
+    def clean_price(self):
+        """Проверка поля цена"""
+        if self.cleaned_data['price'] <= 0:
+            raise forms.ValidationError(_(u'Price must be greater than zero.'))
+        return self.cleaned_data['price']
+
+    def __init__(self, *args, **kwds):
+        super(ProductAdminForm, self).__init__(*args, **kwds)
+        self.fields['categories'].queryset = Category.objects.order_by('created_at')
 
 
 class ProductAddToCartForm(forms.Form):

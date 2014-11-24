@@ -51,8 +51,8 @@
                                         {% thumbnail image.url "300x300" crop="center" as im %}
                                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                                         {% endthumbnail %}
+{#                                            <img src="/media/{{ image.url }}" width="300" height="300">#}
                                         </a>
-{#                                        <a name=""><img src="/media/{{ image.url }}" width="300"></a>#}
                                     {% endfor %}
                                 </div>
                                 <ul class="pagination">
@@ -112,7 +112,7 @@
                 <div class="col-md-7">
                     <div class="row">
                         <div class="price_cart">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 {% if p.sale_price %}
                                     <div class="price_was">
                                         {% trans "Was" %}: <span>{{ p.price }} {% trans "руб." %}</span>
@@ -124,7 +124,7 @@
                                     {% trans "Price" %}: {{ p.price }} {% trans "руб." %}
                                 {% endif %}
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <form method="post" action="." class="cart">{% csrf_token %}
                                     <div class="hidden">
                                         {{ form.product_slug }}

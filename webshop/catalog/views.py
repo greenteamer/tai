@@ -74,8 +74,10 @@ def category_view(request, category_slug, template_name="catalog/category.html")
 def sale_view(request, template_name="", type=""):
     """Представление для просмотра скидок"""
     if type == 'sale':
+        page_name = 'Скидки - горячая цена'
         products = Product.objects.exclude(new_price=0.00)
     else:
+        page_name = 'Новинки!'
         products = Product.objects.filter(is_new=True)
     for p in products:
         try:
@@ -89,7 +91,8 @@ def sale_view(request, template_name="", type=""):
 def product_view(request, product_slug, template_name="catalog/product.html"):
     """Представление для просмотра конкретного продукта"""
     p = get_object_or_404(Product, slug=product_slug)
-    categories = p.categories.filter(is_active=True)
+    # categories = p.categories.filter(is_active=True)
+    # categories = p.categories.objects.all()
     page_title = p.name
     meta_keywords = p.meta_keywords
     meta_description = p.meta_description

@@ -508,11 +508,11 @@ padding: 40px 0px 100px 0px;
 }
 #catalog .product_thumbnail{
     margin-bottom: 30px;
-    min-height: 300px;
+    min-height: 350px;
 }
 #catalog .product_thumbnail img {
     width: 100%;
-    height: auto;
+    /*height: auto;*/
     border-radius: 5px 5px 0 0;
 }
 #popular_products .product_thumbnail img, .best_selling .product_thumbnail img{
@@ -707,8 +707,8 @@ font-family: 'Open Sans Condensed', sans-serif;
 
 /*-------------Страница товара--------------*/
 
-.row-fluid img {
-    width: 100%;
+.slides_control img {
+    height: 100%;
 }
 #product_lict,#oplata, #cart,#stranica{
     border-top: 1px solid #E8E8E8;
@@ -876,7 +876,7 @@ padding: 20px;
     margin: 0;
 }
 .price_cart .col-md-6{
-border-left: 1px solid #E4C0C0;
+border-left: 1px solid #d5d3d7;
 }
 .cart_items_menu {
 }
@@ -1139,6 +1139,7 @@ input#order_submit {
     border-radius: 50%;
     text-align: center;
 }
+
 
 /*---------------------Мобильная верстка---------------*/
 

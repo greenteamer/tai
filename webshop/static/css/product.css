@@ -47,8 +47,8 @@
 
 #products .pagination li a {
 	display:block;
-	width:55px;
-	height:41px;
+	/*width:55px;*/
+	/*height:41px;*/
 	/*margin:1px;*/
 	float:left;
      margin-left: 0px;
@@ -63,7 +63,7 @@
 	margin:0;
 }
 a:link,a:visited {
-	color:#599100;
+	/*color:#599100;*/
 	text-decoration:none;
 }
 

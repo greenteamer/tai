@@ -15,6 +15,7 @@
                                     <div class="region region-navigation">
                                         <ul class="menu nav navbar-nav">
                                             <li><a href="/">Главная</a></li>
+                                            <li><a href="/">Акции</a></li>
                                             <li><a href="/sale">Скидки</a></li>
                                             <li><a href="/novelty">Новинки</a></li>
                                             <li><a href="/page/kontakty">Контакты</a></li>
@@ -60,9 +61,47 @@
                                     <h3>Каталог</h3>
                                     {% categories_tree request %}
 
+                                    <h3>Производители</h3>
+                                    {% brand_filter request %}
+
                                     <h3>Полезная информация</h3>
                                     <div class="panel-group" id="accordion">
                                         <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/">Как сделать заказ</a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/">Доставка</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseDelivery"><i class="fa fa-caret-down"></i></a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseDelivery" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="/">Общая информация</a><br/>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="/">Цены на доставку</a><br/>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="/">Отслеживание посылок</a>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/">Вопрос — ответ</a>
+                                                </h4>
+                                            </div>
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a href="/review/">Отзывы</a>
@@ -70,7 +109,7 @@
                                             </div>
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
-                                                    <a href="/blog">Блог</a>
+                                                    <a href="/blog">Все обо всем</a>
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseBlog"><i class="fa fa-caret-down"></i></a>
                                                 </h4>
                                             </div>
@@ -93,6 +132,21 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/review/">О нас</a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/review/">Контактная информация</a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a href="/review/">Для оптовых покупателей</a>
+                                                </h4>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -111,8 +165,7 @@
                                         </div>
                                     </div>
 
-                                    <h3>Фильтровать продукты</h3>
-                                    {% brand_filter request %}
+
 
                                 {% endblock %}
                             </div>
