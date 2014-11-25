@@ -32,12 +32,12 @@
     <div id="product_lict">
             <div class="row row-fluid">
 
-                <div class="col-md-12 product_text">
+                <div class="col-xs-12 product_text">
                     <h1>{{ p.name }}</h1>
                 </div>
 
 
-                <div class="col-md-5">
+                <div class="col-xs-5">
 {#                    {% thumbnail product_image.url "298x319" crop="center" as im %}#}
 {#                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">#}
 {#                    {% endthumbnail %}#}
@@ -51,8 +51,8 @@
                                         {% thumbnail image.url "300x300" crop="center" as im %}
                                             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                                         {% endthumbnail %}
+{#                                            <img src="/media/{{ image.url }}" width="300" height="300">#}
                                         </a>
-{#                                        <a name=""><img src="/media/{{ image.url }}" width="300"></a>#}
                                     {% endfor %}
                                 </div>
                                 <ul class="pagination">
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="tabbable">
-                    <div class="col-md-7">
+                    <div class="col-xs-7">
 
                         <ul class="nav nav-tabs" id="myTab">
                             <li class="active"><a href="#characteristics" data-toggle="tab">{% trans "Characteristics" %}</a></li>
@@ -109,10 +109,10 @@
                     </div>
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-xs-7">
                     <div class="row">
                         <div class="price_cart">
-                            <div class="col-md-8">
+                            <div class="col-xs-6">
                                 {% if p.sale_price %}
                                     <div class="price_was">
                                         {% trans "Was" %}: <span>{{ p.price }} {% trans "руб." %}</span>
@@ -124,7 +124,7 @@
                                     {% trans "Price" %}: {{ p.price }} {% trans "руб." %}
                                 {% endif %}
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-xs-6">
                                 <form method="post" action="." class="cart">{% csrf_token %}
                                     <div class="hidden">
                                         {{ form.product_slug }}

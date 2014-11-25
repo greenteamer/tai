@@ -34,12 +34,12 @@
 {#    {% block popular_products %}#}
 {#        <div id="popular_products">#}
 {#                <div class="row">#}
-{#                    <div class="col-md-12">#}
+{#                    <div class="col-xs-12">#}
 {#                        <div class="row">#}
 {##}
-{#                            <div class="col-md-12 border_bot">#}
+{#                            <div class="col-xs-12 border_bot">#}
 {#                                <div class="row">#}
-{#                                    <div class="col-md-4">#}
+{#                                    <div class="col-xs-4">#}
 {#                                        <h3>#}
 {#                                            <div class="breadcrumb">Популярные товары</div>#}
 {#                                        </h3>#}
@@ -50,7 +50,7 @@
 {#                            {% if products %}#}
 {##}
 {#                                {% for p in products %}#}
-{#                                    <div class="col-md-3 popular_products">#}
+{#                                    <div class="col-xs-3 popular_products">#}
 {#                                        <div class="product_thumbnail">#}
 {#                                            {% thumbnail p.image.url "298x319" crop="center" as im %}#}
 {#                                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">#}
@@ -86,15 +86,15 @@
 {#                <div class="row">#}
 {##}
 {#                    <div class="promotion">#}
-{#                        <div class="col-md-6">#}
+{#                        <div class="col-xs-6">#}
 {##}
 {#                                <div class="row">#}
-{#                                    <div class="col-md-4">#}
+{#                                    <div class="col-xs-4">#}
 {#                                        <div class="static-image">#}
 {#                                            <a href="#"><img src="{{ STATIC_URL }}images/price-tag.png" alt=""></a>#}
 {#                                        </div>#}
 {#                                    </div>#}
-{#                                    <div class="col-md-8">#}
+{#                                    <div class="col-xs-8">#}
 {#                                        <div class="static-text">#}
 {#                                            <div class="icon">&nbsp;</div>#}
 {#                                            <h3>АКЦИИ И СКИДКИ</h3>#}
@@ -108,15 +108,15 @@
 {#                    </div>#}
 {##}
 {#                    <div class="discount">#}
-{#                        <div class="col-md-6">#}
+{#                        <div class="col-xs-6">#}
 {##}
 {#                                <div class="row">#}
-{#                                    <div class="col-md-4">#}
+{#                                    <div class="col-xs-4">#}
 {#                                        <div class="static-image"><a href="#">#}
 {#                                            <img src="{{ STATIC_URL }}images/ak-phone.png" alt=""></a>#}
 {#                                        </div>#}
 {#                                    </div>#}
-{#                                    <div class="col-md-8">#}
+{#                                    <div class="col-xs-8">#}
 {#                                        <div class="static-text">#}
 {#                                            <div class="icon"></div>#}
 {#                                                <h3>ТЕЛЕФОН +7 (913) 888 99-22</h3>#}
@@ -134,17 +134,17 @@
 {#    {% endblock %}#}
 {#        блок лучшие продажи#}
 {#    <div id="best_selling">#}
-{#            <div class="col-md-12">#}
+{#            <div class="col-xs-12">#}
 {#                <div class="row">#}
 {#                    {% if bestseller %}#}
-{#                        <div class="col-md-12 border_bot">#}
-{#                            <div class="col-md-4">#}
+{#                        <div class="col-xs-12 border_bot">#}
+{#                            <div class="col-xs-4">#}
 {#                                <h3><div class="breadcrumb">Лучшие продажи</div></h3>#}
 {#                            </div>#}
 {#                        </div>#}
 {#                        <div class="best_selling">#}
 {#                            {% for b in bestseller %}#}
-{#                                <div class="col-md-3 best_item">#}
+{#                                <div class="col-xs-3 best_item">#}
 {#                                    <div class="product_thumbnail">#}
 {#                                        <a href="{{ b.get_absolute_url }}">#}
 {#                                            {% thumbnail b.image.url "255x255" crop="center" as im %}#}

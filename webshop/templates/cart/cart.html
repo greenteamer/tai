@@ -18,14 +18,14 @@
         <div id="cart">
 {#            <div class="row">#}
 
-                <div class="col-md-12">
-                    <div class="col-md-3">
+                <div class="col-xs-12">
+                    <div class="col-xs-3">
                         <h1>Ваша корзина</h1>
                     </div>
                 </div>
 
                 {#вывод промокода#}
-                <div class="col-md-12 kupon">
+                <div class="col-xs-12 kupon">
                     <p style=" color: red; ">Введите Ваш купон - промокод:</p>
                     <form method="post" action=".">{% csrf_token %}
                         <input type="text" name="cupon" value="" id="cupon" size="10" style=" width: 147px; margin-right: 10px;"/>
