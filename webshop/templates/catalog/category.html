@@ -12,14 +12,14 @@
 {% block content %}
     <div id="catalog">
             <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-xs-12">
                         <h1>{{ c.name }}</h1>
                     </div>
 
                     {% if products %}
 {#                        цыкл по продуктам (осуществляется проход до тех пор пока есть продукты)#}
                         {% for p in products %}
-                            <div class="col-md-3">
+                            <div class="col-xs-3">
                                 <div class="product_thumbnail">
                                     <a href="{{ p.get_absolute_url }}">
                                         {% thumbnail p.image_url "200x200" crop="center" as im %}
