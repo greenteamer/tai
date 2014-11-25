@@ -709,6 +709,7 @@ font-family: 'Open Sans Condensed', sans-serif;
 
 .slides_control img {
     height: 100%;
+    overflow: hidden;
 }
 #product_lict,#oplata, #cart,#stranica{
     border-top: 1px solid #E8E8E8;
@@ -1138,6 +1139,27 @@ input#order_submit {
     border: solid 1px #d2d2d2;
     border-radius: 50%;
     text-align: center;
+}
+.review_button {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    color: #fff;
+}
+.review_form {
+    margin-top: 60px;
 }
 
 

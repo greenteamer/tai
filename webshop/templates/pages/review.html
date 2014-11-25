@@ -16,14 +16,15 @@
             {% endfor %}
         {% endif %}
 
-        <form action="." method="post">{% csrf_token %}
+        <form class="review_form" action="." method="post">{% csrf_token %}
+            <h3>Оставьте свой отзыв</h3>
             <table>
-                {{ form.as_table }}
+                {{ form.as_p }}
             </table>
             <table>
             <tr>
                 <th colspan="2">
-                    <input type="submit" value="Отправить" class="submit" />
+                    <input type="submit" value="Отправить" class="submit review_button" />
                 </th>
             </tr>
             </table>

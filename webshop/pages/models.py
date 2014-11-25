@@ -44,7 +44,8 @@ class Blog(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User, verbose_name=u'Пользователь')
-    review = RichTextField()
+    review = RichTextField(verbose_name=u'Отзыв')
+
 
     def __unicode__(self):
         userName = UserProfile.objects.get(user=self.user)
