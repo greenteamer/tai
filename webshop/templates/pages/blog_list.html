@@ -21,6 +21,7 @@
         {% for post in blog_posts %}
             <h2>{{ post.name }}</h2>
             <p>{{ post.text|truncatewords:120|safe }}</p>
+            <a href="{{ post.url }}">читать подробнее</a>
         {% endfor %}
     {% endif %}
 

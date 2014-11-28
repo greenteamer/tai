@@ -1,0 +1,17 @@
+{% extends "catalog.html" %}
+{% block slider %}
+{% endblock %}
+{% block tri_bloka %}
+{% endblock %}
+
+{% block title %}
+{{ blog.name }} - {{ site_name }}
+{% endblock %}
+
+{% block content %}
+    <div id="stranica">
+        <h1>{{ blog.name }}</h1>
+        {{ blog.text|safe }}
+    </div>
+
+{% endblock %}

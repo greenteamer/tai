@@ -41,6 +41,9 @@ class Blog(models.Model):
     def __unicode__(self):
         return self.name
 
+    def url(self):
+        return '/blog/%s' % self.slug
+
 
 class Review(models.Model):
     user = models.ForeignKey(User, verbose_name=u'Пользователь')
