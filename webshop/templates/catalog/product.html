@@ -72,15 +72,17 @@
                 <div class="tabbable">
                     <div class="col-xs-7">
 
-                        <ul class="nav nav-tabs" id="myTab">
-                            <li class="active"><a href="#characteristics" data-toggle="tab">{% trans "Characteristics" %}</a></li>
-                            <li><a href="#description" data-toggle="tab">{% trans "Description" %}</a></li>
-                        </ul>
+{#                        <ul class="nav nav-tabs" id="myTab">#}
+{#                            <li class="active"><a href="#characteristics" data-toggle="tab">{% trans "Characteristics" %}</a></li>#}
+{#                            <li><a href="#description" data-toggle="tab">{% trans "Description" %}</a></li>#}
+{#                        </ul>#}
 
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="characteristics">
-                                <div class="row-fluid">
-                                    <div class="span5">
+{#                        <div class="tab-content">#}
+{#                            <div class="tab-pane active" id="characteristics">#}
+{#                                <div class="row-fluid">#}
+{#                                    <div class="span5">#}
+                                        <div class="tab-pane" id="description">{{ p.description|truncatewords:30 }}</div>
+                                        <br/>
                                         <table class="table table-striped table-bordered table-condensed">
                                             <tbody>
                                                 <tr>
@@ -99,17 +101,17 @@
                                                     <th>Жидкость:</th>
                                                     <th>{% if p.is_aqua %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</th>
                                                 </tr>
-                                                <tr>
-                                                    <th>Способ доставки:</th>
-                                                    {% if p.is_aqua %}<th>Только EMS</th>{% else %}<th>Любой</th>{% endif %}
-                                                </tr>
+{#                                                <tr>#}
+{#                                                    <th>Способ доставки:</th>#}
+{#                                                    {% if p.is_aqua %}<th>Только EMS</th>{% else %}<th>Любой</th>{% endif %}#}
+{#                                                </tr>#}
                                             </tbody>
                                         </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="description">{{ p.description }}</div>
-                        </div>
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+
+{#                        </div>#}
                     </div>
                 </div>
 
@@ -143,6 +145,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <h4>Описание:</h4>
+                    <div class="tab-pane" id="description">{{ p.description }}</div>
                 </div>
 
             </div>

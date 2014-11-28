@@ -179,16 +179,32 @@ def onload_cart(request):
             current_delivery_checked(request, current_delivery.delivery_type)
 
     for item in get_cart_items(request):
-        if item.product.is_aqua:
-            dajax.assign('#id_delivery_0', 'disabled', 'disabled' )
+        if (item.product.is_aqua) & (current_delivery.weight < 2000):
+            dajax.assign('#id_delivery_0', 'checked', 'checked' )
             dajax.assign('#id_delivery_1', 'disabled', 'disabled' )
             dajax.assign('#id_delivery_2', 'disabled', 'disabled' )
             dajax.assign('#id_delivery_3', 'disabled', 'disabled' )
-            dajax.assign('#id_delivery_4', 'checked', 'checked' )
+            dajax.assign('#id_delivery_4', 'disabled', 'disabled' )
 
             # меняем способ доставки если не соответсвует требованиям
-            if current_delivery.delivery_type != 'EMS':
-                current_delivery.delivery_type = 'EMS'
+            if current_delivery.delivery_type != 'SPSurface':
+                current_delivery.delivery_type = 'SPSurface'
+                current_delivery.save()
+                current_delivery = get_delivery(request)
+                current_delivery.save()
+                reset_data_delivery(current_delivery)
+                dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
+                current_delivery_checked(request, current_delivery.delivery_type)
+        elif (item.product.is_aqua) & (current_delivery.weight > 2000):
+            dajax.assign('#id_delivery_0', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_1', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_2', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_3', 'checked', 'checked' )
+            dajax.assign('#id_delivery_4', 'disabled', 'disabled' )
+
+            # меняем способ доставки если не соответсвует требованиям
+            if current_delivery.delivery_type != 'PS':
+                current_delivery.delivery_type = 'PS'
                 current_delivery.save()
                 current_delivery = get_delivery(request)
                 current_delivery.save()

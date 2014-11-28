@@ -194,7 +194,7 @@ input.search-query.span2 {
     /*font-size: 30px;*/
     /*top:10px;*/
     /*left:20px;*/
-    color: #000;;
+    color: #000;
 }
 #menu_fixed .region-navigation .navbar-nav a:hover .main_menu_i {
     position: absolute;
@@ -278,10 +278,10 @@ input.search-query.span2 {
 	font-size: 16px;
 	color:#333;
     text-decoration: none;
-    background: #fff!important;
+    background: #fff;
 }
 .cart_icon a:hover{
-    background: #fff!important;
+    background: #fff;
 }
 .cart_icon a:hover  span{
     background: #000;
@@ -319,6 +319,13 @@ input.search-query.span2 {
 	color: #616161;
 	background-color: White;
 	text-decoration: none;
+}
+.phone_text img {
+    width: 30px;
+    float: left;
+}
+.phone_text {
+    height: 30px;
 }
 .phone_area .auth,
 .phone_area .phone,
@@ -387,7 +394,7 @@ ul.menu li:hover ul.children {
 /*мои стили*/
 .phone_area {
 	float: right;
-    margin-top: 18px;
+    margin-top: 48px;
 }
 /*партнеры*/
 #modern .frame {
@@ -1056,13 +1063,13 @@ margin-bottom: 40px;
     overflow: hidden;
 }
 .phone {
-    width:218px;
+    width:250px;
     text-align: right;
     float: right;
 }
 .phone img{
-    float: left;
-    margin: 1px 0px 8px 0px;
+    /*float: left;*/
+    /*margin: 1px 0px 8px 0px;*/
 }
 .phone p{
     font-size: 20px;
@@ -1070,8 +1077,8 @@ margin-bottom: 40px;
     margin: 0;
 }
 .phone a {
-    font-size: 14px;
-    margin-right: 12px;
+    font-size: 20px;
+    /*margin-right: 12px;*/
 }
 .logo img {
     margin:0 10px 0 0;
@@ -1110,7 +1117,23 @@ header.navbar {
     color:#fff;
 }
 #accordion i{
-    float: right;
+    /*float: right;*/
+    /*padding: 10px;  */
+}
+.accordion_button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#accordion .panel-heading {
+    /*padding: 0;*/
+    position: relative;
+}
+a#accordion {
+    padding: 0;
+}
+#accordion .panel-heading a {
+    padding: 10px;
 }
 .panel-group .panel {
     border: none;
@@ -1206,7 +1229,12 @@ input#order_submit {
     margin-top: 60px;
 }
 
-
+.cart_items_menu a {
+    background: #53a02d;
+}
+.cart_items_menu a:hover {
+    background: #53a02d;
+}
 /*---------------------Мобильная верстка---------------*/
 
 /*@media (min-width: 769px) and (max-width: 991px){*/

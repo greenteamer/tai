@@ -7,7 +7,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ node.id }}">{% if not node.is_leaf_node %} <i class="fa fa-caret-down"></i>{% endif %}</a>
+                    <a class="accordion_button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ node.id }}">{% if not node.is_leaf_node %} <i class="fa fa-caret-down"></i>{% endif %}</a>
                 </h4>
             </div>
             {% if not node.is_leaf_node %}

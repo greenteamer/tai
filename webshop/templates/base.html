@@ -12,8 +12,8 @@
 
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/css.css" />
 
-{#        {% bootstrap_css %}#}
-        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>
+        {% bootstrap_css %}
+{#        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>#}
         <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" />
         <link href="{{ STATIC_URL }}css/non-responsive.css" rel="stylesheet" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/selectbox.css"/>
@@ -97,7 +97,7 @@
         {% block product_js %}
         {% endblock %}
 
-        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+{#        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>#}
 
         {% bootstrap_javascript %}
         {% bootstrap_messages %}
