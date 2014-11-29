@@ -4,13 +4,8 @@ from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.generic import TemplateView
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 from webshop.settings import ADMIN_EMAIL
 
-
-from webshop.checkout.forms import CheckoutForm
 from webshop.checkout.models import Order, OrderItem
 from webshop.catalog.models import Cupon
 from webshop.checkout import checkout
@@ -18,7 +13,7 @@ from webshop.cart import cart
 from webshop.accounts import profile
 
 from django.core.mail import send_mail, EmailMultiAlternatives
-from webshop.checkout.forms import ContactForm, CheckoutForm
+from webshop.checkout.forms import ContactForm
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from robokassa.signals import result_received
@@ -64,33 +59,12 @@ def contact(request, template_name='checkout/checkout.html'):
         else:
             form = ContactForm()
 
-    # form = CheckoutForm()
-    # form = ContactForm()
-
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
 
 
-    # return render(request, 'checkout/checkout.html', {
-    #     'form': form,
-    #     # 'posts': post,
-    # })
-
-
 def receipt_view(request, template_name='checkout/receipt.html'):
     """Представление отображающее сделанный заказ"""
-    # order_number = request.session.get('order_number', '')
-    # if order_number:
-    #     # если в cookies есть номер заказа, выводим его содержимое
-    #     order = Order.objects.filter(id=order_number)[0]
-    #     order_items = OrderItem.objects.filter(order=order)
-    #     del request.session['order_number']
-    # else:
-    #     # иначе перенаправляем пользователя на страницу корзины
-    #     cart_url = urlresolvers.reverse('show_cart')
-    #     return HttpResponseRedirect(cart_url)
-    # return render_to_response(template_name, locals(),
-    #                           context_instance=RequestContext(request))
 
     order_id = request.session.get('order_id', '')
     if order_id:
@@ -104,10 +78,6 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             form = RobokassaForm(initial={
                    'OutSum': order.total,
                    'InvId': order.id,
-                   # 'Desc': order.shipping_name,
-                   # 'Email': order.email,
-                   # 'IncCurrLabel': '',
-                   # 'Culture': 'ru'
                })
         else:
 
@@ -164,7 +134,6 @@ def payment_received(sender, **kwargs):
     order = Order.objects.get(id=kwargs['InvId'])
     order.status = Order.PAID
 
-    # order.paid_sum = kwargs['OutSum']
     order.save()
 
     # обнуляем купон при успешном его использовании

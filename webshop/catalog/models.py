@@ -96,7 +96,6 @@ class Product(models.Model):
     name = models.CharField(_(u'Name'), max_length=255, unique=True)
     slug = models.SlugField(_(u'Slug'), max_length=255, unique=True,
                             help_text=_(u'Unique value for product page URL, created from name.'))
-    # brand = models.CharField(_(u'Производитель'), max_length=50)
     brand_name = models.ForeignKey(BrandName, verbose_name=u'Название бренда', blank=True, null=True)
 
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
@@ -106,7 +105,6 @@ class Product(models.Model):
     is_bestseller = models.BooleanField(_(u'Лучшие продажи'), default=False) # Лучшие продажи
     is_aqua = models.BooleanField(verbose_name=u'Жидкость')
     is_new = models.BooleanField(verbose_name=u'Новинка')
-    # is_featured = models.BooleanField(_(u'Featured'), default=False) # Отображать на главной
 
     description = models.TextField(_(u'Description'),blank=True)
     meta_keywords = models.CharField(_(u'Meta keywords'), max_length=255,
@@ -115,8 +113,6 @@ class Product(models.Model):
                                         help_text=_(u'Content for description meta tag'),blank=True)
     created_at = models.DateTimeField(_(u'Created at'), auto_now_add=True)
     updated_at = models.DateTimeField(_(u'Updated at'), auto_now=True)
-    # categories = models.ManyToManyField(Category, verbose_name=_(u'Categories'),
-    #                                     help_text=_(u'Categories for product'))
     categories = models.ForeignKey(Category, verbose_name=_(u'Categories'),
                                         help_text=_(u'Categories for product'))
 
@@ -124,20 +120,12 @@ class Product(models.Model):
     volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
     weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
 
-    # gift = models.ForeignKey(GiftPrice, verbose_name=u'Выбрать этот товар как подарок', blank=True, null=True)
-
     objects = models.Manager()
-    # active = CommonActiveManager()
-    # feautured = FeauturedProductManager()
+
     bestseller = BestsellerProductManager()
     aqua = AquaProductManager()
     new = NewProductManager()
 
-    # временно не нужные атрибуты
-    # sku = models.CharField(_(u'SKU'), max_length=50,
-    #                        help_text=_(u'Stock-keeping unit'),blank=True) # кол-во товара на складе
-    # quantity = models.IntegerField(_(u'Quantity'), default=0)
-    # articul = models.CharField(verbose_name=u'Артикул', max_length=15,blank=True)
 
     class Meta:
         db_table = 'products'
