@@ -4,7 +4,7 @@ import decimal
 
 from django.db import models
 
-from webshop.catalog.models import Product, Cupon, FeelName
+from webshop.catalog.models import Product, Cupon, FeelName, ProductVolume
 
 
 class CartItem(models.Model):
@@ -13,6 +13,8 @@ class CartItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(default=1)
     product = models.ForeignKey(Product, unique=False)
+
+    atrsibutes = models.ForeignKey(ProductVolume, unique=False)
 
     feel = models.ForeignKey(FeelName, unique=False, default=None, null=True)
 

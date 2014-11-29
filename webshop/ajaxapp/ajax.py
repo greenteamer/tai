@@ -16,6 +16,7 @@ from webshop.checkout.forms import ContactForm, DeliveryForm
 from webshop.checkout.models import Order, OrderItem
 from webshop.checkout import checkout
 from webshop.cart.cart import *
+from webshop.catalog.models import *
 from webshop.cart import cart
 
 @dajaxice_register
@@ -128,6 +129,21 @@ def calc_delivery(request, form):
         dajax.assign('#weight_ajax', 'innerHTML', '%s гр.' % current_delivery.weight )
         dajax.assign('#price_ajax', 'innerHTML', '%s руб.' % current_delivery.delivery_price )
         dajax.assign('#price', 'innerHTML', 'ИТОГО: %s руб.' % total )
+
+    return dajax.json()
+
+@dajaxice_register
+def change_atrs(request, option):
+    dajax = Dajax()
+    atrs = ProductVolume.objects.get(id=option)
+
+    # обновляем инфу без преезагрузки
+    dajax.assign('#volume', 'innerHTML', '%s' % atrs.volume )
+    dajax.assign('#weight', 'innerHTML', '%s гр.' % atrs.weight )
+    dajax.assign('#price', 'innerHTML', '%s руб.' % atrs.price )
+    dajax.assign('#new_price', 'innerHTML', '%s' % atrs.new_price )
+
+    dajax.assign('#atr_value', 'value', "%s" % option)
 
     return dajax.json()
 

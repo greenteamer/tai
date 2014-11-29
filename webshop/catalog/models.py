@@ -200,11 +200,14 @@ class ProductVolume(models.Model):
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
     new_price = models.DecimalField(max_digits=9, decimal_places=2,
                                     blank=True, default=0.00, verbose_name=u'Новая цена')
+
+    default = models.BooleanField(_(u'Основной набор'), default=False)
+
     product = models.ForeignKey(Product, verbose_name=_(u'Product'), help_text=_(u'Referenced product'))
 
     class Meta:
         db_table = 'product_volume'
-        verbose_name_plural = _(u'Изображения')
+        verbose_name_plural = _(u'Основные атрибуты')
 
     def __unicode__(self):
         return '%s-%s' % (self.product.name, self.volume)

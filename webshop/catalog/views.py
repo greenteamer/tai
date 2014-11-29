@@ -11,7 +11,7 @@ from django.shortcuts import render
 from webshop.cart import cart
 from webshop.catalog.forms import ProductAddToCartForm, get_form_add_to_cart
 from django.core.mail import send_mail
-from webshop.catalog.models import Category, Product, Characteristic, ProductImage
+from webshop.catalog.models import *
 from webshop.slider.models import Slider
 from webshop.news.models import News
 from webshop.pages.models import Page
@@ -97,12 +97,22 @@ def product_view(request, product_slug, template_name="catalog/product.html"):
     page_title = p.name
     meta_keywords = p.meta_keywords
     meta_description = p.meta_description
+
+    # достаем все фотки + дефлтную
     try:
         product_image = ProductImage.objects.get(product=p, default=True)
         images = ProductImage.objects.filter(product=p)
     except Exception:
         print "Image for product #%s not found" % p.id
+
     characteristics = Characteristic.objects.filter(product=p)
+
+    # достаем основные атрибуты
+    try:
+        atrs_default = ProductVolume.objects.get(product=p, default=True)
+        atrs = ProductVolume.objects.filter(product=p)
+    except Exception:
+        print  u'Основные атрибуты продукта %s не найдены' % p.name
 
     # Проверка HTTP метода
     if request.method == 'POST':

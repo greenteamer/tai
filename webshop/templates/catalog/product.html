@@ -97,16 +97,30 @@
                                                     <th>Вес:</th>
                                                     <th>{{ p.weight }} гр.</th>
                                                 </tr>
-                                                <tr>
-                                                    <th>Жидкость:</th>
-                                                    <th>{% if p.is_aqua %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</th>
-                                                </tr>
+{#                                                <tr>#}
+{#                                                    <th>Жидкость:</th>#}
+{#                                                    <th>{% if p.is_aqua %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</th>#}
+{#                                                </tr>#}
+
 {#                                                <tr>#}
 {#                                                    <th>Способ доставки:</th>#}
 {#                                                    {% if p.is_aqua %}<th>Только EMS</th>{% else %}<th>Любой</th>{% endif %}#}
 {#                                                </tr>#}
                                             </tbody>
                                         </table>
+
+                        <h2>Основные атрибуты:</h2>
+                        <select onchange="Dajaxice.webshop.ajaxapp.change_atrs(Dajax.process, {'option':this.value})" size="1">
+                            {% for atr in atrs %}
+                                <option value="{{ atr.id }}">{{ atr.volume }}</option>
+                            {% endfor %}
+                        </select>
+                        <p>Брэнд: {{ p.brand_name.name }}</p>
+                        <p>объем: <span id="volume">{{ atrs_default.volume }}</span></p>
+                        <p>вес: <span id="weight">{{ atrs_default.weight }}</span></p>
+                        <p>цена: <span id="price">{{ atrs_default.price }}</span></p>
+                        <p>новая цена: <span id="new_price">{{ atrs_default.new_price }}</span></p>
+
 {#                                    </div>#}
 {#                                </div>#}
 {#                            </div>#}
@@ -135,6 +149,9 @@
                                 <form method="post" action="." class="cart">{% csrf_token %}
                                     <div class="hidden">
                                         {{ form.product_slug }}
+                                    </div>
+                                    <div class="hidden">
+                                        <input id="atr_value" name="atr_value" type="hidden" />
                                     </div>
                                     {% if p.feel.count > 0 %}
                                         <div class="feel">

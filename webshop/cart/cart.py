@@ -5,7 +5,7 @@ import random
 
 from django.shortcuts import get_object_or_404
 
-from webshop.catalog.models import Product, Cupon, GiftPrice, ProductImage, FeelName
+from webshop.catalog.models import *
 from webshop.checkout.models import Delivery
 from webshop.cart.models import CartItem
 
@@ -45,6 +45,10 @@ def add_to_cart(request):
     # Получаем количество добавлеых товаров, возрат 1 если нет
     quantity = postdata.get('quantity', 1)
 
+    # получаем набор атрибутов
+    atr_value = postdata.get('atr_value', '')
+    atrsibutes = ProductVolume.objects.get(id=atr_value)
+
     # получаем вкус
     feel = postdata.get('feel', '')
     if feel == '':
@@ -60,10 +64,11 @@ def add_to_cart(request):
 
     # Проверяем что продукт уже в корзине
     for cart_item in cart_products:
-        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel):
+        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel) & (cart_item.atrsibutes == atrsibutes):
             # Обновляем количество если найден
             cart_item.augment_quantity(quantity)
             product_in_cart = True
+
     if not product_in_cart:
         # Создаем и сохраняем новую корзину
         ci = CartItem()
@@ -71,6 +76,8 @@ def add_to_cart(request):
         ci.quantity = quantity
         ci.cart_id = _cart_id(request)
         ci.cupon = cupon
+
+        ci.atrsibutes = atrsibutes
 
         try:
             feelProduct = get_object_or_404(FeelName, id=feel)

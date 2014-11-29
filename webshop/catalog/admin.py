@@ -6,7 +6,7 @@ from django.forms import CheckboxSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 from webshop.catalog.forms import ProductAdminForm
-from webshop.catalog.models import Product, Category, Characteristic, CharacteristicType, ProductImage, FeelName, GiftPrice, Cupon, BrandName
+from webshop.catalog.models import *
 
 
 # class CharacteristicAdmin(admin.StackedInline):
@@ -29,6 +29,11 @@ class ProductImageAdmin(admin.StackedInline):
     #     (_(u'Default'), {'fields': ['default']}),
     # ]
 
+class ProductVolumeAdmin(admin.StackedInline):
+    """Добавление изображений продукта"""
+    model = ProductVolume
+    extra = 1
+
 
 class ProductAdmin(admin.ModelAdmin):
     """
@@ -40,8 +45,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
     list_per_page = 50
     ordering = ['-created_at']
-    # inlines = [CharacteristicAdmin, ProductImageAdmin,]
-    inlines = [ProductImageAdmin,]
+    inlines = [ProductImageAdmin, ProductVolumeAdmin]
     search_field = ['name', 'description', 'meta_keywords', 'meta_description']
     exclude = ('meta_keywords', 'meta_description',)
     readonly_fields = ('created_at', 'updated_at',)

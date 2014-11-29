@@ -16,6 +16,9 @@ var Dajaxice = {
             },
             onload_cart: function(callback_function, argv, custom_settings) {
                 return Dajaxice.call('webshop.ajaxapp.onload_cart', 'POST', callback_function, argv, custom_settings);
+            },
+            change_atrs: function(callback_function, argv, custom_settings) {
+                return Dajaxice.call('webshop.ajaxapp.change_atrs', 'POST', callback_function, argv, custom_settings);
             }
         }
 
