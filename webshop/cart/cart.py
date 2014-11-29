@@ -143,7 +143,7 @@ def cart_subtotal(request):
     cart_total = decimal.Decimal('0.00')
     cart_products = get_cart_items(request)
     for cart_item in cart_products:
-        cart_total += (cart_item.product.price - (cart_item.product.price * int(cart_item.cupon.percent) / 100)) * cart_item.quantity
+        cart_total += (cart_item.price - (cart_item.price * int(cart_item.cupon.percent) / 100)) * cart_item.quantity
     return cart_total
 
 def cart_delivery_total(request):

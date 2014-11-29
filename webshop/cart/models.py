@@ -28,7 +28,7 @@ class CartItem(models.Model):
     def total(self):
         """Метод для подсчета суммы, цена товара * кол-во"""
         total = decimal.Decimal("0.00")
-        total = self.quantity * self.product.price
+        total = self.quantity * self.price
         # total = "%d" % total
         return total
 
@@ -40,7 +40,13 @@ class CartItem(models.Model):
     @property
     def price(self):
         """Получение цены товара в корзине"""
-        return self.product.price
+        set_price = decimal.Decimal("0.00")
+        if self.atrsibutes.new_price != 0.00:
+            set_price = self.atrsibutes.new_price
+        else:
+            set_price = self.atrsibutes.price
+        return set_price
+
 
     def get_absolute_url(self):
         """Получение абсолютной ссылки на товар"""

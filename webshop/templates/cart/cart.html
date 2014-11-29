@@ -55,6 +55,13 @@
                                     <a href="{{ item.get_absolute_url }}" class="cart">
                                     {{ item.name }}
                                     </a>
+                                    <span>объем: {{ item.atrsibutes.valume }}</span>
+                                    <span>вес: {{ item.atrsibutes.weight }}</span>
+                                    {% if item.atrsibutes.new_price != 0.00 %}
+                                        <span>новая цена: {{ item.atrsibutes.new_price }}</span>
+                                    {% else %}
+                                        <span>цена: {{ item.atrsibutes.price }}</span>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {{ item.price }} {% trans "руб." %}
