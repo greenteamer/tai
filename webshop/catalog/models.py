@@ -193,6 +193,23 @@ class ProductImage(models.Model):
         return self.product.name
 
 
+# модель для добавления основных свойств продукта
+class ProductVolume(models.Model):
+    volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
+    weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
+    new_price = models.DecimalField(max_digits=9, decimal_places=2,
+                                    blank=True, default=0.00, verbose_name=u'Новая цена')
+    product = models.ForeignKey(Product, verbose_name=_(u'Product'), help_text=_(u'Referenced product'))
+
+    class Meta:
+        db_table = 'product_volume'
+        verbose_name_plural = _(u'Изображения')
+
+    def __unicode__(self):
+        return '%s-%s' % (self.product.name, self.volume)
+
+
 class GiftPrice(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'Название подарка')
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
