@@ -14,7 +14,7 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
     product = models.ForeignKey(Product, unique=False)
 
-    atrsibutes = models.ForeignKey(ProductVolume, unique=False)
+    atributes = models.ForeignKey(ProductVolume, unique=False)
 
     feel = models.ForeignKey(FeelName, unique=False, default=None, null=True)
 
@@ -41,10 +41,10 @@ class CartItem(models.Model):
     def price(self):
         """Получение цены товара в корзине"""
         set_price = decimal.Decimal("0.00")
-        if self.atrsibutes.new_price != 0.00:
-            set_price = self.atrsibutes.new_price
+        if self.atributes.new_price != 0.00:
+            set_price = self.atributes.new_price
         else:
-            set_price = self.atrsibutes.price
+            set_price = self.atributes.price
         return set_price
 
 

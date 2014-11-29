@@ -151,7 +151,7 @@
                                         {{ form.product_slug }}
                                     </div>
                                     <div class="hidden">
-                                        <input id="atr_value" name="atr_value" type="hidden" />
+                                        <input id="atr_value" name="atr_value" type="hidden" value="{{ atrs.0.id }}"/>
                                     </div>
                                     {% if p.feel.count > 0 %}
                                         <div class="feel">

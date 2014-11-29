@@ -55,12 +55,12 @@
                                     <a href="{{ item.get_absolute_url }}" class="cart">
                                     {{ item.name }}
                                     </a>
-                                    <span>объем: {{ item.atrsibutes.valume }}</span>
-                                    <span>вес: {{ item.atrsibutes.weight }}</span>
-                                    {% if item.atrsibutes.new_price != 0.00 %}
-                                        <span>новая цена: {{ item.atrsibutes.new_price }}</span>
+                                    <span>объем: {{ item.atributes.valume }}</span>
+                                    <span>вес: {{ item.atributes.weight }}</span>
+                                    {% if item.atributes.new_price != 0.00 %}
+                                        <span>новая цена: {{ item.atributes.new_price }}</span>
                                     {% else %}
-                                        <span>цена: {{ item.atrsibutes.price }}</span>
+                                        <span>цена: {{ item.atributes.price }}</span>
                                     {% endif %}
                                 </td>
                                 <td>
@@ -120,7 +120,7 @@
                     <h4>Текущий способ доставки:</h4>
                     <p>Способ доставки: <span id="type_ajax">{{ delivery.delivery_type }}</span></p>
                     <p style="{% if delivery.is_to_big %}color: red;{% endif %}">Вес посылки {% if delivery.is_to_big %}слишком большой{% endif %}: <span id="weight_ajax">{{ delivery.weight }} гр.</span></p>
-                    <p>Стоимость доставки: <span id="price_ajax">{{ delivery.delivery_price }} руб.</span></p>
+                    <p>{% if not delivery.is_to_big %}Стоимость доставки: <span id="price_ajax">{{ delivery.delivery_price }} руб.</span> {% endif %}</p>
                 </div>
 
                 <div class="col-xs-4">
@@ -137,7 +137,7 @@
                                 </div>
                         </div>
                     {% endif %}
-                    <p style="font-weight: bold;" id="price">ИТОГО: {{ cart_total }} руб.</p>
+                    <p style="font-weight: bold;" id="price">{% if not delivery.is_to_big %}ИТОГО: {{ cart_total }} руб.{% endif %}</p>
                 </div>
                 <div class="col-xs-12">
                     <form style="float: right;" name="testrb" method="post" action="." class="cart">{% csrf_token %}

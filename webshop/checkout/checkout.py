@@ -79,6 +79,8 @@ def create_order(request, transaction_id):
             oi.quantity = ci.quantity
             oi.price = ci.price
             oi.product = ci.product
+            oi.feel = ci.feel
+            oi.atributes = ci.atributes
             oi.save()
         # Очищаем корзину после оформления заказа
         cart.empty_cart(request)

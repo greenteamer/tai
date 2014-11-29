@@ -47,7 +47,7 @@ def add_to_cart(request):
 
     # получаем набор атрибутов
     atr_value = postdata.get('atr_value', '')
-    atrsibutes = ProductVolume.objects.get(id=atr_value)
+    atributes = ProductVolume.objects.get(id=atr_value)
 
     # получаем вкус
     feel = postdata.get('feel', '')
@@ -64,7 +64,7 @@ def add_to_cart(request):
 
     # Проверяем что продукт уже в корзине
     for cart_item in cart_products:
-        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel) & (cart_item.atrsibutes == atrsibutes):
+        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel) & (cart_item.atributes == atributes):
             # Обновляем количество если найден
             cart_item.augment_quantity(quantity)
             product_in_cart = True
@@ -77,7 +77,7 @@ def add_to_cart(request):
         ci.cart_id = _cart_id(request)
         ci.cupon = cupon
 
-        ci.atrsibutes = atrsibutes
+        ci.atributes = atributes
 
         try:
             feelProduct = get_object_or_404(FeelName, id=feel)
@@ -225,7 +225,7 @@ def calculate_delivery_weight(request, gift):
     delivery_weight = 0
 
     for item in items:
-        delivery_weight += item.product.weight * item.quantity
+        delivery_weight += item.atributes.weight * item.quantity
 
     if gift:
         gift_weight = gift.weight
