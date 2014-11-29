@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 
-from webshop.catalog.models import Product, Cupon, GiftPrice
+from webshop.catalog.models import Product, Cupon, GiftPrice, FeelName
 
 class Delivery(models.Model):
     delivery_type = models.CharField(
@@ -112,6 +112,7 @@ class Order(BaseOrderInfo):
 class OrderItem(models.Model):
     """Конкретный товар в заказе"""
     product = models.ForeignKey(Product)
+    feel = models.ForeignKey(FeelName, unique=False, default=None, null=True)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=9, decimal_places=2)
     order = models.ForeignKey(Order)
