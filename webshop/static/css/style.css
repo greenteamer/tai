@@ -1244,6 +1244,31 @@ input#order_submit {
 .cart_items_menu a:hover {
     background: #53a02d;
 }
+#product_lict .selectbox .select,
+.sidebar_left .selectbox .select{
+    width: 100%;
+    height: 30px;
+    padding: 0 45px 0 10px;
+    font: 14px/30px Arial, Tahoma, sans-serif;
+    color: #333;
+    border: 1px solid #8b8b8b;
+    border-bottom-color: #c1c1c1;
+    background: #ececec;
+    border-radius: 3px;
+}
+#product_lict .selectbox .trigger,
+.sidebar_left .selectbox .trigger{
+    background: #48902c;
+}
+#product_lict .selectbox .trigger .arrow,
+.sidebar_left .selectbox .trigger .arrow{
+    color: #fff;
+    opacity: 1;
+    border-top: 5px solid #fff;
+}
+#product_lict h2 {
+    margin-top: 0;
+}
 /*---------------------Мобильная верстка---------------*/
 
 /*@media (min-width: 769px) and (max-width: 991px){*/

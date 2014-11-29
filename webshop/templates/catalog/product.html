@@ -72,60 +72,36 @@
                 <div class="tabbable">
                     <div class="col-xs-7">
 
-{#                        <ul class="nav nav-tabs" id="myTab">#}
-{#                            <li class="active"><a href="#characteristics" data-toggle="tab">{% trans "Characteristics" %}</a></li>#}
-{#                            <li><a href="#description" data-toggle="tab">{% trans "Description" %}</a></li>#}
-{#                        </ul>#}
+                        <h2>Описание:</h2>
+                        <div class="tab-pane" id="description">{{ p.description|truncatewords:30 }}</div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-12" style="height: 40px;">
+                                <div class="row">
+                                    <div class="col-xs-6">Брэнд:</div>
+                                    <div class="col-xs-6">{{ p.brand_name.name }}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" style="height: 40px;">
+                                <div class="row">
+                                    <div class="col-xs-6">Объем:</div>
+                                    <div class="col-xs-6">
+                                        <select onchange="Dajaxice.webshop.ajaxapp.change_atrs(Dajax.process, {'option':this.value})" size="1">
+                                            {% for atr in atrs %}
+                                                <option value="{{ atr.id }}">{{ atr.volume }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" style="height: 40px;">
+                                <div class="row">
+                                    <div class="col-xs-6">Вес:</div>
+                                    <div class="col-xs-6"><span id="weight">{{ atrs_default.weight }} гр.</span></div>
+                                </div>
+                            </div>
+                        </div>
 
-{#                        <div class="tab-content">#}
-{#                            <div class="tab-pane active" id="characteristics">#}
-{#                                <div class="row-fluid">#}
-{#                                    <div class="span5">#}
-                                        <div class="tab-pane" id="description">{{ p.description|truncatewords:30 }}</div>
-                                        <br/>
-                                        <table class="table table-striped table-bordered table-condensed">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Брэнд:</th>
-                                                    <th>{{ p.brand_name.name }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Объем:</th>
-                                                    <th>{{ p.volume }} гр.</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Вес:</th>
-                                                    <th>{{ p.weight }} гр.</th>
-                                                </tr>
-{#                                                <tr>#}
-{#                                                    <th>Жидкость:</th>#}
-{#                                                    <th>{% if p.is_aqua %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</th>#}
-{#                                                </tr>#}
-
-{#                                                <tr>#}
-{#                                                    <th>Способ доставки:</th>#}
-{#                                                    {% if p.is_aqua %}<th>Только EMS</th>{% else %}<th>Любой</th>{% endif %}#}
-{#                                                </tr>#}
-                                            </tbody>
-                                        </table>
-
-                        <h2>Основные атрибуты:</h2>
-                        <select onchange="Dajaxice.webshop.ajaxapp.change_atrs(Dajax.process, {'option':this.value})" size="1">
-                            {% for atr in atrs %}
-                                <option value="{{ atr.id }}">{{ atr.volume }}</option>
-                            {% endfor %}
-                        </select>
-                        <p>Брэнд: {{ p.brand_name.name }}</p>
-                        <p>объем: <span id="volume">{{ atrs_default.volume }}</span></p>
-                        <p>вес: <span id="weight">{{ atrs_default.weight }}</span></p>
-                        <p>цена: <span id="price">{{ atrs_default.price }}</span></p>
-                        <p>новая цена: <span id="new_price">{{ atrs_default.new_price }}</span></p>
-
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-
-{#                        </div>#}
                     </div>
                 </div>
 
@@ -133,16 +109,20 @@
                     <div class="row">
                         <div class="price_cart">
                             <div class="col-xs-4">
-                                {% if p.sale_price %}
+
+                                <div id="super_price" class="hidden">
                                     <div class="price_was">
-                                        {% trans "Was" %}: <span>{{ p.price }} {% trans "руб." %}</span>
+                                        {% trans "Was" %}: <span id="price">{{ atrs_default.price }} {% trans "руб." %}</span>
                                     </div>
                                     <div class="price_now">
-                                        {% trans "Now" %}:<span> {{ p.new_price }} {% trans "руб." %}</span>
+                                        {% trans "Now" %}: <span id="new_price">{{ atrs_default.new_price }} {% trans "руб." %}</span>
                                     </div>
-                                {% else %}
-                                    {% trans "Price" %}: {{ p.price }} {% trans "руб." %}
-                                {% endif %}
+                                </div>
+                                <div id="old_price" class="">
+                                    {% trans "Price" %}: <span id="price_old">{{ atrs_default.price }} {% trans "руб." %} </span>
+                                </div>
+
+
                             </div>
 
                             <div class="col-xs-8">

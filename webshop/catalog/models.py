@@ -99,9 +99,9 @@ class Product(models.Model):
     # brand = models.CharField(_(u'Производитель'), max_length=50)
     brand_name = models.ForeignKey(BrandName, verbose_name=u'Название бренда', blank=True, null=True)
 
-    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
-    new_price = models.DecimalField(max_digits=9, decimal_places=2,
-                                    blank=True, default=0.00, verbose_name=u'Новая цена')
+    # price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
+    # new_price = models.DecimalField(max_digits=9, decimal_places=2,
+    #                                 blank=True, default=0.00, verbose_name=u'Новая цена')
     not_available = models.BooleanField(_(u'Нет в наличии'))
     is_bestseller = models.BooleanField(_(u'Лучшие продажи'), default=False) # Лучшие продажи
     is_aqua = models.BooleanField(verbose_name=u'Жидкость')
@@ -121,8 +121,8 @@ class Product(models.Model):
                                         help_text=_(u'Categories for product'))
 
     feel = models.ManyToManyField(FeelName, verbose_name=u'Вкус', blank=True, null=True)
-    volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
-    weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
+    # volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
+    # weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
 
     # gift = models.ForeignKey(GiftPrice, verbose_name=u'Выбрать этот товар как подарок', blank=True, null=True)
 
@@ -159,10 +159,17 @@ class Product(models.Model):
         будет использоваться в шаблонах для отображения
         старой цены под текущей
         """
-        if self.new_price < self.price:
-            return self.new_price
+        new_price = self.get_atributes().new_price
+        price = self.get_atributes().price
+
+        if new_price > price:
+            return new_price
         else:
             return None
+
+    def get_atributes(self):
+        atribites = ProductVolume.objects.get(product=self, default=True)
+        return atribites
 
     def get_image(self):
         image = ProductImage.objects.get(product=self, default=True)
