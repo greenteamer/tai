@@ -136,18 +136,18 @@
                                     <div class="hidden">
                                         {{ form.product_slug }}
                                     </div>
-                                    <div class="feel">
-                                        {% if error.feel %}{{ error.feel }}<div class="error">{% endif %}
-                                        <label for="id_feel">Выберите вкус:</label>
-{#                                        {{ form.feel }}#}
-                                        <select name="feel" id="id_feel">
-                                            <option value="" selected="selected">---------</option>
-                                            {% for feel in p.feel.all %}
-                                                <option value="{{ feel.id }}">{{ feel.name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        {% if error.feel %}</div>{% endif %}
-                                    </div>
+                                    {% if p.feel.count > 0 %}
+                                        <div class="feel">
+                                            {% if error.feel %}{{ error.feel }}<div class="error">{% endif %}
+                                            <label for="id_feel">Выберите вкус:</label>
+                                            <select name="feel" id="id_feel">
+                                                {% for feel in p.feel.all %}
+                                                    <option value="{{ feel.id }}">{{ feel.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            {% if error.feel %}</div>{% endif %}
+                                        </div>
+                                    {% endif %}
                                     <div class="quantity">
                                         <label for="id_quantity">Количество:</label>
                                         {{ form.quantity }}
