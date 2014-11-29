@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 from dajaxice.core import dajaxice_functions
 
 from dajaxice.utils import deserialize_form
-from webshop.catalog.forms import *
+# from webshop.catalog.forms import *
 from django.core.mail import send_mail
 from webshop.checkout.models import OrderOneClick
 from webshop.checkout.forms import ContactForm, DeliveryForm
@@ -59,51 +59,51 @@ def order_form(request, form):
 
 
 
-@dajaxice_register
-def send_form(request, form):
-    dajax = Dajax()
-    form = ProductOneClickForm(deserialize_form(form))
-    # dajax.remove_css_class('#my_form .loading', 'hidden')
-    if form.is_valid():
-        dajax.remove_css_class('#my_form input', 'error')
-        # dajax.remove_css_class('#status', 'hidden')
-
-        # result = u'Отправляем сообщение'
-        # dajax.assign('#status', 'value', result)
-
-        phone = form.cleaned_data.get('phone')
-        product_name = form.cleaned_data.get('product_name')
-        subject = u'Заявка в 1 клик'
-        message = u'Телефон: %s \n Товар: %s' % (phone , product_name)
-        send_mail(subject, message, 'teamer777@gmail.com', ['fish153.ru@gmail.com'], fail_silently=False)
-
-        order = OrderOneClick(phone=phone , product_name=product_name)
-        order.save()
-
-        # dajax.remove_css_class('#status', 'hidden')
-        # result = u'Сообщение отправлено'
-        # dajax.assign('#status', 'value', result)
-        dajax.remove_css_class('#message_show', 'hidden')
-        # dajax.script('closemodal()')
-
-
-
-        # dajax.redirect('/', delay=2000)
-        # dajax.code('$(".close").click()')
-
-    else:
-        dajax.remove_css_class('#my_form input', 'error')
-    #     dajax.remove_css_class('#status', 'hidden')
-    #     result = u'Введите данные'
-    #     dajax.assign('#status', 'value', result)
-        for error in form.errors:
-            dajax.add_css_class('#id_%s' % error, 'error')
-
-
-
-    # dajax.add_css_class('div .loading', 'hidden')
-    # dajax.alert("Form is_valid(), your phone is: %s" % form.cleaned_data.get('phone'))
-    return dajax.json()
+# @dajaxice_register
+# def send_form(request, form):
+#     dajax = Dajax()
+#     # form = ProductOneClickForm(deserialize_form(form))
+#     # dajax.remove_css_class('#my_form .loading', 'hidden')
+#     if form.is_valid():
+#         dajax.remove_css_class('#my_form input', 'error')
+#         # dajax.remove_css_class('#status', 'hidden')
+#
+#         # result = u'Отправляем сообщение'
+#         # dajax.assign('#status', 'value', result)
+#
+#         phone = form.cleaned_data.get('phone')
+#         product_name = form.cleaned_data.get('product_name')
+#         subject = u'Заявка в 1 клик'
+#         message = u'Телефон: %s \n Товар: %s' % (phone , product_name)
+#         send_mail(subject, message, 'teamer777@gmail.com', ['fish153.ru@gmail.com'], fail_silently=False)
+#
+#         order = OrderOneClick(phone=phone , product_name=product_name)
+#         order.save()
+#
+#         # dajax.remove_css_class('#status', 'hidden')
+#         # result = u'Сообщение отправлено'
+#         # dajax.assign('#status', 'value', result)
+#         dajax.remove_css_class('#message_show', 'hidden')
+#         # dajax.script('closemodal()')
+#
+#
+#
+#         # dajax.redirect('/', delay=2000)
+#         # dajax.code('$(".close").click()')
+#
+#     else:
+#         dajax.remove_css_class('#my_form input', 'error')
+#     #     dajax.remove_css_class('#status', 'hidden')
+#     #     result = u'Введите данные'
+#     #     dajax.assign('#status', 'value', result)
+#         for error in form.errors:
+#             dajax.add_css_class('#id_%s' % error, 'error')
+#
+#
+#
+#     # dajax.add_css_class('div .loading', 'hidden')
+#     # dajax.alert("Form is_valid(), your phone is: %s" % form.cleaned_data.get('phone'))
+#     return dajax.json()
 
 
 @dajaxice_register
@@ -179,16 +179,32 @@ def onload_cart(request):
             current_delivery_checked(request, current_delivery.delivery_type)
 
     for item in get_cart_items(request):
-        if item.product.is_aqua:
-            dajax.assign('#id_delivery_0', 'disabled', 'disabled' )
+        if (item.product.is_aqua) & (current_delivery.weight < 2000):
+            dajax.assign('#id_delivery_0', 'checked', 'checked' )
             dajax.assign('#id_delivery_1', 'disabled', 'disabled' )
             dajax.assign('#id_delivery_2', 'disabled', 'disabled' )
             dajax.assign('#id_delivery_3', 'disabled', 'disabled' )
-            dajax.assign('#id_delivery_4', 'checked', 'checked' )
+            dajax.assign('#id_delivery_4', 'disabled', 'disabled' )
 
             # меняем способ доставки если не соответсвует требованиям
-            if current_delivery.delivery_type != 'EMS':
-                current_delivery.delivery_type = 'EMS'
+            if current_delivery.delivery_type != 'SPSurface':
+                current_delivery.delivery_type = 'SPSurface'
+                current_delivery.save()
+                current_delivery = get_delivery(request)
+                current_delivery.save()
+                reset_data_delivery(current_delivery)
+                dajax.assign('#type_ajax', 'innerHTML', '%s' % current_delivery.delivery_type )
+                current_delivery_checked(request, current_delivery.delivery_type)
+        elif (item.product.is_aqua) & (current_delivery.weight > 2000):
+            dajax.assign('#id_delivery_0', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_1', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_2', 'disabled', 'disabled' )
+            dajax.assign('#id_delivery_3', 'checked', 'checked' )
+            dajax.assign('#id_delivery_4', 'disabled', 'disabled' )
+
+            # меняем способ доставки если не соответсвует требованиям
+            if current_delivery.delivery_type != 'PS':
+                current_delivery.delivery_type = 'PS'
                 current_delivery.save()
                 current_delivery = get_delivery(request)
                 current_delivery.save()

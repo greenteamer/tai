@@ -2,20 +2,14 @@
 #!/usr/bin/env python
 #import urllib
 import random
-
-from django.utils.translation import ugettext_lazy as _
 from django.core import urlresolvers
 
-#from webshop.checkout import google_checkout
 from webshop.cart import cart
 from webshop.cart.cart import *
 from webshop.checkout.models import Order, OrderItem
 from webshop.catalog.models import Cupon
 from webshop.checkout.forms import CheckoutForm, ContactForm
 from webshop.accounts import profile
-#from webshop.checkout import authnet
-#from webshop import settings
-
 
 class TransactionResultType:
     """Возможные результаты транзакции"""
@@ -27,8 +21,6 @@ class TransactionResultType:
 
 def get_checkout_url(request):
     """Возвращает the URL для модуля оплаты"""
-    # для Google Checkout API:
-    # return google_checkout.get_checkout_url(request)
     return urlresolvers.reverse('checkout')
 
 def process(request):
@@ -79,6 +71,7 @@ def create_order(request, transaction_id):
             oi.quantity = ci.quantity
             oi.price = ci.price
             oi.product = ci.product
+            oi.feel = ci.feel
             oi.save()
         # Очищаем корзину после оформления заказа
         cart.empty_cart(request)

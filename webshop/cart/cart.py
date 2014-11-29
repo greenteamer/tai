@@ -5,7 +5,7 @@ import random
 
 from django.shortcuts import get_object_or_404
 
-from webshop.catalog.models import Product, Cupon, GiftPrice, ProductImage
+from webshop.catalog.models import Product, Cupon, GiftPrice, ProductImage, FeelName
 from webshop.checkout.models import Delivery
 from webshop.cart.models import CartItem
 
@@ -38,19 +38,29 @@ def get_cart_items(request):
 def add_to_cart(request):
     """Добавление товара в корзину"""
     postdata = request.POST.copy()
+
     # Получаем чистое имя товара, возвращает пустую строку если нет
     product_slug = postdata.get('product_slug', '')
+
     # Получаем количество добавлеых товаров, возрат 1 если нет
     quantity = postdata.get('quantity', 1)
+
+    # получаем вкус
+    feel = postdata.get('feel', '')
+    if feel == '':
+        feel = None
+
     # Получаем товар, или возвращаем ошибку "не найден" если его не существует
     p = get_object_or_404(Product, slug=product_slug)
+
     # Получаем товары в корзине
     cart_products = get_cart_items(request)
     cupon = get_cupon(request)
     product_in_cart = False
+
     # Проверяем что продукт уже в корзине
     for cart_item in cart_products:
-        if cart_item.product.id == p.id:
+        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel):
             # Обновляем количество если найден
             cart_item.augment_quantity(quantity)
             product_in_cart = True
@@ -61,6 +71,14 @@ def add_to_cart(request):
         ci.quantity = quantity
         ci.cart_id = _cart_id(request)
         ci.cupon = cupon
+
+        try:
+            feelProduct = get_object_or_404(FeelName, id=feel)
+        except Exception:
+            feelProduct = None
+        ci.feel = feelProduct
+
+
         ci.save()
 
 def cart_distinct_item_count(request):
@@ -176,9 +194,6 @@ def get_delivery(request):
             delivery.delivery_type = 'PS'
         if weight < 2000:
             delivery.delivery_type = 'SPSurface'
-        for item in get_cart_items(request):
-            if item.product.is_aqua:
-                delivery.delivery_type = 'EMS'
 
     delivery.delivery_price = calculate_delivery_price(request, delivery)
     delivery.save()

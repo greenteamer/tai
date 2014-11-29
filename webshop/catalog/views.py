@@ -6,9 +6,10 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render
 
 from webshop.cart import cart
-from webshop.catalog.forms import *
+from webshop.catalog.forms import ProductAddToCartForm, get_form_add_to_cart
 from django.core.mail import send_mail
 from webshop.catalog.models import Category, Product, Characteristic, ProductImage
 from webshop.slider.models import Slider
@@ -102,13 +103,14 @@ def product_view(request, product_slug, template_name="catalog/product.html"):
     except Exception:
         print "Image for product #%s not found" % p.id
     characteristics = Characteristic.objects.filter(product=p)
+
     # Проверка HTTP метода
     if request.method == 'POST':
         # Добавление в корзину, создаем связанную форму
         postdata = request.POST.copy()
         form = ProductAddToCartForm(request, postdata)
-        form2 = ProductOneClickForm(request.POST or None)
-
+        # form = get_form_add_to_cart(request, postdata)
+        # form2 = ProductOneClickForm(request.POST or None)
         # Проверка что отправляемые данные корректны
         if form.is_valid():
             # Добавляем в корзину и делаем перенаправление на страницу с корзиной
@@ -123,14 +125,29 @@ def product_view(request, product_slug, template_name="catalog/product.html"):
         #     text = u'Заявка на товар %s \n телефон: %s' % (page_title, phone)
         #     send_mail('в 1 клик', text, 'teamer777@gmail.com', ['greenteamer@bk.ru'], fail_silently=False)
         #     return HttpResponseRedirect('/product/%s/' % product_slug)
+        else:
+            form = ProductAddToCartForm(request, postdata)
+            # form = get_form_add_to_cart(request, postdata)
+            error = form.errors
+            return render_to_response(template_name, locals(),
+                              context_instance=RequestContext(request))
+            # return HttpResponseRedirect('/product/%s' % product_slug)
+            # return render(request, template_name, {
+            #     'form': form,
+            #     'error': form.errors,
+            # })
 
     else:
         # Если запрос GET, создаем не привязанную форму. request передаем в kwarg
         form = ProductAddToCartForm(request=request, label_suffix=':')
-        form2 = ProductOneClickForm()
+        # form = get_form_add_to_cart(request, postdata=None)
+        # form2 = ProductOneClickForm()
+    # form = get_form_add_to_cart(request)
     # Присваиваем значению скрытого поля чистое имя продукта
     form.fields['product_slug'].widget.attrs['value'] = product_slug
-    form2.fields['product_name'].widget.attrs['value'] = p.name
+
+
+    # form2.fields['product_name'].widget.attrs['value'] = p.name
     # Устанавливаем тестовые cookies при первом GET запросе
     request.session.set_test_cookie()
     return render_to_response(template_name, locals(),

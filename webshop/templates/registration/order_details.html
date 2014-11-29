@@ -23,6 +23,9 @@
       </td>
 			<td>
 				<a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+                {% if item.feel %}
+                    <span>вкус: {{ item.feel }}</span>
+                {% endif %}
 			</td>
 			<td>{{ item.price }} руб.</td>
 			<td>{{ item.quantity }}</td>

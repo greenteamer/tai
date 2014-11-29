@@ -80,8 +80,9 @@ a.cart{
 
 /*навигация*/
 .main_menu {
-    border-bottom: 1px solid #D3D3D3;
-    border-top: 1px solid #D3D3D3;
+    border-bottom: 1px solid #53a02d;
+    border-top: 1px solid #53a02d;
+    background: #53a02d;
 }
 #menu_fixed {
     width: 100%;
@@ -175,12 +176,53 @@ input.search-query.span2 {
     padding: 14px 7px 0px 7px;
 }
 #menu_fixed .region-navigation .navbar-nav a {
-    padding: 14px 7px 16px 7px;
+    padding: 14px 45px 16px 75px;
+    border-radius: 25px;
+    /*margin-left: 30px;*/
+    color: #fff;
+    background:#53a02d;
+    /*margin-right: 1px;*/
+    font-size: 20px;
+    text-transform: uppercase;
+    /*text-align: left;*/
+}
+#menu_fixed .region-navigation .navbar-nav a i {
+    color: #53a02d;
+    transition: all 300ms ease-out;
+}
+#menu_fixed .region-navigation .navbar-nav a:hover i {
+    /*font-size: 30px;*/
+    /*top:10px;*/
+    /*left:20px;*/
     color: #000;
 }
+#menu_fixed .region-navigation .navbar-nav a:hover .main_menu_i {
+    position: absolute;
+    left:20px;
+
+}
+.main_menu_i {
+    position: absolute;
+    z-index: 100;
+    top:0px;
+    left:0px;
+    text-align: center;
+    padding-top: 14px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border:1px solid #53a02d;
+    background: #fff;
+    -moz-transition: all 300ms ease-out;
+    -webkit-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-in;
+    -webkit-transition: all 300ms ease-in;
+    -o-transition: all 300ms ease-in;
+}
 #menu_fixed .region-navigation .navbar-nav a:hover {
-    background: none;
-    color: #53a02d;
+    /*background: #48902c;*/
+    color: #fff;
 }
 .nav.log_menu i{
     font-size:16px;
@@ -190,6 +232,7 @@ input.search-query.span2 {
 .cart_items_prod {
     border-bottom: 1px solid #E8E8E8;
     margin-bottom: 7px;
+    overflow: hidden;
 }
 .cart_items_prod p {
     font-family: 'Roboto Condensed', sans-serif;
@@ -235,9 +278,10 @@ input.search-query.span2 {
 	font-size: 16px;
 	color:#333;
     text-decoration: none;
+    background: #fff;
 }
 .cart_icon a:hover{
-    background: #53a02d;
+    background: #fff;
 }
 .cart_icon a:hover  span{
     background: #000;
@@ -275,6 +319,13 @@ input.search-query.span2 {
 	color: #616161;
 	background-color: White;
 	text-decoration: none;
+}
+.phone_text img {
+    width: 30px;
+    float: left;
+}
+.phone_text {
+    height: 30px;
 }
 .phone_area .auth,
 .phone_area .phone,
@@ -343,7 +394,7 @@ ul.menu li:hover ul.children {
 /*мои стили*/
 .phone_area {
 	float: right;
-    margin-top: 18px;
+    margin-top: 48px;
 }
 /*партнеры*/
 #modern .frame {
@@ -718,8 +769,12 @@ font-family: 'Open Sans Condensed', sans-serif;
     border-top: 1px solid #E8E8E8;
     margin-top: 20px;
     border-bottom: 1px solid #E8E8E8;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    height: 150px;
     padding: 16px 0px 14px 0px;
+}
+.price_cart .feel {
+    margin-bottom: 10px;
 }
 .price_was{
     text-decoration:line-through;
@@ -1012,13 +1067,13 @@ margin-bottom: 40px;
     overflow: hidden;
 }
 .phone {
-    width:218px;
+    width:250px;
     text-align: right;
     float: right;
 }
 .phone img{
-    float: left;
-    margin: 1px 0px 8px 0px;
+    /*float: left;*/
+    /*margin: 1px 0px 8px 0px;*/
 }
 .phone p{
     font-size: 20px;
@@ -1026,8 +1081,8 @@ margin-bottom: 40px;
     margin: 0;
 }
 .phone a {
-    font-size: 14px;
-    margin-right: 12px;
+    font-size: 20px;
+    /*margin-right: 12px;*/
 }
 .logo img {
     margin:0 10px 0 0;
@@ -1066,7 +1121,23 @@ header.navbar {
     color:#fff;
 }
 #accordion i{
-    float: right;
+    /*float: right;*/
+    /*padding: 10px;  */
+}
+.accordion_button {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#accordion .panel-heading {
+    /*padding: 0;*/
+    position: relative;
+}
+a#accordion {
+    padding: 0;
+}
+#accordion .panel-heading a {
+    padding: 10px;
 }
 .panel-group .panel {
     border: none;
@@ -1126,8 +1197,13 @@ input#order_submit {
     float: right;
 }
 .socials {
-    font-size:26px;
+    font-size:16px;
 }
+.socials img {
+    float: left;
+    width: 30px;
+    margin-right: 10px;
+} 
 .socials a {
     background: #fff;
     color: #53a02d;
@@ -1162,7 +1238,12 @@ input#order_submit {
     margin-top: 60px;
 }
 
-
+.cart_items_menu a {
+    background: #53a02d;
+}
+.cart_items_menu a:hover {
+    background: #53a02d;
+}
 /*---------------------Мобильная верстка---------------*/
 
 /*@media (min-width: 769px) and (max-width: 991px){*/

@@ -35,10 +35,18 @@ class BlogList(ListView):
 #     template_name = 'pages/blog_list.html'
 
 # выводим категорию блога
-def blogSection(request, section, template_name="pages/blog_list.html"):
-    blog_section = Blog.objects.filter(menu_select=section)
-    return render_to_response(template_name, locals(),context_instance=RequestContext(request))
+# def blogSection(request, section, template_name="pages/blog_list.html"):
+#     blog_section = Blog.objects.filter(menu_select=section)
+#     return render_to_response(template_name, locals(),context_instance=RequestContext(request))
 
+# выводим статью блога
+class BlogPost(DetailView):
+    template_name = 'pages/blog.html'
+    model = Blog
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogPost, self).get_context_data(**kwargs)
+        return context
 
 def review_form_view(request, template_name="pages/review.html"):
     try:

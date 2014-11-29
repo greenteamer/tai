@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/css.css" />
 
         {% bootstrap_css %}
-
+{#        <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css"/>#}
         <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" />
         <link href="{{ STATIC_URL }}css/non-responsive.css" rel="stylesheet" />
         <link rel="stylesheet" href="{{ STATIC_URL }}css/selectbox.css"/>
@@ -97,6 +97,8 @@
         {% block product_js %}
         {% endblock %}
 
+{#        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>#}
+
         {% bootstrap_javascript %}
         {% bootstrap_messages %}
 
@@ -148,7 +150,7 @@
                                 top: 0,
                                 position: 'fixed',
                                 marginTop: 0,
-                                zIndex: 888
+                                zIndex: 11000
                             });
 {#                            jQuery("#titleblocksrecommend").css({#}
 {#                                marginTop: 160#}
@@ -171,29 +173,29 @@
 
 {#    защита контента#}
 
-    <script type="text/javascript">
-        document.ondragstart = test;
-        document.onselectstart = test;
-        document.oncontextmenu = test;
-        function test() {
-            return false;
-        }
-        document.oncontextmenu;
-        function catchControlKeys(event){
-            var code=event.keyCode ? event.keyCode : event.which ? event.which : null;
-            if (event.ctrlKey){
-                // Ctrl+U
-                if (code == 117) return false;
-                if (code == 85) return false;
-                // Ctrl+C
-                if (code == 99) return false;
-                if (code == 67) return false;
-                // Ctrl+A
-                if (code == 97) return false;
-                if (code == 65) return false;
-            }
-        }
-    </script>
+{#    <script type="text/javascript">#}
+{#        document.ondragstart = test;#}
+{#        document.onselectstart = test;#}
+{#        document.oncontextmenu = test;#}
+{#        function test() {#}
+{#            return false;#}
+{#        }#}
+{#        document.oncontextmenu;#}
+{#        function catchControlKeys(event){#}
+{#            var code=event.keyCode ? event.keyCode : event.which ? event.which : null;#}
+{#            if (event.ctrlKey){#}
+{#                // Ctrl+U#}
+{#                if (code == 117) return false;#}
+{#                if (code == 85) return false;#}
+{#                // Ctrl+C#}
+{#                if (code == 99) return false;#}
+{#                if (code == 67) return false;#}
+{#                // Ctrl+A#}
+{#                if (code == 97) return false;#}
+{#                if (code == 65) return false;#}
+{#            }#}
+{#        }#}
+{#    </script>#}
 {#    -------------------------------------------#}
 
     </head>
