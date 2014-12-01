@@ -13,11 +13,22 @@
             <div class="text_item">
                 <p><strong>Бренд:</strong> {{ item.brand_name }}</p>
 {#                <p>Описание: {{ item.description|truncatewords:10|safe }}</p>#}
-                <p><strong>Вес:</strong> {{ item.weight }}</p>
+                <p><strong>Объем:</strong> {{ item.get_atributes.volume }} мл.</p>
+                <p><strong>Вес:</strong> {{ item.get_atributes.weight }} гр.</p>
                 {% if item.is_not_available %}
                     <p style="color: red;">Нет в наличии</p>
                 {% endif %}
-                <p><strong>Цена:</strong> <i class="fa fa-rub"></i>{{ item.price }}</p>
+                {% if item.sale_price.new_price != 0.00 %}
+                    <div class="price_was">
+                        {% trans "Was" %}: <span>{{ item.sale_price.price }} {% trans "руб." %}</span>
+                    </div>
+                    <div class="price_now">
+                        {% trans "Now" %}:<span> {{ item.sale_price.new_price }} {% trans "руб." %}</span>
+                    </div>
+{#                    <p>*за объем: {{ item.sale_price.volume }} мл.</p>#}
+                {% else %}
+                    <p>{{ item.sale_price.price }} {% trans "руб." %}</p>
+                {% endif %}
                 <p></p>
             </div>
         </div>

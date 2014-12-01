@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 {% endfor %}
-                <a href="{% url show_cart %}">Показать корзину</a>
+                <a href="{% url show_cart %}" class="btn btn-success"><i class="icon-shopping-cart icon-white" style="margin-right: 5px;"></i> Показать корзину</a>
             {% else %}
                 <p>Нет товаров в корзине</p>
             {% endif %}
