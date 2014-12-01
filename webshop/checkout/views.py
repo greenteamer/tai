@@ -4,14 +4,9 @@ from django.core import urlresolvers
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.generic import TemplateView
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 from webshop.settings import ADMIN_EMAIL
 import decimal
 
-
-from webshop.checkout.forms import CheckoutForm
 from webshop.checkout.models import Order, OrderItem
 from webshop.catalog.models import Cupon
 from webshop.checkout import checkout
@@ -65,17 +60,8 @@ def contact(request, template_name='checkout/checkout.html'):
         else:
             form = ContactForm()
 
-    # form = CheckoutForm()
-    # form = ContactForm()
-
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
-
-
-    # return render(request, 'checkout/checkout.html', {
-    #     'form': form,
-    #     # 'posts': post,
-    # })
 
 
 def receipt_view(request, template_name='checkout/receipt.html'):
@@ -95,10 +81,6 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             form = RobokassaForm(initial={
                    'OutSum': order.total,
                    'InvId': order.id,
-                   # 'Desc': order.shipping_name,
-                   # 'Email': order.email,
-                   # 'IncCurrLabel': '',
-                   # 'Culture': 'ru'
                })
         else:
 
@@ -155,7 +137,6 @@ def payment_received(sender, **kwargs):
     order = Order.objects.get(id=kwargs['InvId'])
     order.status = Order.PAID
 
-    # order.paid_sum = kwargs['OutSum']
     order.save()
 
     # обнуляем купон при успешном его использовании

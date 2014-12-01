@@ -201,9 +201,6 @@ def get_delivery(request):
             delivery.delivery_type = 'PS'
         if weight < 2000:
             delivery.delivery_type = 'SPSurface'
-        # for item in get_cart_items(request):
-        #     if item.product.is_aqua:
-        #         delivery.delivery_type = 'EMS'
 
     delivery.delivery_price = calculate_delivery_price(request, delivery)
     delivery.save()
