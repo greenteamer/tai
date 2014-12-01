@@ -14,15 +14,12 @@
         window.onload = function()
         {
             CKEDITOR.replace('text', {
-                toolbar: 'Basic'
-            });
+                toolbar: 'Basic'
+            });
 
             $('#myTab a').click(function (e) {
                 e.preventDefault()
                 $(this).tab('show')
-                CKEDITOR.replace('text', {
-                    toolbar: 'Basic'
-                });
             })
         };
     </script>
