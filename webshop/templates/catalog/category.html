@@ -5,6 +5,17 @@
 {% block slider %}
 {% endblock %}
 
+{#<div class="container">#}
+{#    <div class="row">#}
+{#        <div class="col-xs-12">#}
+{#            {% for breadcrumb in request.breadcrumbs %}#}
+{#                <a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a>{% if not forloop.last %} &raquo; {% endif %}#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+
+
 {% block tri_bloka %}
 {% endblock %}
 
@@ -29,7 +40,17 @@
                                         <br />
                                         <h2>{{ p.name }}</h2>
                                     </a>
-                                   <p>{{ p.price }} руб.</p>
+                                    {% if p.sale_price.new_price != 0.00 %}
+                                        <div class="price_was">
+                                            {% trans "Was" %}: <span>{{ p.sale_price.price }} {% trans "руб." %}</span>
+                                        </div>
+                                        <div class="price_now">
+                                            {% trans "Now" %}:<span> {{ p.sale_price.new_price }} {% trans "руб." %} *</span>
+                                        </div>
+                                        <p>*за объем: {{ p.sale_price.volume }} мл.</p>
+                                    {% else %}
+                                        <p>{{ p.sale_price.price }} {% trans "руб." %}</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endfor %}

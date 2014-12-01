@@ -12,6 +12,8 @@ PROJECT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replac
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+BREADCRUMBS_AUTO_HOME = True
+
 DEFAULT_CHARSET = 'utf-8'
 
 ADMIN_EMAIL = 'greenteamer@bk.ru'
@@ -124,6 +126,7 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'breadcrumbs.middleware.BreadcrumbsMiddleware',
     #'webshop.SSLMiddleware.SSLRedirect',
 )
 
@@ -196,6 +199,7 @@ INSTALLED_APPS = (
     'dajax',
     'captcha',
     'robokassa',
+    'breadcrumbs',
 )
 
 THUMBNAIL_DEBUG = True

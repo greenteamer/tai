@@ -22,6 +22,7 @@ from webshop.accounts import profile
 def register_view(request, template_name="registration/register.html"):
     """Регистрация нового пользователя"""
     page_title = _(u'User Registration')
+    request.breadcrumbs(page_title, request.path_info)
     if request.method == 'POST':
         postdata = request.POST.copy()
         form = MyRegistrationForm(postdata)
@@ -52,6 +53,7 @@ def register_view(request, template_name="registration/register.html"):
 def my_account_view(request, template_name="registration/my_account.html"):
     """Страница аккаунта пользователя"""
     page_title = _(u'My Account')
+    request.breadcrumbs(page_title, request.path_info)
     orders = Order.objects.filter(user=request.user)
     name = request.user.username
     return render_to_response(template_name, locals(),
@@ -62,6 +64,7 @@ def order_details_view(request, order_id, template_name="registration/order_deta
     """Информация о сделанном заказе"""
     order = get_object_or_404(Order, id=order_id, user=request.user)
     page_title = _(u'Order details for order #') + order_id
+    request.breadcrumbs(page_title, request.path_info)
     order_items = OrderItem.objects.filter(order=order)
     total_sum_parse = "%s" % order.total
     total_sum_parse = total_sum_parse.split(".")
@@ -88,5 +91,6 @@ def order_info_view(request, template_name="registration/order_info.html"):
         user_profile = profile.retrieve(request)
         form = UserProfileForm(instance=user_profile)
     page_title = _(u'Edit Order Information')
+    request.breadcrumbs(page_title, request.path_info)
     return render_to_response(template_name, locals(),
                                   context_instance=RequestContext(request))

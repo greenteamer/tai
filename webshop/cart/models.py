@@ -4,7 +4,7 @@ import decimal
 
 from django.db import models
 
-from webshop.catalog.models import Product, Cupon, FeelName
+from webshop.catalog.models import Product, Cupon, FeelName, ProductVolume
 
 
 class CartItem(models.Model):
@@ -13,6 +13,8 @@ class CartItem(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(default=1)
     product = models.ForeignKey(Product, unique=False)
+
+    atributes = models.ForeignKey(ProductVolume, unique=False)
 
     feel = models.ForeignKey(FeelName, unique=False, default=None, null=True)
 
@@ -26,7 +28,7 @@ class CartItem(models.Model):
     def total(self):
         """Метод для подсчета суммы, цена товара * кол-во"""
         total = decimal.Decimal("0.00")
-        total = self.quantity * self.product.price
+        total = self.quantity * self.price
         # total = "%d" % total
         return total
 
@@ -38,7 +40,13 @@ class CartItem(models.Model):
     @property
     def price(self):
         """Получение цены товара в корзине"""
-        return self.product.price
+        set_price = decimal.Decimal("0.00")
+        if self.atributes.new_price != 0.00:
+            set_price = self.atributes.new_price
+        else:
+            set_price = self.atributes.price
+        return set_price
+
 
     def get_absolute_url(self):
         """Получение абсолютной ссылки на товар"""

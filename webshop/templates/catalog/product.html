@@ -72,76 +72,87 @@
                 <div class="tabbable">
                     <div class="col-xs-7">
 
-{#                        <ul class="nav nav-tabs" id="myTab">#}
-{#                            <li class="active"><a href="#characteristics" data-toggle="tab">{% trans "Characteristics" %}</a></li>#}
-{#                            <li><a href="#description" data-toggle="tab">{% trans "Description" %}</a></li>#}
-{#                        </ul>#}
+                        <h2>Описание:</h2>
+                        <div class="tab-pane" id="description">{{ p.description|truncatewords:30 }}</div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-12" style="height: 40px;">
+                                <div class="row">
+                                    <div class="col-xs-6">Брэнд:</div>
+                                    <div class="col-xs-6">{{ p.brand_name.name }}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" style="height: 40px;">
+                                <div class="row">
+                                    <div class="col-xs-6">Объем:</div>
+                                    <div class="col-xs-6">
+                                        <select onchange="Dajaxice.webshop.ajaxapp.change_atrs(Dajax.process, {'option':this.value})" size="1">
+                                            {% for atr in atrs %}
+                                                <option value="{{ atr.id }}">{{ atr.volume }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12" style="height: 40px;">
+                                <div class="row">
+                                    <div class="col-xs-6">Вес:</div>
+                                    <div class="col-xs-6"><span id="weight">{{ atrs_default.weight }} гр.</span></div>
+                                </div>
+                            </div>
+                        </div>
 
-{#                        <div class="tab-content">#}
-{#                            <div class="tab-pane active" id="characteristics">#}
-{#                                <div class="row-fluid">#}
-{#                                    <div class="span5">#}
-                                        <div class="tab-pane" id="description">{{ p.description|truncatewords:30 }}</div>
-                                        <br/>
-                                        <table class="table table-striped table-bordered table-condensed">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Брэнд:</th>
-                                                    <th>{{ p.brand_name.name }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Объем:</th>
-                                                    <th>{{ p.volume }} гр.</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Вес:</th>
-                                                    <th>{{ p.weight }} гр.</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Жидкость:</th>
-                                                    <th>{% if p.is_aqua %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</th>
-                                                </tr>
-{#                                                <tr>#}
-{#                                                    <th>Способ доставки:</th>#}
-{#                                                    {% if p.is_aqua %}<th>Только EMS</th>{% else %}<th>Любой</th>{% endif %}#}
-{#                                                </tr>#}
-                                            </tbody>
-                                        </table>
-{#                                    </div>#}
-{#                                </div>#}
-{#                            </div>#}
-
-{#                        </div>#}
                     </div>
                 </div>
 
                 <div class="col-xs-7">
                     <div class="row">
                         <div class="price_cart">
-                            <div class="col-xs-4">
-                                {% if p.sale_price %}
-                                    <div class="price_was">
-                                        {% trans "Was" %}: <span>{{ p.price }} {% trans "руб." %}</span>
-                                    </div>
-                                    <div class="price_now">
-                                        {% trans "Now" %}:<span> {{ p.new_price }} {% trans "руб." %}</span>
-                                    </div>
-                                {% else %}
-                                    {% trans "Price" %}: {{ p.price }} {% trans "руб." %}
+                            <div class="col-xs-6">
+                                {% if p.feel.count > 0 %}
+                                    <p>Выберите вкус:</p> <br/>
                                 {% endif %}
+
+                                <div id="super_price" class="{% if p.get_atributes.new_price == 0.00 %}hidden{% endif %}">
+                                    <div class="price_was">
+                                        {% trans "Was" %}: <span id="price">{{ atrs_default.price }} {% trans "руб." %}</span>
+                                    </div>
+                                    <br/>
+                                    <div class="price_now">
+                                        <span id="new_price">{% trans "Now" %}: {{ atrs_default.new_price }} руб.</span>
+                                    </div>
+                                </div>
+                                <div id="old_price" class="{% if p.get_atributes.new_price != 0.00 %}hidden{% endif %}">
+                                    <span id="price_old">{% trans "Price" %}: {{ atrs_default.price }} {% trans "руб." %} </span>
+                                </div>
+
+{#                                {% if p.sale_price.new_price != 0.00 %}#}
+{#                                    <div class="price_was">#}
+{#                                        {% trans "Was" %}: <span>{{ p.sale_price.price }} {% trans "руб." %}</span>#}
+{#                                    </div>#}
+{#                                    <div class="price_now">#}
+{#                                        {% trans "Now" %}:<span> {{ p.sale_price.new_price }} {% trans "руб." %} *</span>#}
+{#                                    </div>#}
+{#                                    <p>*за объем: {{ p.sale_price.volume }} мл.</p>#}
+{#                                {% else %}#}
+{#                                    <p>{{ p.sale_price.price }} {% trans "руб." %}</p>#}
+{#                                {% endif %}#}
+
+
                             </div>
 
-                            <div class="col-xs-8">
+                            <div class="col-xs-6">
                                 <form method="post" action="." class="cart">{% csrf_token %}
                                     <div class="hidden">
                                         {{ form.product_slug }}
                                     </div>
-
+                                    <div class="hidden">
+                                        <input id="atr_value" name="atr_value" type="hidden" value="{{ atrs.0.id }}"/>
+                                    </div>
                                     {% if p.feel.count > 0 %}
                                         <div class="feel">
                                             {% if error.feel %}{{ error.feel }}<div class="error">{% endif %}
-                                            <label for="id_feel">Выберите вкус:</label>
-    {#                                        {{ form.feel }}#}
+{#                                            <label for="id_feel">Выберите вкус:</label>#}
                                             <select name="feel" id="id_feel">
                                                 {% for feel in p.feel.all %}
                                                     <option value="{{ feel.id }}">{{ feel.name }}</option>
@@ -150,13 +161,17 @@
                                             {% if error.feel %}</div>{% endif %}
                                         </div>
                                     {% endif %}
-
                                     <div class="quantity">
-                                        <label for="id_quantity">Количество:</label>
+                                        <br/><label for="id_quantity">Количество:</label>
                                         {{ form.quantity }}
                                     </div>
-                                    <input class="btn btn-primary" type="submit" value="{% trans "Add To Cart" %}"
-                                    name="submit" alt="{% trans "Add To Cart" %}" />
+{#                                    <input class="btn btn-success" type="submit" value="{% trans "Add To Cart" %}"#}
+{#                                    name="submit" alt=" {% trans "Add To Cart" %}" />#}
+
+                                    <button class="btn btn-success" type="submit" name="submit">
+                                        <i class="icon-shopping-cart icon-white" style="margin-right: 5px;"></i><span>Добавить в корзину</span>
+                                    </button>
+
                                 </form>
 {#                                <form method="post" action="." class="cart">{% csrf_token %}#}
 {#                                    {{ form.as_p }}#}

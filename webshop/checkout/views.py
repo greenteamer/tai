@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from webshop.settings import ADMIN_EMAIL
+import decimal
 
 from webshop.checkout.models import Order, OrderItem
 from webshop.catalog.models import Cupon
@@ -13,7 +14,7 @@ from webshop.cart import cart
 from webshop.accounts import profile
 
 from django.core.mail import send_mail, EmailMultiAlternatives
-from webshop.checkout.forms import ContactForm
+from webshop.checkout.forms import ContactForm, CheckoutForm
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from robokassa.signals import result_received
@@ -21,10 +22,10 @@ from robokassa.signals import result_received
 
 from robokassa.forms import RobokassaForm
 
-
-
-
 def contact(request, template_name='checkout/checkout.html'):
+
+    request.breadcrumbs(u'Данные получателя', request.path_info)
+
     if cart.is_empty(request):
         cart_url = urlresolvers.reverse('show_cart')
         return HttpResponseRedirect(cart_url)
@@ -66,6 +67,8 @@ def contact(request, template_name='checkout/checkout.html'):
 def receipt_view(request, template_name='checkout/receipt.html'):
     """Представление отображающее сделанный заказ"""
 
+    request.breadcrumbs(u'Подтверждение данных', request.path_info)
+
     order_id = request.session.get('order_id', '')
     if order_id:
         # если в cookies есть номер заказа, выводим его содержимое
@@ -84,7 +87,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             """отправка писем"""
             items = ''
             for item in order_items:
-                items = items + '%s вкус:%s \n' % (item.name, item.feel)
+                items = items + '%s \n' % item.name
             if order.payment_method == 1:
                 payment_method = u'Оплатить квитанцию'
             else:

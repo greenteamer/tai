@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load catalog_tags %}
 {% load search_tags %}
+{#{% load mptt_tags %}#}
 {% block site_wrapper %}
 
     <div  id="menu_fixed">
@@ -38,6 +39,20 @@
 
     {% block slider %}
     {% endblock %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    {% for breadcrumb in request.breadcrumbs %}
+                        {% if not forloop.last %}
+                            <li><a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a></li>
+                        {% else %} <li class="active">{{ breadcrumb.name }}</li> {% endif %}
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
 
 {#        блок разделов#}
     {% block tri_bloka %}
@@ -207,14 +222,14 @@
 
                         <div class="col-xs-6">
                             <ul class="payment">
+                                <li><img src="{{ STATIC_URL }}images/payment/visa.png" alt=""/></li>
+                                <li><img src="{{ STATIC_URL }}images/payment/mastercard.png" alt=""/></li>
                                 <li><img src="{{ STATIC_URL }}images/payment/alfabank.png" alt=""/></li>
                                 <li><img src="{{ STATIC_URL }}images/payment/elecsnet.png" alt=""/></li>
                                 <li><img src="{{ STATIC_URL }}images/payment/mail-money.png" alt=""/></li>
                                 <li><img src="{{ STATIC_URL }}images/payment/webmoney.png" alt=""/></li>
                                 <li><img src="{{ STATIC_URL }}images/payment/qiwi.png" alt=""/></li>
                                 <li><img src="{{ STATIC_URL }}images/payment/rbk-money.png" alt=""/></li>
-                                <li><img src="{{ STATIC_URL }}images/payment/visa.png" alt=""/></li>
-                                <li><img src="{{ STATIC_URL }}images/payment/mastercard.png" alt=""/></li>
                                 <li><img src="{{ STATIC_URL }}images/payment/yandex-money.png" alt=""/></li>
                             </ul>
                         </div>

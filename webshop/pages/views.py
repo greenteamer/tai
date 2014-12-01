@@ -18,8 +18,15 @@ class PageView(DetailView):
     template_name = 'pages/page.html'
     model = Page
 
+    def get_object(self, queryset=None):
+        object = super(PageView, self).get_object()
+        return object
+
     def get_context_data(self, **kwargs):
         context = super(PageView, self).get_context_data(**kwargs)
+
+        p = Page.objects.get(id=self.get_object().id)
+        self.request.breadcrumbs('%s' % p.name, self.request.path_info)
         return context
 
 class BlogList(ListView):
@@ -27,6 +34,11 @@ class BlogList(ListView):
     context_object_name = 'blog_posts'
     template_name = 'pages/blog_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(BlogList, self).get_context_data(**kwargs)
+        self.request.breadcrumbs(u'Мой блог', self.request.path_info)
+        context['request'] = self.request
+        return context
 
 # class BlogListSectionOne(ListView):
 #
@@ -44,11 +56,21 @@ class BlogPost(DetailView):
     template_name = 'pages/blog.html'
     model = Blog
 
+    def get_object(self, queryset=None):
+        object = super(BlogPost, self).get_object()
+        return object
+
     def get_context_data(self, **kwargs):
         context = super(BlogPost, self).get_context_data(**kwargs)
+
+        blog = Blog.objects.get(id=self.get_object().id)
+        self.request.breadcrumbs([(u'Мой блог', u'/blog/'), ('%s' % blog.name, self.request.path_info)])
         return context
 
 def review_form_view(request, template_name="pages/review.html"):
+
+    request.breadcrumbs(u'Отзывы', request.path_info)
+
     try:
         current_userProfile = UserProfile.objects.get(user=request.user)
         reviews = Review.objects.all()

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 from django.db import models
+import decimal
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
@@ -98,9 +99,9 @@ class Product(models.Model):
                             help_text=_(u'Unique value for product page URL, created from name.'))
     brand_name = models.ForeignKey(BrandName, verbose_name=u'Название бренда', blank=True, null=True)
 
-    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
-    new_price = models.DecimalField(max_digits=9, decimal_places=2,
-                                    blank=True, default=0.00, verbose_name=u'Новая цена')
+    # price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
+    # new_price = models.DecimalField(max_digits=9, decimal_places=2,
+    #                                 blank=True, default=0.00, verbose_name=u'Новая цена')
     not_available = models.BooleanField(_(u'Нет в наличии'))
     is_bestseller = models.BooleanField(_(u'Лучшие продажи'), default=False) # Лучшие продажи
     is_aqua = models.BooleanField(verbose_name=u'Жидкость')
@@ -117,8 +118,8 @@ class Product(models.Model):
                                         help_text=_(u'Categories for product'))
 
     feel = models.ManyToManyField(FeelName, verbose_name=u'Вкус', blank=True, null=True)
-    volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
-    weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
+    # volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
+    # weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
 
     objects = models.Manager()
 
@@ -142,15 +143,21 @@ class Product(models.Model):
 
     @property
     def sale_price(self):
-        """
-        Метод возвращает старую цену товара
-        будет использоваться в шаблонах для отображения
-        старой цены под текущей
-        """
-        if self.new_price < self.price:
-            return self.new_price
-        else:
-            return None
+
+        # bool = False
+        sale_atr = None
+        atributes = ProductVolume.objects.filter(product=self)
+
+        for atr in atributes:
+            if atr.new_price != 0.00:
+                sale_atr = atr
+            else:
+                sale_atr = ProductVolume.objects.get(product=self, default=True)
+        return sale_atr
+
+    def get_atributes(self):
+        atribites = ProductVolume.objects.get(product=self, default=True)
+        return atribites
 
     def get_image(self):
         image = ProductImage.objects.get(product=self, default=True)
@@ -179,6 +186,26 @@ class ProductImage(models.Model):
 
     def __unicode__(self):
         return self.product.name
+
+
+# модель для добавления основных свойств продукта
+class ProductVolume(models.Model):
+    volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
+    weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
+    new_price = models.DecimalField(max_digits=9, decimal_places=2,
+                                    blank=True, default=0.00, verbose_name=u'Новая цена')
+
+    default = models.BooleanField(_(u'Основной набор'), default=False)
+
+    product = models.ForeignKey(Product, verbose_name=_(u'Product'), help_text=_(u'Referenced product'))
+
+    class Meta:
+        db_table = 'product_volume'
+        verbose_name_plural = _(u'Основные атрибуты')
+
+    def __unicode__(self):
+        return '%s-%s' % (self.product.name, self.volume)
 
 
 class GiftPrice(models.Model):

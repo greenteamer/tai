@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'OrderItem.feel'
-        db.add_column('checkout_orderitem', 'feel',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['catalog.FeelName'], null=True),
+        # Adding field 'OrderItem.atributes'
+        db.add_column('checkout_orderitem', 'atributes',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['catalog.ProductVolume']),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'OrderItem.feel'
-        db.delete_column('checkout_orderitem', 'feel_id')
+        # Deleting field 'OrderItem.atributes'
+        db.delete_column('checkout_orderitem', 'atributes_id')
 
 
     models = {
@@ -114,6 +114,16 @@ class Migration(SchemaMigration):
             'volume': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'}),
             'weight': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'})
         },
+        'catalog.productvolume': {
+            'Meta': {'object_name': 'ProductVolume', 'db_table': "'product_volume'"},
+            'default': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'new_price': ('django.db.models.fields.DecimalField', [], {'default': '0.0', 'max_digits': '9', 'decimal_places': '2', 'blank': 'True'}),
+            'price': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'}),
+            'product': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.Product']"}),
+            'volume': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'}),
+            'weight': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'})
+        },
         'checkout.delivery': {
             'Meta': {'object_name': 'Delivery'},
             'cart_id_delivery': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
@@ -146,6 +156,7 @@ class Migration(SchemaMigration):
         },
         'checkout.orderitem': {
             'Meta': {'object_name': 'OrderItem'},
+            'atributes': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.ProductVolume']"}),
             'feel': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.FeelName']", 'null': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['checkout.Order']"}),

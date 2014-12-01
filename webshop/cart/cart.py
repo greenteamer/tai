@@ -5,7 +5,7 @@ import random
 
 from django.shortcuts import get_object_or_404
 
-from webshop.catalog.models import Product, Cupon, GiftPrice, ProductImage, FeelName
+from webshop.catalog.models import *
 from webshop.checkout.models import Delivery
 from webshop.cart.models import CartItem
 
@@ -45,6 +45,10 @@ def add_to_cart(request):
     # Получаем количество добавлеых товаров, возрат 1 если нет
     quantity = postdata.get('quantity', 1)
 
+    # получаем набор атрибутов
+    atr_value = postdata.get('atr_value', '')
+    atributes = ProductVolume.objects.get(id=atr_value)
+
     # получаем вкус
     feel = postdata.get('feel', '')
     if feel == '':
@@ -60,10 +64,11 @@ def add_to_cart(request):
 
     # Проверяем что продукт уже в корзине
     for cart_item in cart_products:
-        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel):
+        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel) & (cart_item.atributes == atributes):
             # Обновляем количество если найден
             cart_item.augment_quantity(quantity)
             product_in_cart = True
+
     if not product_in_cart:
         # Создаем и сохраняем новую корзину
         ci = CartItem()
@@ -71,6 +76,8 @@ def add_to_cart(request):
         ci.quantity = quantity
         ci.cart_id = _cart_id(request)
         ci.cupon = cupon
+
+        ci.atributes = atributes
 
         try:
             feelProduct = get_object_or_404(FeelName, id=feel)
@@ -136,7 +143,7 @@ def cart_subtotal(request):
     cart_total = decimal.Decimal('0.00')
     cart_products = get_cart_items(request)
     for cart_item in cart_products:
-        cart_total += (cart_item.product.price - (cart_item.product.price * int(cart_item.cupon.percent) / 100)) * cart_item.quantity
+        cart_total += (cart_item.price - (cart_item.price * int(cart_item.cupon.percent) / 100)) * cart_item.quantity
     return cart_total
 
 def cart_delivery_total(request):
@@ -215,7 +222,7 @@ def calculate_delivery_weight(request, gift):
     delivery_weight = 0
 
     for item in items:
-        delivery_weight += item.product.weight * item.quantity
+        delivery_weight += item.atributes.weight * item.quantity
 
     if gift:
         gift_weight = gift.weight

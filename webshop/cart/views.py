@@ -35,6 +35,8 @@ def cart_view(request, template_name="cart/cart.html"):
 
     deliveryForm = DeliveryForm()
 
+    request.breadcrumbs(u'Корзина', request.path_info)
+
     # Получаем список всех товаров в корзине из cookies
     #cart_item_count = cart.cart_item_count(request)
     cart_items = cart.get_cart_items(request)

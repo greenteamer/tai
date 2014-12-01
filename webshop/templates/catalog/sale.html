@@ -32,17 +32,17 @@
                                         <br />
                                         <h2>{{ p.name }}</h2>
                                     </a>
-                                    {% if p.new_price != 0.00 %}
+                                    {% if p.sale_price.new_price != 0.00 %}
                                         <div class="price_was">
-                                            {% trans "Was" %}: <span>{{ p.price }} {% trans "руб." %}</span>
+                                            {% trans "Was" %}: <span>{{ p.sale_price.price }} {% trans "руб." %}</span>
                                         </div>
                                         <div class="price_now">
-                                            {% trans "Now" %}:<span> {{ p.new_price }} {% trans "руб." %}</span>
+                                            {% trans "Now" %}:<span> {{ p.sale_price.new_price }} {% trans "руб." %} *</span>
                                         </div>
+                                        <p>*за объем: {{ p.sale_price.volume }} мл.</p>
                                     {% else %}
-                                        <p>{{ p.price }} {% trans "руб." %}</p>
+                                        <p>{{ p.sale_price.price }} {% trans "руб." %}</p>
                                     {% endif %}
-
                                 </div>
                             </div>
                         {% endfor %}
