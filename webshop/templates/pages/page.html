@@ -8,10 +8,64 @@
 {{ page.name }} - {{ site_name }}
 {% endblock %}
 
-{% block content %}
-    <div id="stranica">
-        <h1>{{ page.name }}</h1>
-        {{ page.text|safe }}
-    </div>
+{% block ckeditor %}
+    <script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
+    <script type="text/javascript">
+        window.onload = function()
+        {
+            CKEDITOR.replace('text', {
+                toolbar: 'Basic'
+            });
 
+            $('#myTab a').click(function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+                CKEDITOR.replace('text', {
+                    toolbar: 'Basic'
+                });
+            })
+        };
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+
+    <div id="stranica">
+
+        <h1>{{ page.name }}</h1>
+
+        {% if request.user.is_superuser %}
+
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#home" data-toggle="tab">Содержание</a></li>
+                <li class=""><a href="#edit" data-toggle="tab">Редактировать</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="home">
+                    {{ page.text|safe }}
+                </div>
+                <div class="tab-pane" id="edit">
+                    <form class="" action="." method="post">{% csrf_token %}
+                        <h3>Измените материал</h3>
+                        <table>
+                            {{ form.as_p }}
+                        </table>
+                        <table>
+                        <tr>
+                            <th colspan="2">
+                                <input type="submit" value="Отправить" class="submit review_button" />
+                            </th>
+                        </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+
+            {{ page.text|safe }}
+        {% endif %}
+
+    </div>
 {% endblock %}

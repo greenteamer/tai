@@ -12,7 +12,7 @@ from django.views.generic import ListView, DetailView
 from webshop.pages.models import *
 from webshop.accounts import profile
 from webshop.accounts.models import UserProfile
-from webshop.pages.forms import ReviewForm
+from webshop.pages.forms import *
 
 class PageView(DetailView):
     template_name = 'pages/page.html'
@@ -27,7 +27,37 @@ class PageView(DetailView):
 
         p = Page.objects.get(id=self.get_object().id)
         self.request.breadcrumbs('%s' % p.name, self.request.path_info)
+        context['form'] = PageForm()
         return context
+
+def pageView(request, slug, template_name="pages/page.html"):
+
+    page = Page.objects.get(slug=slug)
+    request.breadcrumbs('%s' % page.name, request.path_info)
+
+    if request.user.is_superuser:
+        try:
+            if request.method == 'POST':
+                postdata = request.POST.copy()
+                form = PageForm(postdata)
+                if form.is_valid():
+                    page.name = postdata.get('name', '')
+                    page.slug = postdata.get('slug', '')
+                    page.text = postdata.get('text', '')
+                    page.is_main = False
+                    page.save()
+                    # new_review = form.save(commit=False)
+                    form = PageForm(instance=page)
+                    url = urlresolvers.reverse(request.path_info)
+                    return HttpResponseRedirect(url)
+            else:
+                # user_profile = request.user
+                if request.user.is_superuser:
+                    form = PageForm(instance=page)
+        except:
+            text = u'Вы не имеете право'
+
+    return render_to_response(template_name, locals(),context_instance=RequestContext(request))
 
 class BlogList(ListView):
     queryset = Blog.objects.all()
