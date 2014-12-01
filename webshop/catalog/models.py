@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 from django.db import models
+import decimal
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
@@ -154,18 +155,17 @@ class Product(models.Model):
 
     @property
     def sale_price(self):
-        """
-        Метод возвращает старую цену товара
-        будет использоваться в шаблонах для отображения
-        старой цены под текущей
-        """
-        new_price = self.get_atributes().new_price
-        price = self.get_atributes().price
 
-        if new_price > price:
-            return new_price
-        else:
-            return None
+        # bool = False
+        sale_atr = None
+        atributes = ProductVolume.objects.filter(product=self)
+
+        for atr in atributes:
+            if atr.new_price != 0.00:
+                sale_atr = atr
+            else:
+                sale_atr = ProductVolume.objects.get(product=self, default=True)
+        return sale_atr
 
     def get_atributes(self):
         atribites = ProductVolume.objects.get(product=self, default=True)

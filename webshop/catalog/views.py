@@ -48,18 +48,23 @@ def index_view(request, template_name="catalog/index.html"):
 def category_view(request, category_slug, template_name="catalog/category.html"):
     """Представление для просмотра конкретной категории"""
     c = get_object_or_404(Category.active, slug=category_slug)
+
     # products = Product.objects.all()
     products = []
     if c.level == 0:
         loop_category = Category.objects.filter(tree_id=c.tree_id)
-        # products = []
+        request.breadcrumbs('%s' % c.name, request.path_info)
+
         for category in loop_category:
             products_subcategory = category.product_set.all()
+
             for product in products_subcategory:
                 products.append(product)
     else:
         products = c.product_set.all()
-
+        parent_cat = Category.objects.get(id=c.parent.id)
+        parent_url = parent_cat.get_absolute_url()
+        request.breadcrumbs([('%s' % parent_cat.name, parent_url), ('%s' % c.name,request.path_info)])
 
     for p in products:
         try:
@@ -75,9 +80,17 @@ def category_view(request, category_slug, template_name="catalog/category.html")
 def sale_view(request, template_name="", type=""):
     """Представление для просмотра скидок"""
     if type == 'sale':
+        request.breadcrumbs(u'Скидки', request.path_info)
         page_name = 'Скидки - горячая цена'
-        products = Product.objects.exclude(new_price=0.00)
+        sale_arts = ProductVolume.objects.exclude(new_price=0.00)
+        products = []
+        for p in sale_arts:
+            prod = Product.objects.get(id=p.product_id)
+            products.append(prod)
+        products = list(set(products)) #удаляем повторы
+
     else:
+        request.breadcrumbs(u'Новинки', request.path_info)
         page_name = 'Новинки!'
         products = Product.objects.filter(is_new=True)
     for p in products:
@@ -91,9 +104,21 @@ def sale_view(request, template_name="", type=""):
 @csrf_protect
 def product_view(request, product_slug, template_name="catalog/product.html"):
     """Представление для просмотра конкретного продукта"""
+
     p = get_object_or_404(Product, slug=product_slug)
     # categories = p.categories.filter(is_active=True)
     # categories = p.categories.objects.all()
+
+    # breadcrumbs
+    c = get_object_or_404(Category, id=p.categories_id)
+    if c.level == 0:
+        request.breadcrumbs([('%s' % c.name,request.path_info), ('%s' % p.name, request.path_info)])
+    else:
+        parent_cat = Category.objects.get(id=c.parent.id)
+        parent_url = parent_cat.get_absolute_url()
+        request.breadcrumbs([('%s' % parent_cat.name, parent_url), ('%s' % c.name, c.get_absolute_url()), ('%s' % p.name, request.path_info)])
+
+
     page_title = p.name
     meta_keywords = p.meta_keywords
     meta_description = p.meta_description

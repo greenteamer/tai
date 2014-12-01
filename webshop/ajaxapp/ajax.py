@@ -141,8 +141,8 @@ def change_atrs(request, option):
     dajax.assign('#volume', 'innerHTML', '%s' % atrs.volume )
     dajax.assign('#weight', 'innerHTML', '%s гр.' % atrs.weight )
     dajax.assign('#price', 'innerHTML', '%s руб.' % atrs.price )
-    dajax.assign('#price_old', 'innerHTML', '%s руб.' % atrs.price )
-    dajax.assign('#new_price', 'innerHTML', '%s' % atrs.new_price )
+    dajax.assign('#price_old', 'innerHTML', 'Цена: %s руб.' % atrs.price )
+    dajax.assign('#new_price', 'innerHTML', 'Сейчас: %s руб.' % atrs.new_price )
 
     if atrs.new_price > 0:
         dajax.remove_css_class('#super_price', 'hidden')

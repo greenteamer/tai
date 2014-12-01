@@ -209,9 +209,10 @@ input.search-query.span2 {
     top:0px;
     left:0px;
     text-align: center;
-    padding-top: 14px;
-    height: 50px;
-    width: 50px;
+    padding-top: 11px;
+    margin-top: 2px;
+    height: 45px;
+    width: 45px;
     border-radius: 50px;
     border:1px solid #53a02d;
     background: #fff;
@@ -772,7 +773,7 @@ font-family: 'Open Sans Condensed', sans-serif;
     margin-top: 20px;
     border-bottom: 1px solid #E8E8E8;
     /*overflow: hidden;*/
-    height: 150px;
+    height: 175px;
     padding: 16px 0px 14px 0px;
 }
 .price_cart .feel {
@@ -1122,6 +1123,9 @@ header.navbar {
     padding:16px 20px 18px 20px;
     color:#fff;
 }
+.sidebar_left #accordion h4.panel-title {
+    font-size: 20px;
+}
 #accordion i{
     /*float: right;*/
     /*padding: 10px;  */
@@ -1282,10 +1286,24 @@ input#order_submit {
     background-color: #27668f;
     border-color: #193e58;
 }
+#product_lict .btn-success {
+    background-color: #3383B8;
+    border-color: #2d72a1;
+}
+#product_lict .btn-success:hover {
+    background-color: #27668f;
+    border-color: #193e58;
+}
 #price {
     border: 1px solid #5b5b5b;
     padding: 10px;
     font-size: 30px;
+    margin-top: 30px;
+}
+#new_price, #old_price {
+    border: 1px solid #5b5b5b;
+    padding: 10px;
+    font-size: 16px;
     margin-top: 30px;
 }
 #price span {
@@ -1364,6 +1382,15 @@ input#order_submit {
 #cart .table-responsive {
     margin-bottom: 50px;
     /*margin-top: 50px;*/
+}
+.breadcrumb {
+    margin-top: 20px;
+}
+#product_lict #price {
+     border: 0px solid #5b5b5b;
+     padding: 0px;
+     font-size: 14px;
+     margin-top: 0px;
 }
 /*#cart .panel-group {*/
     /*position: absolute;*/
