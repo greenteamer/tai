@@ -1294,6 +1294,14 @@ input#order_submit {
     background-color: #27668f;
     border-color: #193e58;
 }
+.cart_items_menu .btn.btn-success {
+    background-color: #3383B8;
+    border-color: #2d72a1;
+}
+.cart_items_menu .btn.btn-success:hover {
+    background-color: #3383B8;
+    border-color: #2d72a1;
+}
 #price {
     border: 1px solid #5b5b5b;
     padding: 10px;
@@ -1391,6 +1399,12 @@ input#order_submit {
      padding: 0px;
      font-size: 14px;
      margin-top: 0px;
+}
+.leader_item p {
+    margin-bottom: 0px;
+}
+.leader_item span {
+    font-size: 14px;
 }
 /*#cart .panel-group {*/
     /*position: absolute;*/
