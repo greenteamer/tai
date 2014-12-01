@@ -1406,6 +1406,16 @@ input#order_submit {
 .leader_item span {
     font-size: 14px;
 }
+#cke_1_contents {
+    min-height: 300px;
+}
+#cke_id_text {
+    width: 800px !important;
+}
+#stranica .tab-content {
+    border: none;
+    padding: 0;
+}
 /*#cart .panel-group {*/
     /*position: absolute;*/
     /*z-index: 100;*/
