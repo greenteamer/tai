@@ -4,6 +4,7 @@ import os
 
 from django.utils.translation import ugettext_lazy as _
 from os.path import abspath, dirname, basename, join, split
+from easy_thumbnails.conf import Settings as thumbnail_settings
 
 CURRPATH = os.path.abspath('.')
 
@@ -15,6 +16,10 @@ TEMPLATE_DEBUG = DEBUG
 BREADCRUMBS_AUTO_HOME = True
 
 DEFAULT_CHARSET = 'utf-8'
+
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 ADMIN_EMAIL = 'greenteamer@bk.ru'
 ADMINS = (
@@ -162,6 +167,7 @@ DAJAXICE_MEDIA_PREFIX="dajaxice"
 
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
 
 INSTALLED_APPS = (
@@ -200,6 +206,10 @@ INSTALLED_APPS = (
     'captcha',
     'robokassa',
     'breadcrumbs',
+    'pyuploadcare.dj',
+    'easy_thumbnails',
+    'image_cropping',
+    'tinymce',
 )
 
 THUMBNAIL_DEBUG = True
@@ -225,6 +235,12 @@ LOGGING = {
 			'propagate': True,
 		},
 	}
+}
+
+UPLOADCARE = {
+    'pub_key': '8bf15d03a68059d41237',
+    'secret': '016e8a198594d9d01676',
+    'upload_base_url': 'http://dev.polythai.ru/media/products',
 }
 
 # Custom settings

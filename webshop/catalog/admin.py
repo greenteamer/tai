@@ -3,6 +3,7 @@
 from django.contrib import admin
 from django.db import models
 from django.forms import CheckboxSelectMultiple
+from image_cropping import ImageCroppingMixin
 from django.utils.translation import ugettext_lazy as _
 
 from webshop.catalog.forms import ProductAdminForm
@@ -18,7 +19,8 @@ from webshop.catalog.models import *
 #         (_(u'Value'), {'fields': ['value']}),
 #     ]
 
-class ProductImageAdmin(admin.StackedInline):
+
+class ProductImageAdmin(ImageCroppingMixin, admin.StackedInline):
     """Добавление изображений продукта"""
     model = ProductImage
     exclude = ('description',)
@@ -35,7 +37,7 @@ class ProductVolumeAdmin(admin.StackedInline):
     extra = 0
 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ImageCroppingMixin, admin.ModelAdmin):
     """
     Управление товарами
     Как будут отображаться поля товаров в разделе администрирования

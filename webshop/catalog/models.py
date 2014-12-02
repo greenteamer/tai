@@ -6,6 +6,7 @@ from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor.fields import RichTextField
+from image_cropping import ImageRatioField
 
 
 class CommonActiveManager(models.Manager):
@@ -171,6 +172,10 @@ class ProductImage(models.Model):
     """Изображения продуктов"""
     image = models.FileField(_(u'Image'), upload_to='products/images/',
                              help_text='Product image')
+    # new_image = models.ImageField(_(u'Image'), upload_to='products/test/',
+    #                          help_text='Product image test')
+    # cropping = ImageRatioField('image', '300x300', size_warning=True)
+
     description = models.CharField(_(u'Description'), max_length=255, blank=True)
     product = models.ForeignKey(Product, verbose_name=_(u'Product'),
                                 help_text=_(u'Referenced product'))
@@ -183,6 +188,9 @@ class ProductImage(models.Model):
     @property
     def url(self):
         return self.image
+
+    # def new_url(self):
+    #     return self.new_image
 
     def __unicode__(self):
         return self.product.name

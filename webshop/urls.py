@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
     url(r'^captcha/', include('captcha.urls')),
     # General application URLs
     url(r'^accounts/', include('django.contrib.auth.urls')),

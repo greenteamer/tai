@@ -4,6 +4,7 @@ from ckeditor.fields import RichTextField
 from autoslug import AutoSlugField
 from webshop.accounts.models import UserProfile
 from django.contrib.auth.models import User
+from pyuploadcare.dj import FileField
 
 class Page(models.Model):
     name = models.CharField(verbose_name=u'Заголовок', max_length=100)
