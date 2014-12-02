@@ -5,7 +5,6 @@ import decimal
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
-from ckeditor.fields import RichTextField
 from image_cropping import ImageRatioField
 
 
@@ -219,7 +218,7 @@ class ProductVolume(models.Model):
 class GiftPrice(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'Название подарка')
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Цена')
-    description = RichTextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     image = models.ImageField(verbose_name=u'Фото подарка', upload_to='gifts/images/')
     weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')
 

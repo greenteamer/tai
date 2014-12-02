@@ -160,15 +160,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 
-# DAJAX_FUNCTIONS=(
-#     'webshop.ajaxapp.ajax.order_form',
-#     'webshop.ajaxapp.ajax.send_form',
-# )
-
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
     'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
+
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+    
+
 
 INSTALLED_APPS = (
     'admin_tools',
@@ -200,16 +200,13 @@ INSTALLED_APPS = (
     'mptt',
     'bootstrap3',
     'sorl.thumbnail',
-    'ckeditor',
     'dajaxice',
     'dajax',
     'captcha',
     'robokassa',
     'breadcrumbs',
-    'pyuploadcare.dj',
     'easy_thumbnails',
     'image_cropping',
-    'tinymce',
 )
 
 THUMBNAIL_DEBUG = True
@@ -237,11 +234,6 @@ LOGGING = {
 	}
 }
 
-UPLOADCARE = {
-    'pub_key': '8bf15d03a68059d41237',
-    'secret': '016e8a198594d9d01676',
-    'upload_base_url': 'http://dev.polythai.ru/media/products',
-}
 
 # Custom settings
 ENABLE_SSL = False

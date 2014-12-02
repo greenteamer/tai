@@ -1,15 +1,13 @@
 #coding: utf-8
 from django.db import models
-from ckeditor.fields import RichTextField
 from autoslug import AutoSlugField
 from webshop.accounts.models import UserProfile
 from django.contrib.auth.models import User
-from pyuploadcare.dj import FileField
 
 class Page(models.Model):
     name = models.CharField(verbose_name=u'Заголовок', max_length=100)
     slug = AutoSlugField(default='default', editable=True)
-    text = RichTextField(verbose_name=u'Текст страницы')
+    text = models.TextField(verbose_name=u'Текст страницы')
 
     is_main = models.BooleanField(verbose_name=u'На главную')
 
@@ -23,7 +21,7 @@ class Page(models.Model):
 class Blog(models.Model):
     name = models.CharField(verbose_name=u'Заголовок', max_length=100)
     slug = AutoSlugField(default='default', editable=True)
-    text = RichTextField()
+    text = models.TextField()
 
     menu_select = models.CharField(
         max_length=20,
@@ -48,7 +46,7 @@ class Blog(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User, verbose_name=u'Пользователь')
-    review = RichTextField(verbose_name=u'Отзыв')
+    review = models.TextField(verbose_name=u'Отзыв')
 
 
     def __unicode__(self):

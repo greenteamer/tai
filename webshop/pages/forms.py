@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 from django import forms
-from ckeditor.fields import RichTextField
-from ckeditor.widgets import CKEditorWidget
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext, ugettext_lazy as _
 
