@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 class Page(models.Model):
     name = models.CharField(verbose_name=u'Заголовок', max_length=100)
     slug = AutoSlugField(default='default', editable=True)
-    text = RichTextField(verbose_name=u'Текст страницы')
+    text = RichTextField(verbose_name=u'Текст страницы', config_name='default')
 
     is_main = models.BooleanField(verbose_name=u'На главную')
 
