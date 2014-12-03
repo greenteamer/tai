@@ -3,11 +3,12 @@ from django.db import models
 from autoslug import AutoSlugField
 from webshop.accounts.models import UserProfile
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 class Page(models.Model):
     name = models.CharField(verbose_name=u'Заголовок', max_length=100)
     slug = AutoSlugField(default='default', editable=True)
-    text = models.TextField(verbose_name=u'Текст страницы')
+    text = RichTextField(verbose_name=u'Текст страницы')
 
     is_main = models.BooleanField(verbose_name=u'На главную')
 

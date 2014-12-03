@@ -18,14 +18,13 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     url(r'^admin_tools/', include('admin_tools.urls')),
-
     url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     # url(r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
-
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^ckeditor/', include('ckeditor.urls')),
     # General application URLs
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/', include('webshop.accounts.urls')),
