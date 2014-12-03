@@ -4,7 +4,7 @@ import decimal
 
 from django.db import models
 
-from webshop.catalog.models import Product, Cupon, FeelName, ProductVolume
+from webshop.catalog.models import *
 
 
 class CartItem(models.Model):
@@ -47,6 +47,10 @@ class CartItem(models.Model):
             set_price = self.atributes.price
         return set_price
 
+    def get_default_image(self):
+        # получаем дефолтыне изображения товаров
+        image = ProductImage.objects.get(product=self.product, default=True).url
+        return image
 
     def get_absolute_url(self):
         """Получение абсолютной ссылки на товар"""
