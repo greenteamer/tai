@@ -9,13 +9,13 @@
 {% endblock %}
 
 {% block ckeditor %}
-    <script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
+{#    <script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>#}
     <script type="text/javascript">
         window.onload = function()
         {
-            CKEDITOR.replace('text', {
-                toolbar: 'Basic'
-            });
+{#            CKEDITOR.replace('text', {#}
+{#                toolbar: 'Basic'#}
+{#            });#}
 
             $('#myTab a').click(function (e) {
                 e.preventDefault()
@@ -25,8 +25,8 @@
     </script>
 
     <!-- The best place for this one is your <HEAD> tag -->
-<script>UPLOADCARE_PUBLIC_KEY = "demopublickey";</script>
-<script src="https://ucarecdn.com/widget/1.4.6/uploadcare/uploadcare-1.4.6.min.js" charset="utf-8"></script>
+{#<script>UPLOADCARE_PUBLIC_KEY = "demopublickey";</script>#}
+{#<script src="https://ucarecdn.com/widget/1.4.6/uploadcare/uploadcare-1.4.6.min.js" charset="utf-8"></script>#}
 
 {% endblock %}
 
