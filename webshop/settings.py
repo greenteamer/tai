@@ -4,6 +4,7 @@ import os
 
 from django.utils.translation import ugettext_lazy as _
 from os.path import abspath, dirname, basename, join, split
+from easy_thumbnails.conf import Settings as thumbnail_settings
 
 CURRPATH = os.path.abspath('.')
 
@@ -15,6 +16,10 @@ TEMPLATE_DEBUG = DEBUG
 BREADCRUMBS_AUTO_HOME = True
 
 DEFAULT_CHARSET = 'utf-8'
+
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 ADMIN_EMAIL = 'greenteamer@bk.ru'
 ADMINS = (
@@ -155,14 +160,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 
-# DAJAX_FUNCTIONS=(
-#     'webshop.ajaxapp.ajax.order_form',
-#     'webshop.ajaxapp.ajax.send_form',
-# )
-
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
+
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
 
 INSTALLED_APPS = (
     'admin_tools',
@@ -194,12 +200,14 @@ INSTALLED_APPS = (
     'mptt',
     'bootstrap3',
     'sorl.thumbnail',
-    'ckeditor',
     'dajaxice',
     'dajax',
     'captcha',
     'robokassa',
     'breadcrumbs',
+    'easy_thumbnails',
+    'image_cropping',
+    'ckeditor',
 )
 
 THUMBNAIL_DEBUG = True
@@ -226,6 +234,7 @@ LOGGING = {
 		},
 	}
 }
+
 
 # Custom settings
 ENABLE_SSL = False

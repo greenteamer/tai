@@ -30,8 +30,8 @@
 
 #products .slides_container {
 	width:300px;
-	height:274px;
-	overflow:hidden;
+	height:300px;
+	/*overflow:hidden;*/
 	/*float:left;*/
 	position:relative;
 	border:1px solid #dfdfdf;

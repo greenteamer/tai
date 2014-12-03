@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load catalog_filters %}
 {% load thumbnail %}
+{% load cropping %}
 
 {% block product_js %}
     <script src="{{ STATIC_URL }}js/slides.min.jquery.js"></script>
@@ -48,9 +49,10 @@
                                 <div class="slides_container">
                                     {% for image in images %}
                                         <a name="">
-                                        {% thumbnail image.url "300x300" crop="300px 300px" as im %}
-                                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                        {% thumbnail image.url "300x300" crop="center" as im %}
+                                            <img src="{{ im.url }}" >
                                         {% endthumbnail %}
+{#                                            <img src="{% cropped_thumbnail image "cropping" scale=1%}">#}
 {#                                            <img src="/media/{{ image.url }}" width="300" height="300">#}
                                         </a>
                                     {% endfor %}
@@ -185,6 +187,40 @@
                     <h4>Описание:</h4>
                     <div class="tab-pane" id="description">{{ p.description }}</div>
                 </div>
+
+{#                <div class="col-xs-12">#}
+{#                    <div class="row">#}
+{#                        <div class="col-xs-4">#}
+{#                            {% for image in images %}#}
+{#                                <div style="width: 300px; height: 300px; border: 1px solid #CCCCCC; margin-top: 10px;">#}
+{#                                    <img src="{% cropped_thumbnail image "cropping" scale=1%}">#}
+{#                                    {% thumbnail image.new_url "300x300"  as im %}#}
+{#                                        <img src="{{ im.url }}" >#}
+{#                                    {% endthumbnail %}#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{##}
+{#                        <div class="col-xs-4">#}
+{#                            {% for image in images %}#}
+{#                                <div style="width: 300px; height: 300px; border: 1px solid #CCCCCC; margin-top: 10px;">#}
+{#                                    {% thumbnail image.new_image 430x360 box=image.cropping crop detail %}#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{##}
+{#                        <div class="col-xs-4">#}
+{#                            {% for image in images %}#}
+{#                                <div style="width: 300px; height: 300px; border: 1px solid #CCCCCC; margin-top: 10px;">#}
+{#                                    {% thumbnail image.new_url "300x300"  as im %}#}
+{#                                        <img src="{{ im.url }}" >#}
+{#                                    {% endthumbnail %}#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </div>#}
 
             </div>
 

@@ -24,6 +24,10 @@
         };
     </script>
 
+    <!-- The best place for this one is your <HEAD> tag -->
+<script>UPLOADCARE_PUBLIC_KEY = "demopublickey";</script>
+<script src="https://ucarecdn.com/widget/1.4.6/uploadcare/uploadcare-1.4.6.min.js" charset="utf-8"></script>
+
 {% endblock %}
 
 {% block content %}
@@ -32,6 +36,9 @@
     <div id="stranica">
 
         <h1>{{ page.name }}</h1>
+
+{#        <h2>{{ tiny }}</h2>#}
+{#        <h2>{{ static }}</h2>#}
 
         {% if request.user.is_superuser %}
 
