@@ -70,9 +70,7 @@
                             <div class="sidebar_left">
                                 {% block sidebar_left %}
     {#                                <h4>Поиск</h4>#}
-                                    <div>
-                                        {% search_box request %}
-                                    </div>
+                                    {% search_box request %}
                                     <h3>Каталог</h3>
                                     {% categories_tree request %}
 

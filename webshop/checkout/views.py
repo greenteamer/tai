@@ -47,7 +47,8 @@ def contact(request, template_name='checkout/checkout.html'):
 
             # создание пользователя
             #1 создать user
-            #2 создать User_profile
+            #2 отправить письмо
+            #3 создать User_profile
             if not request.user.is_authenticated():
                 name , nu = request.POST['email'].split('@')[:2]
                 try:
@@ -62,10 +63,8 @@ def contact(request, template_name='checkout/checkout.html'):
                 new_user.set_password(password)
                 new_user.save()
 
-
-
                 message = u'логин: %s \n пароль: %s \n почта: %s' % (new_user.username, password, new_user.email)
-                send_mail(u'polythai.ru пользователь %s зарегистрирован' % name, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+                send_mail(u'polythai.ru пользователь %s зарегистрирован' % name, message, 'teamer777@gmail.com', [new_user.email], fail_silently=False)
 
                 user = authenticate(username=name, password=password)
                 if user is not None:
@@ -104,7 +103,6 @@ def contact(request, template_name='checkout/checkout.html'):
 
 def receipt_view(request, template_name='checkout/receipt.html'):
     """Представление отображающее сделанный заказ"""
-
     request.breadcrumbs(u'Подтверждение данных', request.path_info)
 
     order_id = request.session.get('order_id', '')
@@ -122,6 +120,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                })
         else:
 
+            """на данный момент следующий код не работает потому что отключена возможность выбора способа оплаты"""
             """отправка писем"""
             items = ''
             for item in order_items:
@@ -170,7 +169,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                               context_instance=RequestContext(request))
 
 
-"""обрабатываем сигналы"""
+"""обрабатываем сигнал оплаты от платежной системы"""
 def payment_received(sender, **kwargs):
     order = Order.objects.get(id=kwargs['InvId'])
     order.status = Order.PAID

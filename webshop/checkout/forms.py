@@ -25,6 +25,8 @@ from models import Order
 
 class ContactForm(forms.ModelForm):
 
+    # payment_method =  forms.IntegerField(widget=forms.HiddenInput)
+
     class Meta:
         model = Order
         exclude = ('status', 'ip_address', 'user', 'transaction_id', 'delivery', 'cupon',)
@@ -32,6 +34,7 @@ class ContactForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         # переопределяем аттрибуты по умолчанию
+        self.fields['payment_method'].widget = forms.HiddenInput()
         for field in self.fields:
             self.fields[field].widget.attrs['size'] = '30'
 
