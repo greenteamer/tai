@@ -7,6 +7,13 @@ from django.template import RequestContext
 from webshop.settings import ADMIN_EMAIL
 import decimal
 
+# регистрация нового пользователя
+import random
+import string
+from webshop.accounts.forms import UserProfileForm, MyRegistrationForm
+from webshop.accounts.models import UserProfile, User
+from django.contrib.auth import authenticate, login
+
 from webshop.checkout.models import Order, OrderItem
 from webshop.catalog.models import Cupon
 from webshop.checkout import checkout
@@ -37,6 +44,37 @@ def contact(request, template_name='checkout/checkout.html'):
         if form.is_valid():
 
             form.clean_phone()
+
+            # создание пользователя
+            #1 создать user
+            #2 создать User_profile
+            if not request.user.is_authenticated():
+                name , nu = request.POST['email'].split('@')[:2]
+                try:
+                    login_exist = User.objects.filter(username=name)
+                    if login_exist:
+                        name = '%s%s' % (name, login_exist.count())
+                except Exception:
+                    name = name
+
+                new_user = User(username=name, email=request.POST['email'])
+                password = User.objects.make_random_password()
+                new_user.set_password(password)
+                new_user.save()
+
+
+
+                # message = u'логин: %s \n пароль: %s \n почта: %s' % (new_user.username, password, new_user.email)
+                # send_mail(u'polythai.ru пользователь %s зарегистрирован' % name, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+
+                user = authenticate(username=name, password=password)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                        profile.set(request)
+
+
+
             response = checkout.process(request)
 
             order = response.get('order', 0)

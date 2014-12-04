@@ -5,7 +5,7 @@ from webshop.accounts.forms import UserProfileForm
 
 
 def retrieve(request):
-    """Возвразает экземпляр класса форма профиля пользователя"""
+    """Возвращает экземпляр класса форма профиля пользователя"""
     try:
         profile = request.user.get_profile()
     # если у пользователя не было профиля, то создаем его

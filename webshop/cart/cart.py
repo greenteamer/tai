@@ -64,7 +64,7 @@ def add_to_cart(request):
 
     # Проверяем что продукт уже в корзине
     for cart_item in cart_products:
-        if (cart_item.product.id == p.id) & ('%s' % cart_item.feel_id == feel) & (cart_item.atributes == atributes):
+        if (cart_item.product.id == p.id) and ((cart_item.feel_id == feel) or ('%s' % cart_item.feel_id == feel)) and (cart_item.atributes == atributes):
             # Обновляем количество если найден
             cart_item.augment_quantity(quantity)
             product_in_cart = True
