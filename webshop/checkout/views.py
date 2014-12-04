@@ -64,8 +64,8 @@ def contact(request, template_name='checkout/checkout.html'):
 
 
 
-                # message = u'логин: %s \n пароль: %s \n почта: %s' % (new_user.username, password, new_user.email)
-                # send_mail(u'polythai.ru пользователь %s зарегистрирован' % name, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+                message = u'логин: %s \n пароль: %s \n почта: %s' % (new_user.username, password, new_user.email)
+                send_mail(u'polythai.ru пользователь %s зарегистрирован' % name, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
 
                 user = authenticate(username=name, password=password)
                 if user is not None:
