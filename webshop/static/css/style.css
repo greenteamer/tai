@@ -1394,6 +1394,9 @@ input#order_submit {
     margin-bottom: 50px;
     /*margin-top: 50px;*/
 }
+#cart .panel-title {
+    height: 20px;
+} 
 .breadcrumb {
     margin-top: 20px;
 }

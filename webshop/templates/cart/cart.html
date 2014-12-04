@@ -55,6 +55,9 @@
                                 {% for item in cart_items %}
                             <tr>
                                 <td>
+                                    {% thumbnail item.get_default_image "50x50" crop="center" as im %}
+                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                    {% endthumbnail %}
                                     <a href="{{ item.get_absolute_url }}" class="cart">
                                     {{ item.name }}
                                     </a>
@@ -64,8 +67,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                <a name="">Подробнее</a>
-                                                <a class="accordion_button" data-toggle="collapse" data-parent="#accordion" href="#item{{ item.id }}"> <i class="fa fa-caret-down"></i></a>
+                                                <a class="accordion_button" data-toggle="collapse" data-parent="#accordion" href="#item{{ item.id }}">Подробнее <i class="fa fa-caret-down"></i></a>
                                             </h4>
                                         </div>
                                         <div id="item{{ item.id }}" class="panel-collapse collapse" style="height: auto;">

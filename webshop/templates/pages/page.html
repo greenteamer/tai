@@ -54,6 +54,7 @@
                     <form class="" action="." method="post">{% csrf_token %}
                         <h3>Измените материал</h3>
                         <table>
+                            {{ form.media }}
                             {{ form.as_p }}
                         </table>
                         <table>
