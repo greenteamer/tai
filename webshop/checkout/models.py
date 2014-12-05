@@ -3,7 +3,7 @@
 import decimal
 
 from django.contrib.auth.models import User
-from webshop.accounts.models import *
+# from webshop.accounts.models import UserProfile
 from django.db import models
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
@@ -142,15 +142,6 @@ class OrderItem(models.Model):
         except Exception:
             return None
 
-
-    # def get_atributes(self):
-    #     try:
-    #         a = self.atributes
-
-    # @property
-    # def sku(self):
-    #     """Количество товара на складе"""
-    #     return self.product.sku
 
     def __unicode__(self):
         return self.product.name
