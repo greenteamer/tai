@@ -49,11 +49,16 @@ urlpatterns = patterns('',
     )
 
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.STATIC_ROOT}),
-        # if work then show 404 Directory indexes are not allowed here.
+# if settings.DEBUG:
+#     urlpatterns += patterns('',
+#     url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
+#         {'document_root': settings.STATIC_ROOT}),
+#         # if work then show 404 Directory indexes are not allowed here.
+#     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+#         {'document_root': settings.MEDIA_ROOT}),
+#         )
+
+urlpatterns += patterns('',
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT}),
         )
