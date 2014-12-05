@@ -8,12 +8,11 @@ from easy_thumbnails.conf import Settings as thumbnail_settings
 
 CURRPATH = os.path.abspath('.')
 
-# PROJECT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
-PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
+# PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
-DEBUG = ''
-
-TEMPLATE_DEBUG = DEBUG
+DEBUG = True
+# TEMPLATE_DEBUG = DEBUG
 
 BREADCRUMBS_AUTO_HOME = True
 
@@ -75,8 +74,8 @@ USE_L10N = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 # MEDIA_ROOT = 'C:/webmagazinedjango/webshop/static/media/'
-# MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
+# MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -152,6 +151,7 @@ TEMPLATE_DIRS = (
 # only parameter and returns a dictionary to add to the context.
 TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.auth.context_processors.auth',
+	'django.core.context_processors.debug',
 	'django.core.context_processors.i18n',
 	'django.core.context_processors.media',
 	'django.core.context_processors.static',
@@ -159,8 +159,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.messages.context_processors.messages',
 	'webshop.utils.context_processors.webshop',
 )
-if DEBUG:
-    TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
 
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 
