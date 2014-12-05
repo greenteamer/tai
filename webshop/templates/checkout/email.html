@@ -1,6 +1,8 @@
-<h3>Благодарим за интерес к нашей продукции.<br/>
-Ваше письмо получено. Мы свяжемся с Вами в ближайшее время.</h3>
+<h3>{{ name }}, здравствуйте!</h3>
 
+<p>Спасибо за ваш заказ! Оплата вашего заказа поступила на счет нашего магазина!</p>
+<p>Товары по Вашему заказу и презент от нашего интернет магазина будут отправлены по указанному Вами адресу в течение 3-4 рабочих дней.
+    В день отправки товаров на Вашу почту будет выслан трекинг-код для отслеживания местоположения вашей посылки и фото вашего укомплектованного заказа.</p>
 <div>
     <p>№ Вашей операции: {{ transaction }}</p>
     <p>id Вашего заказа: {{ id }}</p>
@@ -9,14 +11,12 @@
         <br/>
         <p>{{ item.name }} {% if item.feel %}<span> Вкус: {{ item.feel }}</span>{% endif %}</p>
     {% endfor %}
-
 </div>
 
-<div style="text-align: center;">
-    <h3>С уважением, Полина</h3>
-    <img src="http://fish153.ru/static/images/logo.png" alt="логотип"/>
-    <p>Благодарим за сотрудничество!</p>
-    <p>8-900-888-77-70</p>
-    <a href="http://polythai.ru/">http://polythai.ru/</a>
-    <a href="mailto:polythai.ru@gmail.com">polythai.ru@gmail.com</a>
+<div>
+    <p>Спасибо,что выбрали нас!</p>
+    <h3>С уважением, www.PolyThai.ru</h3>
+    <p><img width="400px" src="http://dev.polythai.ru/static/images/logo.png" alt="логотип"/></p>
+    <p><a href="http://polythai.ru/">http://polythai.ru/</a></p>
+    <p><a href="mailto:PolyThai@mail.ru">PolyThai@mail.ru</a></p>
 </div>
