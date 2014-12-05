@@ -5,17 +5,49 @@
   <h1>{% trans "My account" %}</h1>
   <strong>{% trans "Welcome" %}, {{ name|capfirst }}!</strong>
   <br /><br />
+
   <fieldset>
     <legend>{% trans "Order history" %}</legend>
-    {% for order in orders %}
-      {% trans "Order" %} #{{ order.id }} - {{ order.date|date }} <a href="{{ order.get_absolute_url }}">
-      {% trans "(view)" %}</a>
-      <br />
-    {% empty %}
-      {% trans "You have no past orders" %}
-    {% endfor %}
+
+        <table class="table table-striped table-bordered table-condensed">
+
+            <thead>
+                <tr>
+                    <th scope="col">id Заказа</th>
+                    <th scope="col">№ транзакции</th>
+                    <th scope="col">Имя пользователя</th>
+                    <th scope="col">Дата</th>
+                    <th class="right" scope="col">Ссылка</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>
+                        {{ order.id }}
+                    </td>
+                    <td>
+                        {{ order.transaction_id }}
+                    </td>
+                    <td>
+                        {{ order.get_shipping_name }}
+                    </td>
+                    <td>
+                        {{ order.date|date }}
+                    </td>
+                    <td>
+                        <a href="{{ order.get_absolute_url }}">Подробнее</a>
+                    </td>
+                </tr>
+                {% empty %}
+                нет заказов
+        {% endfor %}
+            </tbody>
+        </table>
+
   </fieldset>
   <br />
+
   <fieldset>
   <legend>{% trans "Account settings" %}</legend>
   <ul>
