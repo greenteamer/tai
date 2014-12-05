@@ -11,7 +11,7 @@ from dajaxice.core import dajaxice_functions
 from dajaxice.utils import deserialize_form
 # from webshop.catalog.forms import *
 from django.core.mail import send_mail
-from webshop.checkout.models import OrderOneClick
+# from webshop.checkout.models import OrderOneClick
 from webshop.checkout.forms import ContactForm, DeliveryForm
 from webshop.checkout.models import Order, OrderItem
 from webshop.checkout import checkout
