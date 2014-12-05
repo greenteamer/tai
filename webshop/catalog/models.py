@@ -114,9 +114,11 @@ class Product(models.Model):
                                         help_text=_(u'Content for description meta tag'),blank=True)
     created_at = models.DateTimeField(_(u'Created at'), auto_now_add=True)
     updated_at = models.DateTimeField(_(u'Updated at'), auto_now=True)
-    categories = models.ForeignKey(Category, verbose_name=_(u'Categories'),
-                                        help_text=_(u'Categories for product'))
+    # categories = models.ForeignKey(Category, verbose_name=_(u'Categories'),
+    #                                     help_text=_(u'Categories for product'))
 
+    categories = models.ManyToManyField(Category, verbose_name=_(u'Categories'),
+                                        help_text=_(u'Categories for product'))
     feel = models.ManyToManyField(FeelName, verbose_name=u'Вкус', blank=True, null=True)
     # volume = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Объем')
     # weight = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=u'Вес')

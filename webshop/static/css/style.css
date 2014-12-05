@@ -168,8 +168,11 @@ i.fa.fa-check-square{
     font-size:18px!important;
 }
 input.search-query.span2 {
-    width: 263px;
+    width: 185px;
           }
+.navbar-search .btn {
+    padding: 1px 12px;
+}
 .menu_top li {
     overflow: hidden;
     display: inline-block;
@@ -1421,6 +1424,9 @@ input#order_submit {
 #stranica .tab-content {
     border: none;
     padding: 0;
+}
+#cart .item_img {
+    float: left;
 }
 /*#cart .panel-group {*/
     /*position: absolute;*/

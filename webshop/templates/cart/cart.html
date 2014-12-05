@@ -56,7 +56,7 @@
                             <tr>
                                 <td>
                                     {% thumbnail item.get_default_image "50x50" crop="center" as im %}
-                                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                        <img class="item_img" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                                     {% endthumbnail %}
                                     <a href="{{ item.get_absolute_url }}" class="cart">
                                     {{ item.name }}

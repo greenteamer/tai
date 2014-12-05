@@ -1,7 +1,19 @@
 {% load i18n %}
 
-<form class="navbar-search" id="id_query" action="{% url search_results %}" method="get">
-  <input name="query" id="{{ form.auto_id }}" type="text"
-         value="Поиск" class="search-query span2" placeholder="Поиск" width="440px"
-         onfocus="if(this.value == 'Поиск') { this.value = ''; }" />
-</form>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <form class="navbar-search" id="id_query" action="{% url search_results %}" method="get">
+                <div class="col-xs-8">
+                    <input name="query" width="200" id="{{ form.auto_id }}" type="text"
+                         value="Поиск" class="search-query span2" placeholder="Поиск"
+                         onfocus="if(this.value == 'Поиск') { this.value = ''; }" />
+                </div>
+                <div class="col-xs-4">
+{#                    <i class="fa fa-search"></i>#}
+                    <input class="btn btn-success" type="submit" value="Поиск"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
