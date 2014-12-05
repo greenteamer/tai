@@ -4,12 +4,14 @@
 {% block content %}
   <table class="table table-striped table-bordered table-condensed">
 		<caption>
-			{% trans "Details for Order" %} #{{ order.id }}
+			Заказ #{{ order.id }}
 		</caption>
 		<thead>
 		<tr>
       <th scope="col"></th>
 			<th scope="col">{% trans "Name" %}</th>
+            <th scope="col">Вкус</th>
+            <th scope="col">Объем</th>
 			<th scope="col">{% trans "Price" %}</th>
 			<th scope="col">{% trans "Quantity" %}</th>
 			<th class="right" scope="col">{% trans "Total" %}</th>
@@ -23,28 +25,89 @@
       </td>
 			<td>
 				<a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
-                {% if item.feel %}
-                    <span>вкус: {{ item.feel }}</span>
-                {% endif %}
 			</td>
-			<td>{{ item.price }} руб.</td>
+            <td>
+                {% if item.get_feel %}
+                    <span>{{ item.get_feel }}</span>
+                {% endif %}
+            </td>
+            <td>
+                <span>{{ item.atributes.volume }}</span>
+            </td>
+{#			<td>{{ item.price }} руб.</td>#}
+            <td>{% if item.atributes.new_price > 0 %}{{ item.atributes.new_price }}{% else %}{{ item.atributes.price }}{% endif %} руб.</td>
 			<td>{{ item.quantity }}</td>
 			<td style="text-align: right">{{ item.total }} руб.</td>
 		</tr>
     {% endfor %}
 		</tbody>
-  	<tfoot>
+  	    <tfoot>
 			<tr>
 				<td colspan="5" class="right" style="height:30px; text-align: right">
-				{% trans "Order Total" %}: {{ order.total }} руб.                    
+                    ИТОГО:
 				</td>
-                <td>
-                    {% if order.payment_method == 1 %}
-{#                        распарсить стоимость и передать в урл#}
-                        <a href="/accounts/order_receipt_print/{{ total_sum_parse|first }}-{{ total_sum_parse|last }}">Распечатать плетежку</a>
-                    {% endif %} 
-                </td>
+                <td colspan="5" class="right" style="height:30px; text-align: right">
+				    {{ order.total }} руб.
+				</td>
+{#                <td>#}
+{#                    {% if order.payment_method == 1 %}#}
+{#                        <a href="/accounts/order_receipt_print/{{ total_sum_parse|first }}-{{ total_sum_parse|last }}">Распечатать плетежку</a>#}
+{#                    {% endif %} #}
+{#                </td>#}
 			</tr>
 		</tfoot>
 	</table>
+
+
+    <h3>Параметры доставки</h3>
+
+    <table class="table-bordered">
+        <tr>
+            <td>Email</td>
+            <td>{{ order.email }}</td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td>{{ order.phone }}</td>
+        </tr>
+        <tr>
+            <td>ФИО получателя</td>
+            <td>{{ order.shipping_name }}</td>
+        </tr>
+        <tr>
+            <td>Адрес доставки</td>
+            <td>{{ order.shipping_address_1 }}</td>
+        </tr>
+        {% if order.shipping_address_2 %}
+            <tr>
+                <td>Дополнительные адрес доставки</td>
+                <td>{{ order.shipping_address_2 }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td>Город</td>
+            <td>{{ order.shipping_city }}</td>
+        </tr>
+        <tr>
+            <td>Страна</td>
+            <td>{{ order.shipping_country }}</td>
+        </tr>
+        <tr>
+            <td>Почтовый индекс</td>
+            <td>{{ order.shipping_zip }}</td>
+        </tr>
+        {% if order.cupon.identifier != 'zero' %}
+            <tr>
+                <td>Купон</td>
+                <td>{{ order.cupon.identifier }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td>Способ доставки</td>
+            <td>
+                {{ order.delivery.delivery_type }}
+            </td>
+        </tr>
+    </table>
+
 {% endblock %}

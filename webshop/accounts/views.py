@@ -54,7 +54,10 @@ def my_account_view(request, template_name="registration/my_account.html"):
     """Страница аккаунта пользователя"""
     page_title = _(u'My Account')
     request.breadcrumbs(page_title, request.path_info)
-    orders = Order.objects.filter(user=request.user)
+    if request.user.is_superuser:
+        orders = Order.objects.all()
+    else:
+        orders = Order.objects.filter(user=request.user)
     name = request.user.username
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
@@ -62,7 +65,10 @@ def my_account_view(request, template_name="registration/my_account.html"):
 @login_required
 def order_details_view(request, order_id, template_name="registration/order_details.html"):
     """Информация о сделанном заказе"""
-    order = get_object_or_404(Order, id=order_id, user=request.user)
+    if request.user.is_superuser:
+        order = get_object_or_404(Order, id=order_id)
+    else:
+        order = get_object_or_404(Order, id=order_id, user=request.user)
     page_title = _(u'Order details for order #') + order_id
     request.breadcrumbs(page_title, request.path_info)
     order_items = OrderItem.objects.filter(order=order)

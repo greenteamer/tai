@@ -3,6 +3,7 @@
 import decimal
 
 from django.contrib.auth.models import User
+from webshop.accounts.models import *
 from django.db import models
 from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
@@ -102,6 +103,9 @@ class Order(BaseOrderInfo):
         """Абсолютная ссылка для просмотра заказа"""
         return ('order_details', (), { 'order_id': self.id })
 
+    def get_shipping_name(self):
+        return self.shipping_name
+
     # переопределяем метод сохранения что бы присвоить zero купон , если никакого другого не присваивали
     def save(self, force_insert=False, force_update=False, using=None):
         if not self.cupon:
@@ -116,7 +120,8 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(max_digits=9, decimal_places=2)
     order = models.ForeignKey(Order)
-    feel = models.ForeignKey(FeelName, null=True)
+    # atribute = models.ForeignKey(ProductVolume, unique=False, default=None, null=False)
+    # feel = models.ForeignKey(FeelName, null=True)
     atributes = models.ForeignKey(ProductVolume)
 
 
@@ -129,6 +134,18 @@ class OrderItem(models.Model):
     def name(self):
         """Название товара"""
         return self.product.name
+
+    def get_feel(self):
+        try:
+            f = self.feel.name
+            return  f
+        except Exception:
+            return None
+
+
+    # def get_atributes(self):
+    #     try:
+    #         a = self.atributes
 
     # @property
     # def sku(self):

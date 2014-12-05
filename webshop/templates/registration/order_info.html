@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block content %}
-  <h1>{% trans "Edit Order Information" %}</h1>
+  <h1>Изменить информацию о доставке</h1>
   {{ response }}
   {% if error_message %}
     <ul class="alert alert-error">
@@ -16,7 +16,7 @@
     <table>
     <tr>
         <th colspan="2">
-            <input type="submit" value="Сохранить данные" class="submit" />
+            <input type="submit" value="Сохранить данные" class="submit btn btn-success" />
         </th>
     </tr>
     </table>
