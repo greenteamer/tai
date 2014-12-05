@@ -2,7 +2,6 @@
 #!/usr/bin/env python
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from webshop import settings
 from dajaxice.core import dajaxice_autodiscover, dajaxice_config
@@ -59,6 +58,5 @@ if settings.DEBUG:
         {'document_root': settings.MEDIA_ROOT}),
         )
 
-urlpatterns += staticfiles_urlpatterns()
 
 handler404 = 'webshop.views.file_not_found_404'
