@@ -11,7 +11,7 @@ CURRPATH = os.path.abspath('.')
 # PROJECT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
-DEBUG = ''
+DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
