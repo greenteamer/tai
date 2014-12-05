@@ -7,10 +7,7 @@
     <p>№ Вашей операции: {{ transaction }}</p>
     <p>id Вашего заказа: {{ id }}</p>
     <p>Выбранные товары: </p>
-    {% for item in items %}
-        <br/>
-        <p>{{ item.name }} {% if item.feel %}<span> Вкус: {{ item.feel }}</span>{% endif %}</p>
-    {% endfor %}
+    <p>{{ items }}</p>
 </div>
 
 <div>
