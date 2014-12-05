@@ -160,6 +160,12 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 DAJAXICE_MEDIA_PREFIX="dajaxice"
 
+DAJAX_FUNCTIONS=(
+    'webshop.ajaxapp.onload_cart',
+    'webshop.ajaxapp.calc_delivery',
+    'webshop.ajaxapp.change_atrs',
+)
+
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
     'easy_thumbnails': 'easy_thumbnails.south_migrations',
