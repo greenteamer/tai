@@ -13,12 +13,6 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 DEBUG = True
 
-import logging
-logging.basicConfig(
-    level = logging.DEBUG,
-    format = '%(asctime)s %(levelname)s %(message)s',
-)
-
 TEMPLATE_DEBUG = DEBUG
 
 BREADCRUMBS_AUTO_HOME = True
