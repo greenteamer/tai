@@ -23,7 +23,7 @@ THUMBNAIL_PROCESSORS = (
     'image_cropping.thumbnail_processors.crop_corners',
 ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
-ADMIN_EMAIL = 'greenteamer@bk.ru'
+
 ADMINS = (
 	# ('Your Name', 'your_email@example.com'),
 )
@@ -174,10 +174,6 @@ SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
     'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
-
-
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 
 
 INSTALLED_APPS = (
