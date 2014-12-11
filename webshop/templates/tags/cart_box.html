@@ -15,9 +15,9 @@
             {% if cart_i %}
                 {% for item in cart_i %}
                     <div class="cart_items_prod">
-                        {% thumbnail item.product.get_image.url "100x100" crop="center" as im %}
-                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-                        {% endthumbnail %}
+{#                        {% thumbnail item.product.get_image.url "100x100" crop="center" as im %}#}
+                            <img src="/media/{{  item.product.get_image.url }}" width="88" height="88">
+{#                        {% endthumbnail %}#}
 
                         <div class="text_item">
                             <p class="name_item">{{ item.product.name }}</p>

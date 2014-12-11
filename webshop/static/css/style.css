@@ -565,7 +565,7 @@ padding: 40px 0px 100px 0px;
 }
 #catalog .product_thumbnail{
     margin-bottom: 30px;
-    min-height: 350px;
+    min-height: 414px;
 }
 #catalog .product_thumbnail img {
     width: 100%;
@@ -1128,10 +1128,13 @@ header.navbar {
 }
 .sidebar_left #accordion h4.panel-title {
     font-size: 20px;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 .sidebar_left #accordion .panel-body h4.panel-title {
     font-weight: normal;
+    font-size: 16px;
+    background: url("../images/categories_before.png") 10px 4px no-repeat;
+    padding-left: 10px;
 }
 #accordion i{
     /*float: right;*/

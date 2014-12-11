@@ -49,11 +49,11 @@
                                 <div class="slides_container">
                                     {% for image in images %}
                                         <a name="">
-                                        {% thumbnail image.url "300x300" crop="center" as im %}
-                                            <img src="{{ im.url }}" >
-                                        {% endthumbnail %}
+{#                                        {% thumbnail image.url "300x300" crop="center" as im %}#}
+{#                                            <img src="{{ im.url }}" >#}
+{#                                        {% endthumbnail %}#}
 {#                                            <img src="{% cropped_thumbnail image "cropping" scale=1%}">#}
-{#                                            <img src="/media/{{ image.url }}" width="300" height="300">#}
+                                            <img src="/media/{{ image.url }}" width="300" height="300">
                                         </a>
                                     {% endfor %}
                                 </div>
