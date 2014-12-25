@@ -45,6 +45,15 @@ def index_view(request, template_name="catalog/index.html"):
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
 
+"""функция фильтрации повторяющихся позиций"""
+def sortAndUniq(input):
+    output = []
+    for x in input:
+        if x not in output:
+            output.append(x)
+    output.sort()
+    return output
+
 def category_view(request, category_slug, template_name="catalog/category.html"):
     """Представление для просмотра конкретной категории"""
     c = get_object_or_404(Category.active, slug=category_slug)
@@ -60,6 +69,10 @@ def category_view(request, category_slug, template_name="catalog/category.html")
 
             for product in products_subcategory:
                 products.append(product)
+
+        """фильтруем повторяющиеся позиции"""
+        products = sortAndUniq(products)
+
     else:
         products = c.product_set.all()
         parent_cat = Category.objects.get(id=c.parent.id)

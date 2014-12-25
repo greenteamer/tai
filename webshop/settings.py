@@ -177,6 +177,7 @@ SOUTH_MIGRATION_MODULES = {
 
 
 INSTALLED_APPS = (
+
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -214,6 +215,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'image_cropping',
     'ckeditor',
+    'mptt_tree_editor',
 )
 
 THUMBNAIL_DEBUG = True

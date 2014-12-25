@@ -6,6 +6,7 @@ from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 from image_cropping import ImageRatioField
+from ckeditor.fields import RichTextField
 
 
 class CommonActiveManager(models.Manager):
@@ -19,6 +20,10 @@ class Category(MPTTModel):
     name = models.CharField(_(u'Name'), max_length=50, unique=True)
     slug = models.SlugField(_(u'Slug'), max_length=50, unique=True,
                             help_text=_(u'Slug for product url created from name.'))
+
+    """сортировка"""
+    # order = models.PositiveIntegerField()
+
     # "Чистые" ссылки для продуктов формирующиеся из названия
     description = models.TextField(_(u'Description'), blank=True)
     is_active = models.BooleanField(_(u'Active'), default=True)
@@ -37,7 +42,13 @@ class Category(MPTTModel):
     class Meta:
         db_table = 'categories'
         ordering = ['-created_at']
+        # ordering = ['order']
         verbose_name_plural = _(u'Categories')
+
+    # It is required to rebuild tree after save, when using order for mptt-tree
+    # def save(self, *args, **kwargs):
+    #     super(Category, self).save(*args, **kwargs)
+    #     Category.objects.rebuild()
 
     def __unicode__(self):
         # return self.name
@@ -107,7 +118,8 @@ class Product(models.Model):
     is_aqua = models.BooleanField(verbose_name=u'Жидкость')
     is_new = models.BooleanField(verbose_name=u'Новинка')
 
-    description = models.TextField(_(u'Description'),blank=True)
+    # description = models.TextField(_(u'Description'),blank=True)
+    description = RichTextField()
     meta_keywords = models.CharField(_(u'Meta keywords'), max_length=255,
                                      help_text=_(u'Comma-delimited set of SEO keywords for meta tag'), blank=True)
     meta_description = models.CharField(_(u'Meta description'), max_length=255,

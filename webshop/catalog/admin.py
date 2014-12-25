@@ -9,6 +9,10 @@ from django.utils.translation import ugettext_lazy as _
 from webshop.catalog.forms import ProductAdminForm
 from webshop.catalog.models import *
 
+from mptt_tree_editor.admin import TreeEditor
+
+# from suit import
+
 
 # class CharacteristicAdmin(admin.StackedInline):
 #     """Добавление характеристик для продуктов"""
@@ -48,7 +52,8 @@ class ProductAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_per_page = 50
     ordering = ['-created_at']
     inlines = [ProductVolumeAdmin, ProductImageAdmin]
-    search_field = ['name', 'description', 'meta_keywords', 'meta_description']
+    # search_field = ['name', 'description', 'meta_keywords', 'meta_description']
+    search_fields = ['name']
     exclude = ('meta_keywords', 'meta_description')
     readonly_fields = ('created_at', 'updated_at',)
     # имя продукта для генерации чистой ссылки
@@ -58,12 +63,12 @@ class ProductAdmin(ImageCroppingMixin, admin.ModelAdmin):
     }
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TreeEditor):
     """
     Управление категориями
     Как будут отображаться поля категорий в разделе администрирования
     """
-    list_display = ('name', 'created_at', 'updated_at',)
+    list_display = ("indented_short_title", "actions_column", 'name', 'created_at', 'updated_at',)
     list_display_links = ('name',)
     list_per_page = 20
     ordering = ['created_at']

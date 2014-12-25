@@ -24,8 +24,7 @@ class MyRegistrationForm(forms.ModelForm):
     }
     username = forms.RegexField(label=_("Username"), max_length=100,
         regex=r'^[\w.@+-]+$',
-        help_text = _("Required. 40 characters or fewer. Letters, digits and "
-                      "@/./+/-/_ only."),
+        help_text = u"Пожалуйста введите имя пользователя не более 40 символов",
         error_messages = {
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")})
