@@ -25,7 +25,7 @@
                         </h3>
                     </li>
                     <p>Производитель: {{ p.brand_name.name }}</p>
-                    <p>Описание: {{ p.description|slice:":200" }}</p>
+                    <p>Описание: {{ p.description|safe|slice:":200" }}</p>
                     <p>Цена: {{ p.get_atributes.price }}</p>
                 <br />
                 <br/>
