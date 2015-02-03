@@ -30,6 +30,7 @@ def products(search_text):
     products = Product.objects.all()
     brands = BrandName.objects.all()
     results = []
+    bool = False
 
     # Проходим по всем словам в поисковом запросе
     # получаем все товары при совпадении с брендом
@@ -46,7 +47,10 @@ def products(search_text):
             Q(name__icontains=word) |
             Q(description__icontains=word)
         )
-        results.extend(products)
+        for product_item in products:
+            if product_item in results:
+                continue
+            results.append(product_item)
 
     return results
 
