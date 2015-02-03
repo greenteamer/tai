@@ -34,7 +34,9 @@
             <div class="row row-fluid">
 
                 <div class="col-xs-12 product_text">
-                    <h1>{{ p.name }}</h1>
+                    <h1>
+                        {{ p.name }}{% if p.is_not_available %} <span style="color: red">- нет в наличии</span>{% endif %}
+                    </h1>
                 </div>
 
 
@@ -170,7 +172,7 @@
 {#                                    <input class="btn btn-success" type="submit" value="{% trans "Add To Cart" %}"#}
 {#                                    name="submit" alt=" {% trans "Add To Cart" %}" />#}
 
-                                    <button class="btn btn-success" type="submit" name="submit">
+                                    <button class="btn btn-success {% if p.is_not_available %}disabled{% endif %}" type="submit" name="submit">
                                         <i class="icon-shopping-cart icon-white" style="margin-right: 5px;"></i><span>Добавить в корзину</span>
                                     </button>
 
@@ -187,40 +189,6 @@
                     <h4>Описание:</h4>
                     <div class="tab-pane" id="description">{{ p.description|safe }}</div>
                 </div>
-
-{#                <div class="col-xs-12">#}
-{#                    <div class="row">#}
-{#                        <div class="col-xs-4">#}
-{#                            {% for image in images %}#}
-{#                                <div style="width: 300px; height: 300px; border: 1px solid #CCCCCC; margin-top: 10px;">#}
-{#                                    <img src="{% cropped_thumbnail image "cropping" scale=1%}">#}
-{#                                    {% thumbnail image.new_url "300x300"  as im %}#}
-{#                                        <img src="{{ im.url }}" >#}
-{#                                    {% endthumbnail %}#}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{##}
-{#                        <div class="col-xs-4">#}
-{#                            {% for image in images %}#}
-{#                                <div style="width: 300px; height: 300px; border: 1px solid #CCCCCC; margin-top: 10px;">#}
-{#                                    {% thumbnail image.new_image 430x360 box=image.cropping crop detail %}#}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{##}
-{#                        <div class="col-xs-4">#}
-{#                            {% for image in images %}#}
-{#                                <div style="width: 300px; height: 300px; border: 1px solid #CCCCCC; margin-top: 10px;">#}
-{#                                    {% thumbnail image.new_url "300x300"  as im %}#}
-{#                                        <img src="{{ im.url }}" >#}
-{#                                    {% endthumbnail %}#}
-{#                                </div>#}
-{#                            {% endfor %}#}
-{#                        </div>#}
-{##}
-{#                    </div>#}
-{#                </div>#}
 
             </div>
 
