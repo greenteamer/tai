@@ -66,15 +66,21 @@ def category_view(request, category_slug, template_name="catalog/category.html")
 
         for category in loop_category:
             products_subcategory = category.product_set.all()
+            # products.extend(products_subcategory)
 
+            # products.sort()
             for product in products_subcategory:
+                if product in products:
+                    continue
                 products.append(product)
 
         """фильтруем повторяющиеся позиции"""
-        products = sortAndUniq(products)
+        # products = sortAndUniq(products)
+
 
     else:
         products = c.product_set.all()
+        # products = sortAndUniq(products)
         parent_cat = Category.objects.get(id=c.parent.id)
         parent_url = parent_cat.get_absolute_url()
         request.breadcrumbs([('%s' % parent_cat.name, parent_url), ('%s' % c.name,request.path_info)])
