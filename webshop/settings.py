@@ -11,6 +11,10 @@ CURRPATH = os.path.abspath('.')
 # PROJECT_PATH = os.path.abspath(os.path.dirname(__file__).decode('utf-8')).replace('\\', '/')
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
+LOCKDOWN_FORM = 'lockdown.forms.AuthForm'
+LOCKDOWN_AUTHFORM_SUPERUSERS_ONLY = True
+LOCKDOWN_PASSWORDS = ('letmein', 'beta')
+
 DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
@@ -135,6 +139,7 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'breadcrumbs.middleware.BreadcrumbsMiddleware',
+    'lockdown.middleware.LockdownMiddleware',
     #'webshop.SSLMiddleware.SSLRedirect',
 )
 
@@ -216,9 +221,11 @@ INSTALLED_APPS = (
     'image_cropping',
     'ckeditor',
     'mptt_tree_editor',
+    'lockdown',
 )
 
 THUMBNAIL_DEBUG = True
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
