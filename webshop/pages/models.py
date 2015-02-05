@@ -22,7 +22,7 @@ class Page(models.Model):
 class Blog(models.Model):
     name = models.CharField(verbose_name=u'Заголовок', max_length=100)
     slug = AutoSlugField(default='default', editable=True)
-    text = models.TextField()
+    text = RichTextField()
 
     menu_select = models.CharField(
         max_length=20,
