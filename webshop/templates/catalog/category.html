@@ -42,6 +42,7 @@
                                         <br />
                                         <h2>{{ p.name|truncatewords:15 }}</h2>
                                     </a>
+                                    {% if p.is_not_available %} <span style="color: red">нет в наличии</span>{% endif %}
                                     {% if p.sale_price.new_price != 0.00 %}
                                         <div class="price_was">
                                             {% trans "Was" %}: <span>{{ p.sale_price.price }} {% trans "руб." %}</span>
@@ -51,7 +52,7 @@
                                         </div>
                                         <p>*за объем: {{ p.sale_price.volume }} мл.</p>
                                     {% else %}
-                                        <p>{{ p.sale_price.price }} {% trans "руб." %}</p>
+                                        <p>{{ p.sale_price.price }} {% trans "руб." %} </p>
                                     {% endif %}
                                 </div>
                             </div>

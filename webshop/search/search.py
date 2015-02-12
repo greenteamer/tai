@@ -38,7 +38,11 @@ def products(search_text):
         brands = brands.filter(Q(name__icontains=word))
         for brand in brands:
             products_of_brands = products.filter(brand_name=brand)
-            results.extend(products_of_brands)
+            for product_item in products_of_brands:
+                if product_item in results:
+                    continue
+                results.append(product_item)
+            # results.extend(products_of_brands)
 
     # Проходим по всем словам в поисковом запросе
     # получаем все товары по совпадению с описанием или названием
@@ -51,6 +55,41 @@ def products(search_text):
             if product_item in results:
                 continue
             results.append(product_item)
+
+    return results
+
+def brends(search_text):
+    """Извлекает товары содержащие указанный текст"""
+
+    words = _prepare_words(search_text)
+    products = Product.objects.all()
+    brands = BrandName.objects.all()
+    results = []
+    bool = False
+
+    # Проходим по всем словам в поисковом запросе
+    # получаем все товары при совпадении с брендом
+    for word in words:
+        brands = brands.filter(Q(name__icontains=word))
+        for brand in brands:
+            products_of_brands = products.filter(brand_name=brand)
+            for product_item in products_of_brands:
+                if product_item in results:
+                    continue
+                results.append(product_item)
+            # results.extend(products_of_brands)
+
+    # Проходим по всем словам в поисковом запросе
+    # получаем все товары по совпадению с описанием или названием
+    # for word in words:
+    #     products = products.filter(
+    #         Q(name__icontains=word) |
+    #         Q(description__icontains=word)
+    #     )
+    #     for product_item in products:
+    #         if product_item in results:
+    #             continue
+    #         results.append(product_item)
 
     return results
 
