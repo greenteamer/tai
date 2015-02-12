@@ -1450,6 +1450,9 @@ input#order_submit {
     font-size: 14px;
     margin-top: 10px;
 }
+.search_item li {
+    list-style: none;
+}
 /*#cart .panel-group {*/
     /*position: absolute;*/
     /*z-index: 100;*/
