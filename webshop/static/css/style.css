@@ -1438,6 +1438,21 @@ input#order_submit {
 #cart .item_img {
     float: left;
 }
+.search_result .price_was #price{
+    border: 0px solid #5b5b5b;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+.search_result .price_now #new_price {
+    border: 0px solid #5b5b5b;
+    padding: 0px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.search_item li {
+    list-style: none;
+}
 /*#cart .panel-group {*/
     /*position: absolute;*/
     /*z-index: 100;*/
