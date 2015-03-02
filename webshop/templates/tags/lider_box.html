@@ -11,13 +11,13 @@
                 <img src="/media/{{ item.get_image.url }}" width="100" height="100">
 {#            {% endthumbnail %}#}
             <div class="text_item">
-                <p><strong>Бренд:</strong> {{ item.brand_name }}</p>
+{#                <p><strong>Бренд:</strong> {{ item.brand_name }}</p>#}
 {#                <p>Описание: {{ item.description|truncatewords:10|safe }}</p>#}
-                <p><strong>Объем:</strong> {{ item.get_atributes.volume }} мл.</p>
-                <p><strong>Вес:</strong> {{ item.get_atributes.weight }} гр.</p>
-                {% if item.is_not_available %}
-                    <p style="color: red;">Нет в наличии</p>
-                {% endif %}
+{#                <p><strong>Объем:</strong> {{ item.get_atributes.volume }} мл.</p>#}
+{#                <p><strong>Вес:</strong> {{ item.get_atributes.weight }} гр.</p>#}
+{#                {% if item.is_not_available %}#}
+{#                    <p style="color: red;">Нет в наличии</p>#}
+{#                {% endif %}#}
                 {% if item.sale_price.new_price != 0.00 %}
                     <div class="price_was">
                         {% trans "Was" %}: <span>{{ item.sale_price.price }} {% trans "руб." %}</span>
