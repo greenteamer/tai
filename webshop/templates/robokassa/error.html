@@ -1,2 +1,46 @@
-ERROR
-{{ form }}
+{% extends "catalog.html" %}
+{% block slider %}
+{% endblock %}
+{% block tri_bloka %}
+{% endblock %}
+
+{% block title %}
+{{ page.name }} - {{ site_name }}
+{% endblock %}
+
+{% block ckeditor %}
+{#    <script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>#}
+    <script type="text/javascript">
+        window.onload = function()
+        {
+{#            CKEDITOR.replace('text', {#}
+{#                toolbar: 'Basic'#}
+{#            });#}
+
+            $('#myTab a').click(function (e) {
+                e.preventDefault()
+                $(this).tab('show')
+            })
+        };
+    </script>
+
+    <!-- The best place for this one is your <HEAD> tag -->
+{#<script>UPLOADCARE_PUBLIC_KEY = "demopublickey";</script>#}
+{#<script src="https://ucarecdn.com/widget/1.4.6/uploadcare/uploadcare-1.4.6.min.js" charset="utf-8"></script>#}
+
+{% endblock %}
+
+{% block content %}
+
+
+    <div id="stranica">
+
+        <h1>{{ page.name }}</h1>
+
+{#        <h2>{{ tiny }}</h2>#}
+{#        <h2>{{ static }}</h2>#}
+
+        <p>Извините, произошла непредвиденная ошибка, попробуйте произвести оплату позднее</p>
+
+    </div>
+{% endblock %}
