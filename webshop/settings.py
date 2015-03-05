@@ -139,7 +139,7 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'breadcrumbs.middleware.BreadcrumbsMiddleware',
-    'lockdown.middleware.LockdownMiddleware',
+    # 'lockdown.middleware.LockdownMiddleware',
     #'webshop.SSLMiddleware.SSLRedirect',
 )
 
@@ -221,7 +221,7 @@ INSTALLED_APPS = (
     'image_cropping',
     'ckeditor',
     'mptt_tree_editor',
-    'lockdown',
+    # 'lockdown',
 )
 
 THUMBNAIL_DEBUG = True
