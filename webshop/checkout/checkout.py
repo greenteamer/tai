@@ -58,7 +58,7 @@ def create_order(request, transaction_id):
 
     delivery = get_current_delivery(request)
     if  request.user.username == 'admin':
-        delivery = 1
+        delivery.delivery_price = 1
     order.delivery = delivery
 
     order.save()
