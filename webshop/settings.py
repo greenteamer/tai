@@ -139,7 +139,7 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'breadcrumbs.middleware.BreadcrumbsMiddleware',
-    'lockdown.middleware.LockdownMiddleware',
+    # 'lockdown.middleware.LockdownMiddleware',
     #'webshop.SSLMiddleware.SSLRedirect',
 )
 
@@ -221,7 +221,7 @@ INSTALLED_APPS = (
     'image_cropping',
     'ckeditor',
     'mptt_tree_editor',
-    'lockdown',
+    # 'lockdown',
 )
 
 THUMBNAIL_DEBUG = True
@@ -261,10 +261,10 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 90 # 90 дней на хранение cooki
 PRODUCTS_PER_PAGE = 300
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
-ROBOKASSA_LOGIN = 'tai'
+ROBOKASSA_LOGIN = 'polythai'
 ROBOKASSA_PASSWORD1 = 'polythai2014'
 ROBOKASSA_PASSWORD2 = 'polythai2014secondPass'
-ROBOKASSA_TEST_MODE = True
+ROBOKASSA_TEST_MODE = False
 
 try:
     from settings_local import *
