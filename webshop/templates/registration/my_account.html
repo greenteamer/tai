@@ -17,6 +17,7 @@
                     <th scope="col">№ транзакции</th>
                     <th scope="col">Имя пользователя</th>
                     <th scope="col">Дата</th>
+                    <th scope="col">Статус</th>
                     <th class="right" scope="col">Ссылка</th>
                 </tr>
             </thead>
@@ -34,6 +35,9 @@
                     </td>
                     <td>
                         {{ order.date|date }}
+                    </td>
+                    <td>
+                        {% if order.status == 2 %}Оплачено{% else %}Оплата не произведена{% endif %}
                     </td>
                     <td>
                         <a href="{{ order.get_absolute_url }}">Подробнее</a>

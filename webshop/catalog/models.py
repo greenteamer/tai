@@ -228,6 +228,12 @@ class ProductVolume(models.Model):
     def __unicode__(self):
         return '%s-%s' % (self.product.name, self.volume)
 
+    def getNewPrice(self):
+        if self.new_price>0:
+            return self.new_price
+        else:
+            return self.price
+
 
 class GiftPrice(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'Название подарка')

@@ -264,7 +264,7 @@ AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 ROBOKASSA_LOGIN = 'polythai'
 ROBOKASSA_PASSWORD1 = 'polythai2014'
 ROBOKASSA_PASSWORD2 = 'polythai2014secondPass'
-ROBOKASSA_TEST_MODE = False
+ROBOKASSA_TEST_MODE = True
 
 try:
     from settings_local import *
