@@ -94,6 +94,19 @@ def contact(request, template_name='checkout/checkout.html'):
                 request.session['order_id'] = order_id
                 receipt_url = urlresolvers.reverse('checkout_receipt')
 
+                # тест письма
+                # тест письма
+                # order_items = OrderItem.objects.filter(order=order)
+                # items = u''
+                # for item in order_items:
+                #     items = items + u'%s КОЛ-ВО: %d (%s - %s) \n' % (item.name, item.quantity, item.atributes, item.atributes.getNewPrice())
+                # payment_method = u'Оплата произведена'
+                # subject = u'polythai.ru поступила оплата %s' % order.transaction_id
+                # message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n статус: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, order.get_absolute_url())
+                # send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+                # конец тест письма
+                # конец тест письма
+
                 return HttpResponseRedirect(receipt_url)
         else:
             form = ContactForm(request.POST)
@@ -133,6 +146,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                    'OutSum': total,
                    'InvId': order.id,
                })
+
         else:
 
             """на данный момент следующий код не работает потому что отключена возможность выбора способа оплаты"""
@@ -198,12 +212,12 @@ def payment_received(sender, **kwargs):
 
     # отправляем письмо администратору
     order_items = OrderItem.objects.filter(order=order)
-    items = ''
+    items = u''
     for item in order_items:
-        items = items + '%s %s (%s - %s) \n' % (item.name, item.get_feel(), item.atributes, item.atributes.getNewPrice())
+        items = items + u'%s КОЛ-ВО: %d (%s - %s) \n' % (item.name, item.quantity, item.atributes, item.atributes.getNewPrice())
     payment_method = u'Оплата произведена'
     subject = u'polythai.ru поступила оплата %s' % order.transaction_id
-    message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n статус: %s \n <a href="%s">ссылка на заказ</a>' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, order.get_absolute_url())
+    message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n статус: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, order.get_absolute_url())
     send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
 
     context_dict = {
