@@ -24,16 +24,18 @@ class MyRegistrationForm(forms.ModelForm):
     }
     username = forms.RegexField(label=_("Username"), max_length=100,
         regex=r'^[\w.@+-]+$',
-        help_text = u"Пожалуйста введите имя пользователя не более 40 символов",
+        help_text = u"Пожалуйста введите имя пользователя латинскими буквами и цифрами не более 40 символов, допускаются также следующие символы: @ . + - _ ",
         error_messages = {
             'invalid': _("This value may contain only letters, numbers and "
                          "@/./+/-/_ characters.")})
     password1 = forms.CharField(label=_("Password"),
-        widget=forms.PasswordInput)
+                                help_text = u"Пароль может состоять из Заглавных и прописных латинских букв и цифр",
+                                widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Password confirmation"),
         widget=forms.PasswordInput,
         help_text = _("Enter the same password as above, for verification."))
-    captcha = CaptchaField(label=u'Введите символы с картинки')
+    captcha = CaptchaField(label=u'Введите символы с картинки',
+                           help_text = u"Введите то что вы видите на картинке в рядом стоящее поле",)
 
     class Meta:
         model = User
