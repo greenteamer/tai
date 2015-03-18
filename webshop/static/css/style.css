@@ -1453,6 +1453,9 @@ input#order_submit {
 .search_item li {
     list-style: none;
 }
+table#shipping_form input {
+    width:300px;
+}
 /*#cart .panel-group {*/
     /*position: absolute;*/
     /*z-index: 100;*/

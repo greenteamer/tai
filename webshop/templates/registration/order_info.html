@@ -10,7 +10,7 @@
     </ul>
   {% endif %}
   <form action="." method="post">{% csrf_token %}
-    <table>
+    <table id="shipping_form">
         {{ form.as_table }}
     </table>
     <table>

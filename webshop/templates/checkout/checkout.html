@@ -87,7 +87,7 @@
 
     <form action="." id="my_form" method="post">
         {% csrf_token %}
-        <table>
+        <table id="shipping_form">
         {{ form.as_table }}
         </table>
         <input id="order_submit" class="btn btn-primary" value="Заказать" type="submit"/>
