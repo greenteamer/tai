@@ -43,7 +43,7 @@ class BaseOrderInfo(models.Model):
     email = models.EmailField(max_length=50, verbose_name=(u'Ваш email'))
     phone = models.CharField(max_length=20, verbose_name=(u'Ваш телефон'))
     # Информация об адресе для отправки товара
-    shipping_name = models.CharField(max_length=240, verbose_name=(u'Имя получателя'))
+    shipping_name = models.CharField(max_length=240, verbose_name=(u'ФИО получателя'))
     shipping_address_1 = models.TextField(verbose_name=(u'Адрес доставки'))
     shipping_city = models.CharField(max_length=200, verbose_name=(u'Город'))
 
