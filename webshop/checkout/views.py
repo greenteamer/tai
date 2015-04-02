@@ -5,29 +5,20 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from webshop.settings import ADMIN_EMAIL
-import decimal
-
-# регистрация нового пользователя
-import random
-import string
-from webshop.accounts.forms import UserProfileForm, MyRegistrationForm
-from webshop.accounts.models import UserProfile, User
+from webshop.accounts.models import User
 from django.contrib.auth import authenticate, login
-
 from webshop.checkout.models import Order, OrderItem
 from webshop.catalog.models import Cupon
 from webshop.checkout import checkout
 from webshop.cart import cart
 from webshop.accounts import profile
-
 from django.core.mail import send_mail, EmailMultiAlternatives
-from webshop.checkout.forms import ContactForm, CheckoutForm
+from webshop.checkout.forms import ContactForm
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from robokassa.signals import result_received
-
-
 from robokassa.forms import RobokassaForm
+
 
 def contact(request, template_name='checkout/checkout.html'):
 
@@ -50,7 +41,7 @@ def contact(request, template_name='checkout/checkout.html'):
             #2 отправить письмо
             #3 создать User_profile
             if not request.user.is_authenticated():
-                name , nu = request.POST['email'].split('@')[:2]
+                name, nu = request.POST['email'].split('@')[:2]
                 try:
                     login_exist = User.objects.filter(username__icontains=name)
                     if login_exist:
@@ -82,31 +73,14 @@ def contact(request, template_name='checkout/checkout.html'):
                     if user.is_active:
                         login(request, user)
                         profile.set(request)
-
-
             """процесс создания заказа на основе того что было в корзине и на основе введенных данных"""
             response = checkout.process(request)
-
             order = response.get('order', 0)
             order_id = order.id
 
             if order_id:
                 request.session['order_id'] = order_id
                 receipt_url = urlresolvers.reverse('checkout_receipt')
-
-                # тест письма
-                # тест письма
-                # order_items = OrderItem.objects.filter(order=order)
-                # items = u''
-                # for item in order_items:
-                #     items = items + u'%s КОЛ-ВО: %d (%s - %s) \n' % (item.name, item.quantity, item.atributes, item.atributes.getNewPrice())
-                # payment_method = u'Оплата произведена'
-                # subject = u'polythai.ru поступила оплата %s' % order.transaction_id
-                # message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n статус: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, order.get_absolute_url())
-                # send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
-                # конец тест письма
-                # конец тест письма
-
                 return HttpResponseRedirect(receipt_url)
         else:
             form = ContactForm(request.POST)
@@ -158,24 +132,24 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                 payment_method = u'Оплатить квитанцию'
             else:
                 payment_method = u'Оплата онлайн'
-            subject = u'polythai.ru заявка от %s' % order.shipping_name
-            message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n Общая стоимость: %s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, delivery.delivery_type, delivery.weight, order.shipping_address_1, delivery.delivery_price, order.total)
-            send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
-
-            context_dict = {
-                    'transaction': order.transaction_id,
-                    'id': order.id,
-                    'items': items,
-                    'total': order.total,
-                    'payment_method': payment_method,
-                }
-
-            message = render_to_string('checkout/email.html', context_dict)
-            from_email = 'teamer777@gmail.com'
-            to = '%s' % order.email
-            msg = EmailMultiAlternatives(subject, message, from_email, [to])
-            msg.content_subtype = "html"
-            msg.send()
+            # subject = u'polythai.ru заявка от %s' % order.shipping_name
+            # message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n Общая стоимость: %s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, delivery.delivery_type, delivery.weight, order.shipping_address_1, delivery.delivery_price, order.total)
+            # send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+            #
+            # context_dict = {
+            #         'transaction': order.transaction_id,
+            #         'id': order.id,
+            #         'items': items,
+            #         'total': order.total,
+            #         'payment_method': payment_method,
+            #     }
+            #
+            # message = render_to_string('checkout/email.html', context_dict)
+            # from_email = 'teamer777@gmail.com'
+            # to = '%s' % order.email
+            # msg = EmailMultiAlternatives(subject, message, from_email, [to])
+            # msg.content_subtype = "html"
+            # msg.send()
 
             cupon_done = Cupon.objects.get(id=order.cupon.id)
             cupon_done.percent = '0'

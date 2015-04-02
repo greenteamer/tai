@@ -40,6 +40,7 @@ def create_order(request, transaction_id):
     """
     order = Order()
     checkout_form = ContactForm(request.POST, instance=order)
+    checkout_form.shipping_address_1 = u'%s' % request.POST['shipping_address_1']
     order = checkout_form.save(commit=False)
 
     # присваиваем купон заказу по купону корзины

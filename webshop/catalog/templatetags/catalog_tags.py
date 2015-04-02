@@ -53,7 +53,7 @@ register.inclusion_tag('tags/cart_box.html', takes_context=True)(cart_box)
 
 # The first argument *must* be called "context" here.
 def lider_box(context, request):
-    lider_items = Product.objects.filter(is_bestseller='True')
+    lider_items = Product.objects.filter(is_bestseller='True')[:6]
     return {
         # 'products': products,
         'lider_items': lider_items,
