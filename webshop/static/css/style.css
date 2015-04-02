@@ -565,7 +565,7 @@ padding: 40px 0px 100px 0px;
 }
 #catalog .product_thumbnail{
     margin-bottom: 30px;
-    min-height: 414px;
+    min-height: 450px;
 }
 #catalog .product_thumbnail img {
     width: 100%;
@@ -1037,6 +1037,17 @@ ul.payment li {
 #checkout{
     /*margin-bottom: 80px;*/
 }
+#my_form .selectbox,
+#my_form .selectbox .select:hover{
+    background: #53a02d;
+}
+#my_form .selectbox .dropdown {
+    right: 0!important;
+    left:initial!important;
+}
+#my_form .selectbox .text {
+    color: #fff;
+}
 #id_submit{
 margin: 8px 0px 0px 103px;
 }
@@ -1455,6 +1466,9 @@ input#order_submit {
 }
 table#shipping_form input {
     width:300px;
+}
+.sidebar_left h3 a {
+    color: #fff;
 }
 /*#cart .panel-group {*/
     /*position: absolute;*/

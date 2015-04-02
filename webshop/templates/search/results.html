@@ -26,17 +26,24 @@
                     <p>Описание: {{ p.description|safe|slice:":200" }}</p>
                     {% if p.is_not_available %} <span style="color: red">нет в наличии</span>{% endif %}
 
-                    <div id="super_price" class="{% if p.get_atributes.new_price == 0.00 %}hidden{% endif %}">
-                        <div class="price_was">
-                            {% trans "Was" %}: <span id="price">{{ p.get_atributes.price }} {% trans "руб." %}</span>
+                    {% if p.get_atributes.new_price != 0.00 %}
+                        <div id="super_price" class="hidden">
+                            <div class="price_was">
+                                {% trans "Was" %}: <span id="price">{{ p.get_atributes.price }} {% trans "руб." %}</span>
+                            </div>
+                            <div class="price_now">
+                                <span id="new_price">{% trans "Now" %}: {{ p.get_atributes.new_price }} руб.</span>
+                            </div>
                         </div>
-                        <div class="price_now">
-                            <span id="new_price">{% trans "Now" %}: {{ p.get_atributes.new_price }} руб.</span>
+                    {% endif %}
+{#                    <div class="{% if p.get_atributes.new_price != 0.00 %}hidden{% endif %}">#}
+{#                        Цена: {{ p.get_atributes.price }}#}
+{#                    </div>#}
+                    {% if p.get_atributes.new_price == 0.00 %}
+                        <div class="">
+                            Цена: {{ p.get_atributes.price }}
                         </div>
-                    </div>
-                    <div class="{% if p.get_atributes.new_price != 0.00 %}hidden{% endif %}">
-                        Цена: {{ p.get_atributes.price }}
-                    </div>
+                    {% endif %}
 
                 </div>
 

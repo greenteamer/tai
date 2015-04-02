@@ -90,6 +90,12 @@
         <table id="shipping_form">
         {{ form.as_table }}
         </table>
-        <input id="order_submit" class="btn btn-primary" value="Заказать" type="submit"/>
+        <div style="float: right;">
+            <select style="" name="payment_method" id="">
+                <option value="2">Оплатить онлайн</option>
+                <option value="1">Перевести на карту сбербанк</option>
+            </select><br/>
+            <input id="order_submit" class="btn btn-primary" value="Заказать" type="submit"/>
+        </div>
     </form>
 {% endblock %}

@@ -15,37 +15,11 @@
 <table width="720" bordercolor="#000000" style="border:#000000 1px solid;" cellpadding="0" cellspacing="0">
     <tbody>
         <tr>
-            <td width="220" valign="top" height="250" align="center" style="border-bottom:#000000 1px solid; border-right:#000000 1px solid;">&nbsp;<strong>Платеж</strong></td>
+            <td width="220" valign="top" height="100" align="center" style="border-bottom:#000000 1px solid; border-right:#000000 1px solid;">&nbsp;<strong>Перевод на сбербанк карту</strong></td>
             <td valign="top" style="border-bottom:#000000 1px solid; border-right:#000000 1px solid;">
-                <li><strong>Получатель: </strong> <font style="font-size:90%"> Дорогов Дмитрий Олегович</font>&nbsp;&nbsp;&nbsp;<br></li>
-                <li><strong>ИНН:</strong> 7744000912&nbsp;&nbsp;<font style="font-size:11px"> &nbsp;</font> <strong>P/сч.:</strong> 40817810451002244440&nbsp;&nbsp;<br></li>
-                <li> <strong>в:</strong> <font style="font-size:90%">ОАО "Промсвязьбанк" г. Москва,Отд. 1 Московского ГТУ Банка России </font><br></li>
-                <li><strong>БИК:</strong> 044525555&nbsp; <strong>К/сч.:</strong> 30101810400000000555 <br></li>
-                <li><strong>Платеж:</strong> <font style="font-size:90%">Частный перевод</font><br></li>
-                <li><strong>Плательщик:</strong> Александр Коровкин <br></li>
-                <li><strong>Адрес плательщика:</strong> <font style="font-size:90%"> Северск, Ул.  Ленина </font><br></li>
-                <li><strong>ИНН плательщика:</strong> ____________&nbsp;&nbsp;&nbsp;&nbsp; <strong>№ л/сч. плательщика:</strong> ______________</li>
-                <li><strong>Сумма:</strong> {% if price_order %}{{ price_order|first }}{% endif %} {% if price %}{{ price|first }}{% endif %} руб. {% if price_order %}{{ price_order|last }}{% endif %}{% if price %}{{ price|last }}{% endif %} коп.&nbsp;&nbsp;<strong>Сумма оплаты услуг банка:</strong> ______ руб. __ коп.<br>
-                  <br>
-                  Подпись:________________________        Дата: " __ "&nbsp;_______&nbsp;&nbsp;20&nbsp;&nbsp; г. <br>
-                  <br>
-                </li>
-            </td>
-        </tr>
-        <tr>
-            <td width="220" valign="top" height="250" align="center" style="border-bottom:#000000 1px solid; border-right:#000000 1px solid;">&nbsp;<strong>Квитанция</strong></td>
-            <td valign="top" style="border-bottom:#000000 1px solid; border-right:#000000 1px solid;"> <li><strong>Получатель: </strong> <font style="font-size:90%"> Дорогов Дмитрий Олегович</font>&nbsp;&nbsp;&nbsp;<br></li>
-                <li><strong>ИНН:</strong> 7744000912&nbsp;&nbsp;<font style="font-size:11px"> &nbsp;</font> <strong>P/сч.:</strong> 40817810451002244440&nbsp;&nbsp;<br></li>
-                <li> <strong>в:</strong> <font style="font-size:90%">ОАО "Промсвязьбанк" г. Москва,Отд. 1 Московского ГТУ Банка России </font><br></li>
-                <li><strong>БИК:</strong> 044525555&nbsp; <strong>К/сч.:</strong> 30101810400000000555        </li><li><strong>Платеж:</strong> <font style="font-size:90%">Частный перевод</font><br></li>
-                <li><strong>Плательщик:</strong> Александр Коровкин<br></li>
-                <li><strong>Адрес плательщика:</strong> <font style="font-size:90%"> Северск, Ул.  Ленина </font><br></li>
-                <li><strong>ИНН плательщика:</strong> ____________&nbsp;&nbsp;&nbsp;&nbsp; <strong>№ л/сч. плательщика:</strong> ______________</li>
-                <li><strong>Сумма:</strong> {% if price_order %}{{ price_order|first }}{% endif %} {% if price %}{{ price|first }}{% endif %} руб. {% if price_order %}{{ price_order|last }}{% endif %}{% if price %}{{ price|last }}{% endif %} коп.&nbsp;&nbsp;<strong>Сумма оплаты услуг банка:</strong> ______ руб. __ коп.<br>
-                  <br>
-                  &nbsp;Подпись:________________________        Дата: " __ "&nbsp;_______&nbsp;&nbsp;20&nbsp;&nbsp; г. <br>
-                  <br>
-                </li>
+                <li><strong>Получатель: </strong> <font style="font-size:90%"> Макарова Полина Сергеевна</font>&nbsp;&nbsp;&nbsp;<br></li>
+                <li><strong>Номер карты: </strong> <font style="font-size:90%">4276 8800 6765 2549</font>&nbsp;&nbsp;&nbsp;<br></li>
+                <li><strong>Сумма:</strong> {% if price_order %}{{ price_order|first }}{% endif %} {% if price %}{{ price|first }}{% endif %} руб. {% if price_order %}{{ price_order|last }}{% endif %}{% if price %}{{ price|last }}{% endif %} коп.&nbsp;&nbsp;</li>
             </td>
         </tr>
     </tbody>
