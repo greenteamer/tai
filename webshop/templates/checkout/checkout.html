@@ -8,7 +8,7 @@
 {% load dajaxice_templatetags %}
 
 {% block content %}
-    <div id="checkout">
+    <div id="checkout" xmlns="http://www.w3.org/1999/html">
             <div class="row">
                 <div class="alert alert-info col-xs-5">
                     <strong>{% trans "Warning" %}!</strong><br /> * {% trans "Required fields" %}
@@ -91,11 +91,46 @@
         {{ form.as_table }}
         </table>
         <div style="float: right;">
-            <select style="" name="payment_method" id="">
-                <option value="2">Оплатить онлайн</option>
-                <option value="1">Перевести на карту сбербанк</option>
-            </select><br/>
-            <input id="order_submit" class="btn btn-primary" value="Заказать" type="submit"/>
+
+{#            <input id="order_submit" class="btn btn-primary" value="Заказать" type="submit"/>#}
+
+            <a class="btn btn-primary" name="" data-toggle="modal" data-target="#paymentModal">Оплатить</a>
+            <div class="modal modal-primary fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog" style="margin-top: 90px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">Выберете способ оплаты</h4>
+                        </div>
+                        <div class="modal-body" style="overflow: hidden;">
+                            <div class="col-xs-6">
+                                <input type="radio" name="payment_method" value="2" id="online" />
+                                <label for="online" class="blue">
+                                    <i style="font-size: 30px;" class="fa fa-credit-card"></i>
+                                    <p>Оплата онлайн</p>
+                                    <p>Выбирая этот способ вы можете оплатить заказ онлайн, через банковскую карту Visa MasterCard, яндекс деньги, Qiwi кошелек и др. </p>
+                                </label>
+                            </div>
+                            <div class="col-xs-6">
+                                <input type="radio" name="payment_method" value="1" id="offline"/>
+                                <label for="offline" class="blue">
+                                    <i style="font-size: 30px;" class="fa fa-cc-visa"></i>
+                                    <p>Перевод на карту</p>
+                                    <p>Выбирая этот способ оплаты Вы можете оплатить только с помощью перевода на карту сбербанк. Дальнешие инструкции придут на почтовый адрес, указанный вами.</p>
+                                </label>
+
+                            </div>
+{#                            <select style="" name="payment_method" id="">#}
+{#                                <option value="2">Оплатить онлайн</option>#}
+{#                                <option value="1">Оплата на карту</option>#}
+{#                            </select><br/>#}
+                        </div>
+                        <div class="modal-footer">
+                            <input id="order_submit" class="btn btn-primary" value="Оплатить" type="submit"/>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
         </div>
     </form>
 {% endblock %}
