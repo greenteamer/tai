@@ -129,12 +129,13 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             for item in order_items:
                 items = items + '%s \n' % item.name
             if order.payment_method == 1:
-                payment_method = u'Оплатить квитанцию'
+                payment_method = u'Оплата на карту'
             else:
                 payment_method = u'Оплата онлайн'
             subject = u'polythai.ru заявка от %s' % order.shipping_name
-            message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n Общая стоимость: %s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, delivery.delivery_type, delivery.weight, order.shipping_address_1, delivery.delivery_price, order.total)
+            message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n Общая стоимость: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, delivery.delivery_type, delivery.weight, order.shipping_address_1, delivery.delivery_price, order.total, order.get_absolute_url())
             send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+            # send_mail(subject, message, 'teamer777@gmail.com', ['teamer777@icloud.com'], fail_silently=False)
 
             context_dict = {
                     'transaction': order.transaction_id,
@@ -142,9 +143,9 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                     'items': items,
                     'total': order.total,
                     'payment_method': payment_method,
-                }
+                    }
 
-            message = render_to_string('checkout/email.html', context_dict)
+            message = render_to_string('checkout/email_1.html', context_dict)
             from_email = 'teamer777@gmail.com'
             to = '%s' % order.email
             msg = EmailMultiAlternatives(subject, message, from_email, [to])
