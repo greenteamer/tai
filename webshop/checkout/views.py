@@ -192,7 +192,7 @@ def payment_received(sender, **kwargs):
         items = items + u'%s КОЛ-ВО: %d (%s - %s) \n' % (item.name, item.quantity, item.atributes, item.atributes.getNewPrice())
     payment_method = u'Оплата произведена'
     subject = u'polythai.ru поступила оплата %s' % order.transaction_id
-    message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n статус: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, order.get_absolute_url())
+    message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n Общая стоимость: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, delivery.delivery_type, delivery.weight, order.shipping_address_1, delivery.delivery_price, order.total, order.get_absolute_url())
     send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
 
     context_dict = {

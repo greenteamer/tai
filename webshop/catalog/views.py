@@ -16,6 +16,50 @@ from webshop.slider.models import Slider
 from webshop.news.models import News
 from webshop.pages.models import Page
 
+# testing
+# import time
+# reps = 2
+# repslist = range(reps)
+
+
+# # таймер вычисления скорости выполнения функции
+# def timer(func, *pargs, **kargs):
+#     start = time.clock()
+#     for i in repslist:
+#         ret = func(*pargs, **kargs)
+#     elapsed = time.clock() - start
+#     return (elapsed, ret)
+
+
+# def my_test():
+#     c = Category.objects.get(slug='dlya-tela')
+#     loop_category = Category.objects.filter(tree_id=c.tree_id)
+#     products = []
+#     for category in loop_category:
+#         products_subcategory = category.product_set.all()
+#         for product in products_subcategory:
+#             if product in products:
+#                 continue
+#             products.append(product)
+#
+#
+# def my_test2():
+#     c = Category.objects.get(slug='dlya-tela')
+#     loop_category = Category.objects.filter(tree_id=c.tree_id)
+#     products = set()
+#     for cat in loop_category:
+#         products_subcategory = set(cat.product_set.all())
+#         products = products | products_subcategory
+#
+#
+# def my_test3():
+#     c = Category.objects.get(slug='dlya-tela')
+#     products = set()
+#     loop_category = map(lambda x: set(x.product_set.all()), list(Category.objects.filter(tree_id=c.tree_id)))
+#     for p_set in loop_category:
+#         products = products | p_set
+
+
 
 def index_view(request, template_name="catalog/index.html"):
     """Представление главной страницы"""
@@ -40,18 +84,23 @@ def sortAndUniq(input):
 
 
 def category_view(request, category_slug, template_name="catalog/category.html"):
+    """для теста"""
+    # for test in (my_test, my_test2, my_test3, ):
+    # # for test in (my_test3, ):
+    #     elapsed, result = timer(test)
+    #     print ('-' * 33)
+    #     # print ('%-9s: %.5f => [%s...%s]' % (test.__name__, elapsed, result[0], result[-1]))
+    #     print ('%-9s: %.5f' % (test.__name__, elapsed))
+    # print '--ok--'
     """Представление для просмотра конкретной категории"""
     c = get_object_or_404(Category.active, slug=category_slug)
-    products = []
     if c.level == 0:
-        loop_category = Category.objects.filter(tree_id=c.tree_id)
         request.breadcrumbs('%s' % c.name, request.path_info)
-        for category in loop_category:
-            products_subcategory = category.product_set.all()
-            for product in products_subcategory:
-                if product in products:
-                    continue
-                products.append(product)
+        loop_category = Category.objects.filter(tree_id=c.tree_id)
+        products = set()
+        for cat in loop_category:
+            products_subcategory = set(cat.product_set.all())
+            products = products | products_subcategory
     else:
         products = c.product_set.all()
         # products = sortAndUniq(products)
