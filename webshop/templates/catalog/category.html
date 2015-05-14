@@ -25,21 +25,15 @@
             <div class="row">
                     <div class="col-xs-12">
                         <h1>{{ c.name }}</h1>
-                        <h1>{{ products|length }}</h1>
                     </div>
 
-{#                    {{ products/ }}#}
 
                     {% if products %}
-{#                        цыкл по продуктам (осуществляется проход до тех пор пока есть продукты)#}
                         {% for p in products %}
                             <div class="col-xs-3">
                                 <div class="product_thumbnail">
                                     <a href="{{ p.get_absolute_url }}">
-{#                                        {% thumbnail p.image_url "200x200" crop="center" as im %}#}
                                             <img src="/media/{{ p.image_url }}" width="200" height="200">
-{#                                        {% endthumbnail %}#}
-{#                                            <img src="{{ p.image_url.url }}" width="187" height="187">#}
                                         <br />
                                         <h2>{{ p.name|truncatewords:15 }}</h2>
                                     </a>
