@@ -112,6 +112,7 @@ def category_view(request, category_slug, template_name="catalog/category.html")
             p.image_url = ProductImage.objects.get(product=p, default=True).url
         except Exception:
             p.image_url = "/media/products/images/none.png"
+    products = sorted(products, key=lambda x: x.id, reverse=True)
     page_title = c.name
     meta_keywords = c.meta_keywords
     meta_description = c.meta_description

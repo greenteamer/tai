@@ -126,11 +126,19 @@
 {#                            </select><br/>#}
                         </div>
                         <div class="modal-footer">
-                            <input id="order_submit" class="btn btn-primary" value="Оплатить" type="submit"/>
+                            <input id="order_submit" class="btn btn-primary disabled" value="Оплатить" type="submit"/>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
         </div>
     </form>
+{% endblock %}
+
+{% block bottom_script %}
+   <script>
+        $("input[name=payment_method]").live("change", function(){
+            $("#order_submit").removeClass('disabled');
+        });
+    </script>
 {% endblock %}
