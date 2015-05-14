@@ -565,7 +565,7 @@ padding: 40px 0px 100px 0px;
 }
 #catalog .product_thumbnail{
     margin-bottom: 30px;
-    min-height: 450px;
+    min-height: 460px;
 }
 #catalog .product_thumbnail img {
     width: 100%;
@@ -573,7 +573,7 @@ padding: 40px 0px 100px 0px;
     border-radius: 5px 5px 0 0;
 }
 #catalog .product_thumbnail h2 {
-    height: 90px;
+    /*height: 90px;*/
 }
 #popular_products .product_thumbnail img, .best_selling .product_thumbnail img{
     border-bottom: 1px solid #E8E8E8;
