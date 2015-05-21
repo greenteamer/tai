@@ -36,7 +36,8 @@ def contact(request, template_name='checkout/checkout.html'):
 
             form.clean_phone()
 
-            """создание пользователя при оформлении заказа если не зарегистрирован"""
+            """создание пользователя при оформлении заказа если
+            не зарегистрирован"""
             #1 создать user
             #2 отправить письмо
             #3 создать User_profile
@@ -61,7 +62,9 @@ def contact(request, template_name='checkout/checkout.html'):
                 }
 
                 subject = u'Регистрация на сайте www.polythai.ru'
-                message = render_to_string('checkout/reg_email.html', context_dict)
+                message = render_to_string(
+                    'checkout/reg_email.html', context_dict)
+
                 from_email = 'polythai@mail.ru'
                 to = new_user.email
                 msg = EmailMultiAlternatives(subject, message, from_email, [to])
@@ -73,7 +76,8 @@ def contact(request, template_name='checkout/checkout.html'):
                     if user.is_active:
                         login(request, user)
                         profile.set(request)
-            """процесс создания заказа на основе того что было в корзине и на основе введенных данных"""
+            """процесс создания заказа на основе того что было в корзине
+            и на основе введенных данных"""
             response = checkout.process(request)
             order = response.get('order', 0)
             order_id = order.id
@@ -88,8 +92,8 @@ def contact(request, template_name='checkout/checkout.html'):
                 'form': form,
                 'error': form.errors,
             })
-    else: #заполняем форму получателя если пользователь авторизирован
-        if  request.user.is_authenticated():
+    else:  # заполняем форму получателя если пользователь авторизирован
+        if request.user.is_authenticated():
             user_profile = profile.retrieve(request)
             form = ContactForm(instance=user_profile)
         else:
@@ -117,13 +121,12 @@ def receipt_view(request, template_name='checkout/receipt.html'):
 
         if order.payment_method == 2:
             form = RobokassaForm(initial={
-                   'OutSum': total,
-                   'InvId': order.id,
-               })
+                'OutSum': total,
+                'InvId': order.id, })
 
         else:
-
-            """на данный момент следующий код не работает потому что отключена возможность выбора способа оплаты"""
+            """на данный момент следующий код не работает потому
+             что отключена возможность выбора способа оплаты"""
             """отправка писем"""
             items = ''
             for item in order_items:
@@ -133,17 +136,28 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             else:
                 payment_method = u'Оплата онлайн'
             subject = u'polythai.ru заявка от %s' % order.shipping_name
-            message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n Общая стоимость: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, delivery.delivery_type, delivery.weight, order.shipping_address_1, delivery.delivery_price, order.total, order.get_absolute_url())
-            send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
-            # send_mail(subject, message, 'teamer777@gmail.com', ['teamer777@icloud.com'], fail_silently=False)
+            message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n \
+                почта: %s \n id заказа: %s \n Товары: %s \n %s \n \
+                Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n \
+                Стоимость доставки: %s \n Общая стоимость: %s \n \
+                ссылка на заказ : http://polythai.ru%s' % (
+                order.transaction_id, order.shipping_name, order.phone,
+                order.email, order.id, items, payment_method,
+                delivery.delivery_type, delivery.weight,
+                order.shipping_address_1, delivery.delivery_price,
+                order.total, order.get_absolute_url())
+
+            send_mail(
+                subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL],
+                fail_silently=False)
 
             context_dict = {
-                    'transaction': order.transaction_id,
-                    'id': order.id,
-                    'items': items,
-                    'total': order.total,
-                    'payment_method': payment_method,
-                    }
+                'transaction': order.transaction_id,
+                'id': order.id,
+                'items': items,
+                'total': order.total,
+                'payment_method': payment_method,
+            }
 
             message = render_to_string('checkout/email_1.html', context_dict)
             from_email = 'teamer777@gmail.com'
@@ -173,12 +187,13 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                               context_instance=RequestContext(request))
 
 
-"""обрабатываем сигнал оплаты от платежной системы"""
 def payment_received(sender, **kwargs):
+    """обрабатываем сигнал оплаты от платежной системы"""
     order = Order.objects.get(id=kwargs['InvId'])
     order.status = Order.PAID
-
     order.save()
+
+    delivery = order.delivery
 
     # обнуляем купон при успешном его использовании
     cupon_done = Cupon.objects.get(id=order.cupon.id)
@@ -187,24 +202,38 @@ def payment_received(sender, **kwargs):
 
     # отправляем письмо администратору
     order_items = OrderItem.objects.filter(order=order)
+
     items = u''
     for item in order_items:
-        items = items + u'%s КОЛ-ВО: %d (%s - %s) \n' % (item.name, item.quantity, item.atributes, item.atributes.getNewPrice())
+        items = items + u'%s КОЛ-ВО: %d (%s - %s) \n' % (
+            item.name, item.quantity, item.atributes,
+            item.atributes.getNewPrice())
+
     payment_method = u'Оплата произведена'
     subject = u'polythai.ru поступила оплата %s' % order.transaction_id
-    message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n Общая стоимость: %s \n ссылка на заказ : http://polythai.ru%s' % (order.transaction_id, order.shipping_name, order.phone, order.email, order.id, items, payment_method, delivery.delivery_type, delivery.weight, order.shipping_address_1, delivery.delivery_price, order.total, order.get_absolute_url())
-    send_mail(subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL], fail_silently=False)
+    message = u'Номер транзакции №: %s \n Имя: %s \n телефон: %s \n \
+    почта: %s \n id заказа: %s \n Товары: %s \n %s \n Тип доставки: %s \n \
+    Вес доставки: %s \n Адрес: %s \n Стоимость доставки: %s \n \
+    Общая стоимость: %s \n ссылка на заказ : http://polythai.ru%s' % (
+        order.transaction_id, order.shipping_name, order.phone, order.email,
+        order.id, items, payment_method, delivery.delivery_type,
+        delivery.weight, order.shipping_address_1, delivery.delivery_price,
+        order.total, order.get_absolute_url())
+
+    send_mail(
+        subject, message, 'teamer777@gmail.com',
+        [ADMIN_EMAIL], fail_silently=False)
 
     context_dict = {
-            'name': order.shipping_name,
-            'transaction': order.transaction_id,
-            'id': order.id,
-            'items': items,
-            'total': order.total,
-        }
+        'name': order.shipping_name,
+        'transaction': order.transaction_id,
+        'id': order.id,
+        'items': items,
+        'total': order.total,
+    }
 
     message = render_to_string('checkout/email.html', context_dict)
-    from_email = 'polythai@mail.ru'
+    from_email = 'teamer777@gmail.com'
     to = '%s' % order.email
     msg = EmailMultiAlternatives(subject, message, from_email, [to])
     msg.content_subtype = "html"
