@@ -54,6 +54,20 @@
                         {% endfor %}
 {#                        закончить цыкл#}
 
+                    <div class="col-xs-12" style="text-align: center">
+                        <ul class="pagination">
+                            {% if products.has_previous %}
+                                <li class=""><a href="?page={{ products.previous_page_number }}">&laquo;</a></li>
+                            {% endif %}
+                            {% for num in paginator.page_range %}
+                                <li {% if num == products.number %} class="active"{% endif %}><a href="?page={{ num }}" >{{ num }} <span class="sr-only">{{ num }}</span></a></li>
+                            {% endfor %}
+                            {% if products.has_next %}
+                                <li><a href="?page={{ products.next_page_number }}">&raquo;</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
 {#                    иначе .... если продукты не существуют#}
                     {% else %}
                        <div class="none_tovar">
