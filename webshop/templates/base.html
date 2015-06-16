@@ -203,9 +203,12 @@
         {% block site_wrapper %}
         {% endblock %}
 
+        <div id="scrollup"><span class="glyphicon glyphicon-chevron-up"></span></div>
+
     {#    flex-slider#}
         <script src="{{ STATIC_URL }}js/jquery.flexslider-min.js"></script>
         <script src="{{ STATIC_URL }}js/script.js"></script>
+        <script type='text/javascript' src='{{ STATIC_URL }}js/scrollup.js'></script>
 
         {#    blueimp#}
         {% block bottom_script %}
