@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="row">
-            <form class="navbar-search" id="id_query" action="{% url search_results %}" method="get">
+            <form class="navbar-search" id="id_query" action="{% url 'search_results' %}" method="get">
                 <div class="col-xs-8">
                     <input name="query" width="200" id="{{ form.auto_id }}" type="text"
                          value="Поиск" class="search-query span2" placeholder="Поиск"
