@@ -228,7 +228,7 @@ def calculate_delivery_weight(request, gift):
         gift_weight = gift.weight
         delivery_weight = delivery_weight + gift_weight
 
-    delivery_weight = delivery_weight + 200
+    delivery_weight = delivery_weight
 
     return delivery_weight
 
