@@ -245,10 +245,6 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 90  # 90 дней на хранение cook
 PRODUCTS_PER_PAGE = 300
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
-ROBOKASSA_LOGIN = 'waymy'
-ROBOKASSA_PASSWORD1 = 'GT1986Balabas'
-ROBOKASSA_PASSWORD2 = 'GT1986Balabas1986'
-ROBOKASSA_TEST_MODE = False
 
 try:
     from settings_local import *
