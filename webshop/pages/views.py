@@ -44,7 +44,8 @@ def pageView(request, slug, template_name="pages/page.html"):
                     page.name = postdata.get('name', '')
                     page.slug = postdata.get('slug', '')
                     page.text = postdata.get('text', '')
-                    page.is_main = False
+                    # page.is_main = False
+                    page.is_main = postdata.get('is_main', '')
                     page.save()
                     # new_review = form.save(commit=False)
                     form = PageForm(instance=page)
