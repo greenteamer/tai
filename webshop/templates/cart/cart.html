@@ -163,7 +163,8 @@
                 </div>
                 <div class="col-xs-12">
                     <form style="float: right;" name="testrb" method="post" action="." class="cart">{% csrf_token %}
-                        <button {% if delivery.is_to_big %}disabled="disabled"{% endif %} class="btn btn-success" type="submit" name="checkout">
+                        {# <button {% if delivery.is_to_big %}disabled="disabled"{% endif %} class="btn btn-success" type="submit" name="checkout"> #}
+                        <button disabled="disabled" class="btn btn-success" type="submit" name="checkout">
                         <i class="icon-shopping-cart icon-white" style="margin-right: 5px;"></i><span>Оформить заказ</span></button>
                     </form>
                 </div>
