@@ -44,9 +44,11 @@ def cart_view(request, template_name="cart/cart.html"):
     cart_gift = cart.cart_gift_add(request)
 
     # доставка
-    delivery = cart.get_delivery(request)
-    # delivery.gift = cart_gift
-    delivery.save()
+    try: 
+        delivery = cart.get_delivery(request)
+        delivery.save()
+    except Exception:
+        HttpResponseRedirect("/")
 
     cart_total = cart.cart_total(request)
     # all_prices = cart.all_prices_for_delivery(request)
