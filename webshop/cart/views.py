@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/env python
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
@@ -47,16 +48,9 @@ def cart_view(request, template_name="cart/cart.html"):
     try: 
         delivery = cart.get_delivery(request)
         delivery.save()
+        cart_total = cart.cart_total(request)
     except Exception:
-        HttpResponseRedirect("/")
-
-    cart_total = cart.cart_total(request)
-    # all_prices = cart.all_prices_for_delivery(request)
-    # status = cart.status_delivery_radio(request)
-
-    # test
-    # test = ['hello', 'my', 'world']
-    # test2 = ''.join(test)
+        return redirect("/")
 
     return render_to_response(template_name, locals(),
                               context_instance=RequestContext(request))
