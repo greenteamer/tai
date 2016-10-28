@@ -10,7 +10,7 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
 ALLOWED_HOSTS = ['*']
-TEMPLATE_DEBUG = DEBUG
+# TEMPLATE_DEBUG = DEBUG
 
 BREADCRUMBS_AUTO_HOME = True
 
@@ -128,6 +128,11 @@ MIDDLEWARE_CLASSES = (
     #'webshop.SSLMiddleware.SSLRedirect',
 )
 
+# MIDDLEWARE_CLASSES = (
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#     'django.middleware.security.SecurityMiddleware',
+# )
+
 ROOT_URLCONF = 'webshop.urls'
 
 # TEMPLATE_DIRS = (
@@ -157,19 +162,19 @@ TEMPLATES = [
 # List of processors used by RequestContext to populate the context.
 # Each one should be a callable that takes the request object as its
 # only parameter and returns a dictionary to add to the context.
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'webshop.utils.context_processors.webshop',
-    # 'django_mobile.context_processors.flavour',
-    'django.core.context_processors.csrf',
-)
-if DEBUG:
-    TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     'django.contrib.auth.context_processors.auth',
+#     'django.core.context_processors.i18n',
+#     'django.core.context_processors.media',
+#     'django.core.context_processors.static',
+#     'django.core.context_processors.request',
+#     'django.contrib.messages.context_processors.messages',
+#     'webshop.utils.context_processors.webshop',
+#     # 'django_mobile.context_processors.flavour',
+#     'django.core.context_processors.csrf',
+# )
+# if DEBUG:
+#     TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
 
 # DAJAXICE_MEDIA_PREFIX="dajaxice"
 
@@ -213,6 +218,7 @@ INSTALLED_APPS = (
     'webshop.slider',
     'webshop.pages',
     'mptt',
+    'mptt_tree_editor',
     'bootstrap3',
     'sorl.thumbnail',
     'dajaxice',
