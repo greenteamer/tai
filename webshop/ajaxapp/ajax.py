@@ -1,5 +1,6 @@
 #-*-coding:utf-8-*-
-from django.utils import simplejson
+# from django.utils import simplejson
+import json as simplejson
 from dajax.core import Dajax
 from django.core import urlresolvers
 from dajaxice.decorators import dajaxice_register

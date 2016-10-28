@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from webshop import settings
-from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+from dajaxice.core import  dajaxice_autodiscover, dajaxice_config
 
 dajaxice_autodiscover()
 admin.autodiscover()
