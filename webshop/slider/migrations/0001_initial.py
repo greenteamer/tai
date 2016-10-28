@@ -1,72 +1,26 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import migrations, models
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Slider'
-        db.create_table('slider_slider', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
-            ('product', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['catalog.Product'])),
-        ))
-        db.send_create_signal('slider', ['Slider'])
+    dependencies = [
+        ('catalog', '0001_initial'),
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'Slider'
-        db.delete_table('slider_slider')
-
-
-    models = {
-        'catalog.category': {
-            'Meta': {'ordering': "['-created_at']", 'object_name': 'Category', 'db_table': "'categories'"},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            u'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            u'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'meta_description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
-            'parent': ('mptt.fields.TreeForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['catalog.Category']"}),
-            u'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
-            u'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        'catalog.product': {
-            'Meta': {'ordering': "['-created_at']", 'object_name': 'Product', 'db_table': "'products'"},
-            'articul': ('django.db.models.fields.CharField', [], {'max_length': '10', 'blank': 'True'}),
-            'brand': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['catalog.Category']", 'symmetrical': 'False'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_bestseller': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'meta_description': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'old_price': ('django.db.models.fields.DecimalField', [], {'default': '0.0', 'max_digits': '9', 'decimal_places': '2', 'blank': 'True'}),
-            'price': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'}),
-            'quantity': ('django.db.models.fields.IntegerField', [], {}),
-            'sku': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        'slider.slider': {
-            'Meta': {'object_name': 'Slider'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'product': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.Product']"})
-        }
-    }
-
-    complete_apps = ['slider']
+    operations = [
+        migrations.CreateModel(
+            name='Slider',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('image', models.ImageField(upload_to=b'slider', verbose_name='\u0444\u043e\u0442\u043e \u0434\u043b\u044f \u0441\u043b\u0430\u0439\u0434\u0435\u0440\u0430')),
+                ('product', models.ForeignKey(verbose_name='\u0412\u044b\u0431\u0440\u0430\u0442\u044c \u043f\u0440\u043e\u0434\u0443\u043a\u0442', to='catalog.Product')),
+            ],
+            options={
+                'verbose_name': '\u0421\u043b\u0430\u0439\u0434\u0435\u0440 \u043d\u0430 \u0433\u043b\u0430\u0432\u043d\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435',
+                'verbose_name_plural': '\u0421\u043b\u0430\u0439\u0434\u044b',
+            },
+        ),
+    ]
