@@ -16,4 +16,5 @@ class SearchForm(forms.ModelForm):
 
     class Meta:
         model = SearchTerm
+        exclude = ()
 

@@ -5,7 +5,7 @@
 {% load cropping %}
 
 {% block product_js %}
-    <script src="{{ STATIC_URL }}js/slides.min.jquery.js"></script>
+    <script src="/static/js/slides.min.jquery.js"></script>
     <script>
 		$(function(){
 			$('#products').slides({
@@ -20,7 +20,7 @@
 			});
 		});
 	</script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/product.css">
+    <link rel="stylesheet" href="/static/css/product.css">
 
 {% endblock %}
 
@@ -217,7 +217,7 @@
         <a class="play-pause"></a>
         <ol class="indicator"></ol>
     </div>
-    <script type="text/javascript" src="{{ STATIC_URL }}blueimp/blueimp-gallery.min.js"></script>
+    <script type="text/javascript" src="/static/blueimp/blueimp-gallery.min.js"></script>
     <script type="text/javascript">
 		document.getElementById('links').onclick = function (event) {
 			event = event || window.event;

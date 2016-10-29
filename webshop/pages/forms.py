@@ -17,5 +17,6 @@ class PageForm(forms.ModelForm):
     text = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = Page
+        exclude = ()
         # exclude = ('slug',)
 

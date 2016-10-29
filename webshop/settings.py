@@ -7,10 +7,10 @@ from django.utils.translation import ugettext_lazy as _
 CURRPATH = os.path.abspath('.')
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
 ALLOWED_HOSTS = ['*']
-TEMPLATE_DEBUG = DEBUG
+# TEMPLATE_DEBUG = DEBUG
 
 BREADCRUMBS_AUTO_HOME = True
 
@@ -92,29 +92,29 @@ STATIC_URL = '/static/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
-# Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+# # Examples: "http://foo.com/static/admin/", "/static/admin/".
+# ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
 
 # List of finder classes that know how to find static files in
 # various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'dajaxice.finders.DajaxiceFinder',
-)
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     'dajaxice.finders.DajaxiceFinder',
+# )
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'rs!w229&m79-)f3ohat)gd=u7q)^3#3(*1)k4-)*qwc^4zgom9'
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-    # 'django_mobile.loader.Loader',
-)
+# TEMPLATE_LOADERS = (
+#     'django.template.loaders.filesystem.Loader',
+#     'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+#     # 'django_mobile.loader.Loader',
+# )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -128,30 +128,53 @@ MIDDLEWARE_CLASSES = (
     #'webshop.SSLMiddleware.SSLRedirect',
 )
 
+# MIDDLEWARE_CLASSES = (
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#     'django.middleware.security.SecurityMiddleware',
+# )
+
 ROOT_URLCONF = 'webshop.urls'
 
-TEMPLATE_DIRS = (
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_PATH, 'templates').replace('\\', '/'),
-)
+# TEMPLATE_DIRS = (
+#     # Always use forward slashes, even on Windows.
+#     # Don't forget to use absolute paths, not relative paths.
+#     os.path.join(PROJECT_PATH, 'templates').replace('\\', '/'),
+# )
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'webshop/templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.request',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # List of processors used by RequestContext to populate the context.
 # Each one should be a callable that takes the request object as its
 # only parameter and returns a dictionary to add to the context.
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    'webshop.utils.context_processors.webshop',
-    # 'django_mobile.context_processors.flavour',
-    'django.core.context_processors.csrf',
-)
-if DEBUG:
-    TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     'django.contrib.auth.context_processors.auth',
+#     'django.core.context_processors.i18n',
+#     'django.core.context_processors.media',
+#     'django.core.context_processors.static',
+#     'django.core.context_processors.request',
+#     'django.contrib.messages.context_processors.messages',
+#     'webshop.utils.context_processors.webshop',
+#     # 'django_mobile.context_processors.flavour',
+#     'django.core.context_processors.csrf',
+# )
+# if DEBUG:
+#     TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
 
 # DAJAXICE_MEDIA_PREFIX="dajaxice"
 
@@ -168,10 +191,10 @@ SOUTH_MIGRATION_MODULES = {
 }
 
 INSTALLED_APPS = (
-    'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
-    'admin_tools.dashboard',
+    # 'admin_tools',
+    # 'admin_tools.theming',
+    # 'admin_tools.menu',
+    # 'admin_tools.dashboard',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
@@ -195,6 +218,7 @@ INSTALLED_APPS = (
     'webshop.slider',
     'webshop.pages',
     'mptt',
+    'mptt_tree_editor',
     'bootstrap3',
     'sorl.thumbnail',
     'dajaxice',

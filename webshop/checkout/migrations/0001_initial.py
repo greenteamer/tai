@@ -1,169 +1,78 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import migrations, models
+from django.conf import settings
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Order'
-        db.create_table('checkout_order', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('email', self.gf('django.db.models.fields.EmailField')(max_length=50)),
-            ('phone', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('shipping_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('shipping_address_1', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('shipping_address_2', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('shipping_city', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('shipping_country', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('shipping_zip', self.gf('django.db.models.fields.CharField')(max_length=10)),
-            ('date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('status', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('ip_address', self.gf('django.db.models.fields.IPAddressField')(max_length=15)),
-            ('last_updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True)),
-            ('transaction_id', self.gf('django.db.models.fields.CharField')(max_length=20)),
-        ))
-        db.send_create_signal('checkout', ['Order'])
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('catalog', '0001_initial'),
+    ]
 
-        # Adding model 'OrderItem'
-        db.create_table('checkout_orderitem', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('product', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['catalog.Product'])),
-            ('quantity', self.gf('django.db.models.fields.IntegerField')(default=1)),
-            ('price', self.gf('django.db.models.fields.DecimalField')(max_digits=9, decimal_places=2)),
-            ('order', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['checkout.Order'])),
-        ))
-        db.send_create_signal('checkout', ['OrderItem'])
-
-        # Adding model 'OrderOneClick'
-        db.create_table('checkout_orderoneclick', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('product', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['catalog.Product'])),
-            ('phone', self.gf('django.db.models.fields.CharField')(max_length=20)),
-        ))
-        db.send_create_signal('checkout', ['OrderOneClick'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'Order'
-        db.delete_table('checkout_order')
-
-        # Deleting model 'OrderItem'
-        db.delete_table('checkout_orderitem')
-
-        # Deleting model 'OrderOneClick'
-        db.delete_table('checkout_orderoneclick')
-
-
-    models = {
-        'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        'auth.permission': {
-            'Meta': {'ordering': "('content_type__app_label', 'content_type__model', 'codename')", 'unique_together': "(('content_type', 'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['contenttypes.ContentType']"}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
-        },
-        'catalog.category': {
-            'Meta': {'ordering': "['-created_at']", 'object_name': 'Category', 'db_table': "'categories'"},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            u'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            u'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'meta_description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '50'}),
-            'parent': ('mptt.fields.TreeForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['catalog.Category']"}),
-            u'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
-            u'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        'catalog.product': {
-            'Meta': {'ordering': "['-created_at']", 'object_name': 'Product', 'db_table': "'products'"},
-            'brand': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['catalog.Category']", 'symmetrical': 'False'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_bestseller': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'meta_description': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'meta_keywords': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'old_price': ('django.db.models.fields.DecimalField', [], {'default': '0.0', 'max_digits': '9', 'decimal_places': '2', 'blank': 'True'}),
-            'price': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'}),
-            'quantity': ('django.db.models.fields.IntegerField', [], {}),
-            'sku': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        'checkout.order': {
-            'Meta': {'object_name': 'Order'},
-            'date': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '50'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'ip_address': ('django.db.models.fields.IPAddressField', [], {'max_length': '15'}),
-            'last_updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'shipping_address_1': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'shipping_address_2': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'shipping_city': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'shipping_country': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'shipping_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'shipping_zip': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'status': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
-            'transaction_id': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'})
-        },
-        'checkout.orderitem': {
-            'Meta': {'object_name': 'OrderItem'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'order': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['checkout.Order']"}),
-            'price': ('django.db.models.fields.DecimalField', [], {'max_digits': '9', 'decimal_places': '2'}),
-            'product': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.Product']"}),
-            'quantity': ('django.db.models.fields.IntegerField', [], {'default': '1'})
-        },
-        'checkout.orderoneclick': {
-            'Meta': {'object_name': 'OrderOneClick'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'phone': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'product': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['catalog.Product']"})
-        },
-        'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        }
-    }
-
-    complete_apps = ['checkout']
+    operations = [
+        migrations.CreateModel(
+            name='Delivery',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('delivery_type', models.CharField(default=b'', max_length=100, verbose_name='\u0441\u043f\u043e\u0441\u043e\u0431 \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0438', choices=[(b'SPSurface', b'Small Packet Surface'), (b'SPSAL', b'Small Packet SAL'), (b'SPA', b'Small Packet Air'), (b'PS', b'Parcel Surface'), (b'EMA', b'EMA')])),
+                ('weight', models.IntegerField(default=0, verbose_name='\u0412\u0435\u0441')),
+                ('delivery_price', models.DecimalField(max_digits=9, decimal_places=0)),
+                ('cart_id_delivery', models.CharField(max_length=50)),
+                ('gift', models.ForeignKey(verbose_name='\u0414\u043e\u0441\u0442\u0430\u0432\u0438\u0442\u044c \u043f\u043e\u0434\u0430\u0440\u043e\u043a', blank=True, to='catalog.GiftPrice', null=True)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Order',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('email', models.EmailField(max_length=50, verbose_name='\u0412\u0430\u0448 email')),
+                ('phone', models.CharField(max_length=20, verbose_name='\u0412\u0430\u0448 \u0442\u0435\u043b\u0435\u0444\u043e\u043d')),
+                ('shipping_name', models.CharField(max_length=240, verbose_name='\u0424\u0418\u041e \u043f\u043e\u043b\u0443\u0447\u0430\u0442\u0435\u043b\u044f')),
+                ('shipping_address_1', models.TextField(verbose_name='\u0410\u0434\u0440\u0435\u0441 \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0438')),
+                ('shipping_city', models.CharField(max_length=200, verbose_name='\u0413\u043e\u0440\u043e\u0434')),
+                ('shipping_address_2', models.TextField(verbose_name='\u0414\u043e\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c\u043d\u044b\u0439 \u0430\u0434\u0440\u0435\u0441(\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)', blank=True)),
+                ('shipping_country', models.CharField(max_length=200, verbose_name='\u0421\u0442\u0440\u0430\u043d\u0430')),
+                ('shipping_zip', models.CharField(max_length=10, verbose_name='\u041f\u043e\u0447\u0442\u043e\u0432\u044b\u0439 \u0438\u043d\u0434\u0435\u043a\u0441')),
+                ('date', models.DateTimeField(auto_now_add=True)),
+                ('status', models.IntegerField(default=1, choices=[(1, '\u041f\u0440\u0438\u043d\u044f\u0442\u043e'), (2, '\u041e\u043f\u043b\u0430\u0447\u0435\u043d\u043e'), (3, '\u041e\u043f\u043b\u0430\u0442\u0430 \u043a\u0432\u0438\u0442\u0430\u043d\u0446\u0438\u0435\u0439')])),
+                ('payment_method', models.IntegerField(default=2, choices=[(1, '\u041e\u043f\u043b\u0430\u0442\u0438\u0442\u044c \u043a\u0432\u0438\u0442\u0430\u043d\u0446\u0438\u044e'), (2, '\u041e\u043f\u043b\u0430\u0442\u0438\u0442\u044c Viza, MasterCard, \u042f\u043d\u0434\u0435\u043a\u0441\u0414\u0435\u043d\u044c\u0433\u0438')])),
+                ('ip_address', models.IPAddressField()),
+                ('last_updated', models.DateTimeField(auto_now=True)),
+                ('transaction_id', models.CharField(max_length=20)),
+                ('cupon', models.ForeignKey(verbose_name='\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u044b\u0439 \u043a\u0443\u043f\u043e\u043d', blank=True, to='catalog.Cupon', null=True)),
+                ('delivery', models.ForeignKey(to='checkout.Delivery', null=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='OrderItem',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('quantity', models.IntegerField(default=1)),
+                ('price', models.DecimalField(max_digits=9, decimal_places=2)),
+                ('atributes', models.ForeignKey(to='catalog.ProductVolume')),
+                ('feel', models.ForeignKey(default=None, to='catalog.FeelName', null=True)),
+                ('order', models.ForeignKey(to='checkout.Order')),
+                ('product', models.ForeignKey(to='catalog.Product')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='OrderOneClick',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('product_name', models.CharField(max_length=128, verbose_name='\u0418\u043c\u044f \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0430')),
+                ('phone', models.CharField(max_length=20, verbose_name='\u0422\u0435\u043b\u0435\u0444\u043e\u043d')),
+            ],
+            options={
+                'ordering': ['product_name'],
+                'verbose_name': '\u0417\u0430\u043a\u0430\u0437\u044b',
+                'verbose_name_plural': '\u0417\u0430\u043a\u0430\u0437\u044b \u0432 1 \u043a\u043b\u0438\u043a',
+            },
+        ),
+    ]
