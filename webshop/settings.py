@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
+# !/usr/bin/env python
 import os
 from easy_thumbnails.conf import Settings as thumbnail_settings
 from django.utils.translation import ugettext_lazy as _
@@ -17,10 +17,8 @@ BREADCRUMBS_AUTO_HOME = True
 DEFAULT_CHARSET = 'utf-8'
 
 THUMBNAIL_PROCESSORS = (
-    'image_cropping.thumbnail_processors.crop_corners',
-) + thumbnail_settings.THUMBNAIL_PROCESSORS
-
-# FLAVOURS = (u'full', u'ipad', u'mobile', )
+                           'image_cropping.thumbnail_processors.crop_corners',
+                       ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 ADMINS = (
 )
@@ -38,20 +36,8 @@ DATABASES = {
     }
 }
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
 TIME_ZONE = 'Europe/Moscow'
-
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-# LANGUAGE_CODE = 'ru'
-
 ugettext = lambda s: s
 
 LANGUAGES = (
@@ -60,61 +46,15 @@ LANGUAGES = (
 )
 
 SITE_ID = 1
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale
 USE_L10N = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-# MEDIA_ROOT = 'C:/webmagazinedjango/webshop/static/media/'
-# MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media').replace('\\', '/')
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = '/media/'
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-# URL prefix for admin static files -- CSS, JavaScript and images.
-# Make sure to use a trailing slash.
-# # Examples: "http://foo.com/static/admin/", "/static/admin/".
-# ADMIN_MEDIA_PREFIX = '/static/admin/'
-
-# Additional locations of static files
-
-# List of finder classes that know how to find static files in
-# various locations.
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#     'dajaxice.finders.DajaxiceFinder',
-# )
-
-# Make this unique, and don't share it with anybody.
 SECRET_KEY = 'rs!w229&m79-)f3ohat)gd=u7q)^3#3(*1)k4-)*qwc^4zgom9'
-
-# List of callables that know how to import templates from various sources.
-# TEMPLATE_LOADERS = (
-#     'django.template.loaders.filesystem.Loader',
-#     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-#     # 'django_mobile.loader.Loader',
-# )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -125,21 +65,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'breadcrumbs.middleware.BreadcrumbsMiddleware',
-    #'webshop.SSLMiddleware.SSLRedirect',
 )
-
-# MIDDLEWARE_CLASSES = (
-#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-#     'django.middleware.security.SecurityMiddleware',
-# )
-
 ROOT_URLCONF = 'webshop.urls'
-
-# TEMPLATE_DIRS = (
-#     # Always use forward slashes, even on Windows.
-#     # Don't forget to use absolute paths, not relative paths.
-#     os.path.join(PROJECT_PATH, 'templates').replace('\\', '/'),
-# )
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -159,31 +86,14 @@ TEMPLATES = [
     },
 ]
 
-# List of processors used by RequestContext to populate the context.
-# Each one should be a callable that takes the request object as its
-# only parameter and returns a dictionary to add to the context.
-# TEMPLATE_CONTEXT_PROCESSORS = (
-#     'django.contrib.auth.context_processors.auth',
-#     'django.core.context_processors.i18n',
-#     'django.core.context_processors.media',
-#     'django.core.context_processors.static',
-#     'django.core.context_processors.request',
-#     'django.contrib.messages.context_processors.messages',
-#     'webshop.utils.context_processors.webshop',
-#     # 'django_mobile.context_processors.flavour',
-#     'django.core.context_processors.csrf',
-# )
-# if DEBUG:
-#     TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
+DAJAXICE_MEDIA_PREFIX="dajaxice"
 
-# DAJAXICE_MEDIA_PREFIX="dajaxice"
-
-# DAJAX_FUNCTIONS=(
-#     'webshop.ajaxapp.onload_cart',
-#     'webshop.ajaxapp.calc_delivery',
-#     'webshop.ajaxapp.change_atrs',
-#     'webshop.ajaxapp.addToCart',
-# )
+DAJAX_FUNCTIONS=(
+    'webshop.ajaxapp.onload_cart',
+    'webshop.ajaxapp.calc_delivery',
+    'webshop.ajaxapp.change_atrs',
+    'webshop.ajaxapp.addToCart',
+)
 
 SOUTH_MIGRATION_MODULES = {
     'captcha': 'captcha.south_migrations',
@@ -191,23 +101,16 @@ SOUTH_MIGRATION_MODULES = {
 }
 
 INSTALLED_APPS = (
-    # 'admin_tools',
-    # 'admin_tools.theming',
-    # 'admin_tools.menu',
-    # 'admin_tools.dashboard',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.sessions',
-	'django.contrib.sites',
-	'django.contrib.messages',
-	'django.contrib.staticfiles',
-	'django.contrib.flatpages',
-	# Uncomment the next line to enable the admin:
-	'django.contrib.admin',
-    # 'south',
-	# Uncomment the next line to enable admin documentation:
-	# 'django.contrib.admindocs',
-	# Custom modules
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.flatpages',
+    'django.contrib.admin',
+
+    # Custom modules
     'webshop.catalog',
     'webshop.cart',
     'webshop.accounts',
@@ -229,6 +132,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'image_cropping',
     'ckeditor',
+    'rest_framework',
 )
 
 THUMBNAIL_DEBUG = True
@@ -251,7 +155,6 @@ LOGGING = {
     }
 }
 
-
 # Custom settings
 ENABLE_SSL = False
 SITE_NAME = _(u'Product magazine')
@@ -261,7 +164,6 @@ LOGIN_REDIRECT_URL = '/accounts/my_account/'
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 90  # 90 дней на хранение cookies
 PRODUCTS_PER_PAGE = 300
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
-
 
 try:
     from settings_local import *

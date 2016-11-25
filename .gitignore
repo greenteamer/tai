@@ -13,11 +13,13 @@
 .settings
 atlassian-ide-plugin.xml
 .idea/*
+.env/*
 
 # Project
 settings_local.py
 static/*
 media/*
+webshop/media/*
 logs/
 pids/
 save_2gis_data.py
