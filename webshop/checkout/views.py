@@ -148,7 +148,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
                 order.total, order.get_absolute_url())
 
             send_mail(
-                subject, message, 'teamer777@gmail.com', [ADMIN_EMAIL],
+                subject, message, 'workmailer2016@gmail.com', [ADMIN_EMAIL],
                 fail_silently=False)
 
             context_dict = {
@@ -160,7 +160,7 @@ def receipt_view(request, template_name='checkout/receipt.html'):
             }
 
             message = render_to_string('checkout/email_1.html', context_dict)
-            from_email = 'teamer777@gmail.com'
+            from_email = 'workmailer2016@gmail.com'
             to = '%s' % order.email
             msg = EmailMultiAlternatives(subject, message, from_email, [to])
             msg.content_subtype = "html"
@@ -221,7 +221,7 @@ def payment_received(sender, **kwargs):
         order.total, order.get_absolute_url())
 
     send_mail(
-        subject, message, 'teamer777@gmail.com',
+        subject, message, 'workmailer2016@gmail.com',
         [ADMIN_EMAIL], fail_silently=False)
 
     context_dict = {
@@ -233,7 +233,7 @@ def payment_received(sender, **kwargs):
     }
 
     message = render_to_string('checkout/email.html', context_dict)
-    from_email = 'teamer777@gmail.com'
+    from_email = 'workmailer2016@gmail.com'
     to = '%s' % order.email
     msg = EmailMultiAlternatives(subject, message, from_email, [to])
     msg.content_subtype = "html"

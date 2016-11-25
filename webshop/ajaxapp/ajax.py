@@ -44,7 +44,7 @@ def order_form(request, form):
             request.session['order_number'] = order_number
             subject = u'7works заявка от %s' % request.POST['shipping_name']
             message = u'Заказ №: %s \n Имя: %s \n телефон: %s \n почта: %s \n id: %s \n Товары: \n %s' % (order_number, request.POST['shipping_name'], request.POST['phone'], request.POST['email'], order.id, items)
-            send_mail(subject, message, 'teamer777@gmail.com', ['greenteamer@bk.ru'], fail_silently=False)
+            send_mail(subject, message, 'teamer777@gmail.com', ['teamer777@gmail.com'], fail_silently=False)
 
     else:
         dajax.remove_css_class('#my_form input', 'error')
