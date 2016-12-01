@@ -219,7 +219,7 @@ def get_current_delivery(request):
 # считаем вес доставки
 def calculate_delivery_weight(request, gift):
     items = get_cart_items(request)
-    delivery_weight = 0
+    delivery_weight = 100
 
     for item in items:
         delivery_weight += item.atributes.weight * item.quantity
